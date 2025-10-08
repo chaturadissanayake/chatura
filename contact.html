@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact Chatura Dissanayake for consulting, collaborations, or speaking engagements.">
+    <title>Contact | Chatura Dissanayake</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta name="theme-color" content="#000000">
+</head>
+<body>
+    <header id="main-header" role="banner">
+        <div class="container">
+            <nav aria-label="Main navigation">
+                <a href="index.html" class="logo" aria-label="Chatura Dissanayake Home">Chatura Dissanayake</a>
+                <div class="desktop-nav" role="menubar">
+                    <a href="index.html#work" role="menuitem">Work</a>
+                    <a href="index.html#about" role="menuitem">About</a>
+                    <a href="index.html#insights" role="menuitem">Insights</a>
+                    <a href="contact.html" role="menuitem" class="active">Contact</a>
+                </div>
+                <button id="menu-toggle" aria-label="Open menu" class="mobile-only" aria-haspopup="true" aria-expanded="false" aria-controls="mobile-menu">
+                    Menu
+                </button>
+            </nav>
+        </div>
+    </header>
+    <div id="mobile-menu" role="navigation" aria-hidden="true">
+        <button id="close-mobile-menu" aria-label="Close menu">&times;</button>
+        <a href="index.html#work">Work</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#insights">Insights</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <main id="main" tabindex="-1">
+        <section id="form-section">
+            <div class="container">
+                <h1>Get in Touch</h1>
+                <p class="subtitle">For consulting opportunities, speaking engagements, or other enquiries, please use the form below or email me directly at <a href="mailto:consultchatura@gmail.com" class="text-link">consultchatura@gmail.com</a>.</p>
+                
+                <form id="contact-form" class="main-contact-form" action="https://formspree.io/f/your_form_id" method="POST">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="6" required></textarea>
+                    </div>
+                    <button type="submit" class="form-submit-btn">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-column">
+                    <h4>Index</h4>
+                    <a href="index.html#work">Work</a>
+                    <a href="index.html#about">About</a>
+                    <a href="index.html#insights">Insights</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Socials</h4>
+                    <a href="https://lk.linkedin.com/in/chaturadissanayake" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                    <a href="https://github.com/chaturadissanayake" target="_blank" rel="noopener noreferrer">GitHub</a>
+                    <a href="https://www.behance.net/atakatus" target="_blank" rel="noopener noreferrer">Behance</a>
+                    <a href="https://x.com/atakatus" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
+                </div>
+                <div class="footer-column">
+                    <h4></h4>
+                    <a href="https://www.instagram.com/chaturadissanayake" target="_blank" rel="noopener noreferrer">Instagram</a>
+                    <a href="https://www.tiktok.com/@atakatus" target="_blank" rel="noopener noreferrer">TikTok</a>
+                    <a href="https://www.youtube.com/@chaturawtf" target="_blank" rel="noopener noreferrer">YouTube</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Info</h4>
+                    <a href="projects/sri-lanka-budget-analysis.html">Case Studies</a>
+                    <a href="insights/ethics-of-data-viz.html">Ethics</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-top">
+                    <div class="footer-brand">
+                        <h4>Chatura Dissanayake</h4>
+                    </div>
+                    <div class="footer-icons">
+                        <a href="index.html#work" aria-label="Back to Work">→</a>
+                        <a href="https://lk.linkedin.com/in/chaturadissanayake" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">↗</a>
+                        <a href="https://github.com/chaturadissanayake" target="_blank" rel="noopener noreferrer" aria-label="GitHub">↗</a>
+                    </div>
+                </div>
+                <div class="footer-legal">
+                    <p>&copy; <span id="copyright-year">2025</span> Chatura Dissanayake</p>
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
