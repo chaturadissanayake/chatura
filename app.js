@@ -335,4 +335,4 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize scroll animations
     setupScrollAnimations();
-});
+}); 
