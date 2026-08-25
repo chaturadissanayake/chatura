@@ -9,14 +9,6 @@
         <priority>1.0</priority>
     </url>
 
-    <!-- Privacy Policy -->
-    <url>
-        <loc>https://chaturadissanayake.vercel.app/privacy.html</loc>
-        <lastmod>2026-05-27</lastmod>
-        <changefreq>yearly</changefreq>
-        <priority>0.3</priority>
-    </url>
-
     <!-- Project: Ceylon Harvest Co. -->
     <url>
         <loc>https://chaturadissanayake.vercel.app/projects/ceylon-harvest/ceylon-harvest.html</loc>
