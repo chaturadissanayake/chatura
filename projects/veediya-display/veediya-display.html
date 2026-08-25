@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veediya Display | Chatura Dissanayake</title>
+    <meta name="description" content="Case study: Veediya Display. A typographic exploration drawn from the vernacular streets, storefronts, and temple signs of Kandy, Sri Lanka.">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://chaturadissanayake.vercel.app/projects/veediya-display/veediya-display.html">
+    <meta property="og:title" content="Veediya Display | Chatura Dissanayake">
+    <meta property="og:description" content="Case study: Veediya Display. A typographic exploration drawn from the vernacular streets, storefronts, and temple signs of Kandy, Sri Lanka.">
+    <meta property="og:image" content="https://chaturadissanayake.vercel.app/projects/veediya-display/assets/20260815_111112_024431.webp">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Veediya Display | Chatura Dissanayake">
+    <meta name="twitter:description" content="Case study: Veediya Display. A typographic exploration drawn from the vernacular streets, storefronts, and temple signs of Kandy, Sri Lanka.">
+    <meta name="twitter:image" content="https://chaturadissanayake.vercel.app/projects/veediya-display/assets/20260815_111112_024431.webp">
+    
+    <link rel="canonical" href="https://chaturadissanayake.vercel.app/projects/veediya-display/veediya-display.html">
+
+    <link rel="preload" as="font" href="/assets/fonts/inter-regular.woff2" type="font/woff2" crossorigin>
+    <link rel="preload" as="font" href="/assets/fonts/fraunces-variable.woff2" type="font/woff2" crossorigin>
+    <link rel="preload" as="style" href="/assets/css/base.css">
+    <link rel="stylesheet" href="/assets/css/base.css">
+    <link rel="stylesheet" href="/assets/css/layout.css">
+    <link rel="stylesheet" href="/assets/css/components.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/animations.css">
+<style>
+    .project-description a,
+    .project-description a:visited {
+        color: var(--accent);
+        text-decoration: underline;
+        text-decoration-color: var(--accent);
+        text-underline-offset: 3px;
+        text-decoration-thickness: 1px;
+        transition: opacity 0.15s ease, text-decoration-color 0.2s ease;
+    }
+    @media (hover: hover) {
+        .project-description a:hover {
+            opacity: 0.6;
+            text-decoration-color: transparent;
+        }
+    }
+
+    .project-description p {
+        line-height: 1.7;
+        margin-bottom: 24px;
+    }
+    .media-item {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    .media-item img {
+        opacity: 0;
+        transition: opacity 0.45s ease, transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease;
+        width: 100% !important;
+        height: auto !important;
+        display: block !important;
+        cursor: zoom-in;
+        border-radius: var(--radius, 4px);
+    }
+    .media-item img.img-loaded {
+        opacity: 1;
+    }
+    @media (hover: hover) {
+        .media-item img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+    }
+
+    /* NEW: Dense grid for large volumes of research images */
+    .research-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-4, 16px);
+        width: 100%;
+        margin-bottom: var(--space-4, 16px);
+    }
+    @media (max-width: 640px) {
+        .research-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+    .research-grid img {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        height: auto;
+        object-fit: cover;
+        border-radius: var(--radius, 4px);
+        cursor: zoom-in;
+        opacity: 0;
+        transition: opacity 0.45s ease, transform 0.4s ease;
+    }
+    .research-grid img.img-loaded {
+        opacity: 1;
+    }
+    @media (hover: hover) {
+        .research-grid img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+    }
+
+    /* NEW: Grid for placeholder tiles (letter extraction, word assemblies, process shots) */
+    .placeholder-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--space-3, 12px);
+        width: 100%;
+    }
+    .placeholder-grid.cols-2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    @media (max-width: 900px) {
+        .placeholder-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 640px) {
+        .placeholder-grid, .placeholder-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    }
+    .placeholder-grid .media-placeholder {
+        aspect-ratio: 1 / 1;
+        padding: var(--space-3, 12px);
+    }
+    .placeholder-grid.cols-2 .media-placeholder {
+        aspect-ratio: 4 / 3;
+    }
+    .placeholder-grid .ph-title {
+        font-size: 0.75rem;
+        line-height: 1.3;
+    }
+    .placeholder-grid .ph-sub {
+        font-size: 0.625rem;
+    }
+
+    /* Gallery section intros: one consistent spacing rule instead of
+       hand-tuned inline margins per instance. */
+    .gallery-intro {
+        grid-column: 1 / -1;
+        font-family: var(--sans);
+        font-size: 0.9375rem;
+        line-height: 1.6;
+        color: var(--ink);
+        margin-top: var(--space-8, 32px);
+        margin-bottom: 0;
+    }
+    .gallery-intro.is-first {
+        margin-top: 0;
+    }
+
+    .media-caption {
+        font-family: var(--sans);
+        font-size: 0.8125rem;
+        line-height: 1.5;
+        color: var(--ink-muted);
+        margin-top: 12px !important;
+        margin-bottom: 0 !important;
+        width: 100% !important;
+        display: block !important;
+        text-align: left !important;
+    }
+    .standard-quote {
+        font-style: italic;
+        transition: transform 0.3s ease;
+    }
+    @media (hover: hover) {
+        .standard-quote:hover {
+            transform: translateX(6px);
+        }
+    }
+    .project-header h1 {
+        margin-bottom: 12px !important;
+        text-wrap: balance;
+    }
+    .project-header .subtitle {
+        margin-top: 0 !important;
+        margin-bottom: 16px !important;
+        font-size: 1.0625rem;
+        color: var(--ink);
+        line-height: 1.5;
+        max-width: 900px;
+    }
+    .controls-row {
+        margin-top: 0 !important;
+        margin-bottom: var(--space-8, 32px) !important;
+        padding-bottom: var(--space-5, 20px) !important;
+        border-bottom: 1px solid var(--surface-3) !important;
+    }
+    @media (min-width: 1025px) {
+        .sidebar-wrap {
+            transition: min-width 0.4s var(--ease-out), width 0.4s var(--ease-out), opacity 0.3s var(--ease-out), margin 0.4s var(--ease-out) !important;
+            transform: none !important;
+            position: relative !important;
+            opacity: 1;
+        }
+        .sidebar-wrap.is-collapsed {
+            min-width: 0 !important;
+            width: 0 !important;
+            opacity: 0 !important;
+            margin-left: calc(-1 * var(--space-12, 48px)) !important;
+            pointer-events: none !important;
+            position: relative !important;
+            transform: none !important;
+        }
+        .text-col-inner {
+            width: clamp(300px, 30vw, 400px) !important;
+        }
+    }
+    @media (max-width: 1024px) {
+        .sidebar-wrap {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100dvh !important;
+            background: #ffffff !important;
+            z-index: 9998 !important;
+            overflow-y: auto !important;
+            padding: clamp(24px, 6vw, 32px) !important;
+            padding-bottom: 120px !important;
+            transform: translateY(100%) !important;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+            box-sizing: border-box !important;
+        }
+        .sidebar-wrap.is-open-mobile {
+            transform: translateY(0) !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+        .sidebar-wrap .text-col-inner {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 auto !important;
+        }
+        #mobileFloatBtn {
+            z-index: 9999 !important;
+            position: relative !important;
+        }
+    }
+    .next-project-section {
+        margin-top: clamp(3rem, 8vw, var(--space-24));
+        padding-top: clamp(2rem, 6vw, var(--space-12));
+        border-top: 1px solid var(--surface-3);
+    }
+    .next-project-single-wrapper {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        outline: none;
+        transition: opacity 0.3s ease;
+    }
+    .next-project-single-wrapper:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 4px;
+    }
+    @media (hover: hover) {
+        .next-project-single-wrapper:hover .next-title-single {
+            color: var(--accent);
+        }
+        .next-project-single-wrapper:hover .next-image-single img {
+            transform: scale(1.05);
+        }
+    }
+    .next-label-single {
+        display: block;
+        font-family: var(--mono, 'DM Mono', monospace);
+        font-size: 0.6875rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink-muted);
+        margin-bottom: 12px;
+    }
+    .next-title-single {
+        font-family: var(--serif, 'DM Serif Display', serif);
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        font-weight: 400;
+        letter-spacing: -0.025em;
+        line-height: 1.1;
+        color: var(--ink);
+        margin-bottom: 12px;
+        transition: color 0.3s var(--ease-out);
+        text-wrap: balance;
+    }
+    .next-desc-single {
+        font-family: var(--sans, 'Inter', sans-serif);
+        font-size: 1rem;
+        line-height: 1.65;
+        color: var(--ink);
+        max-width: 800px;
+        margin-bottom: var(--space-5);
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .next-tags-single {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 32px;
+    }
+    .next-tags-single .tag {
+        font-family: var(--sans, 'Inter', sans-serif);
+        font-size: 0.75rem;
+        color: var(--ink-muted);
+        background: var(--surface-2);
+        border: 1px solid var(--surface-3);
+        padding: 4px 10px;
+        border-radius: 4px;
+        transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+    }
+    .next-tags-single .tag:hover {
+        transform: translateY(-2px);
+        background: var(--surface-3);
+        color: var(--ink);
+    }
+    .next-image-single {
+        width: 100%;
+        height: 160px;
+        overflow: hidden;
+        background: var(--surface-2);
+        border-radius: 4px 4px 0 0;
+        margin-bottom: calc(-1 * var(--space-24, 96px)); 
+    }
+    .next-image-single img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        object-position: center top;
+        transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    @media (max-width: 640px) {
+        .next-title-single { font-size: 2.1rem; margin-bottom: 8px; }
+        .next-desc-single { font-size: 0.9375rem; margin-bottom: 12px; }
+        .next-label-single { margin-bottom: 8px; }
+        .next-tags-single { margin-bottom: 24px; }
+        .next-image-single {
+            height: 100px;
+            margin-bottom: calc(-1 * var(--space-24, 48px)); 
+        }
+    }
+    .section-label {
+        display: block;
+        font-family: var(--sans);
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin: var(--space-8, 32px) 0 var(--space-3, 12px);
+    }
+    .project-description .section-label:first-of-type {
+        margin-top: 0;
+    }
+    .part-heading {
+        font-family: var(--serif);
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: var(--ink);
+        line-height: 1.2;
+        margin: var(--space-8, 32px) 0 0;
+        padding-top: var(--space-6, 24px);
+        border-top: 1px solid var(--surface-3);
+        text-wrap: balance;
+    }
+    .standard-quote .quote-source {
+        display: block;
+        font-family: var(--sans);
+        font-size: 0.8125rem;
+        color: var(--ink-muted);
+        margin-top: 12px;
+        font-style: normal;
+    }
+    .media-placeholder {
+        aspect-ratio: 4 / 3;
+        border: 1.5px dashed var(--surface-3);
+        border-radius: var(--radius, 6px);
+        background: var(--surface-2);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        text-align: center;
+        padding: var(--space-6, 24px);
+        width: 100%;
+        transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+    .media-placeholder:hover {
+        transform: scale(1.02);
+        background-color: var(--surface-3);
+    }
+    .media-placeholder .ph-title {
+        font-family: var(--sans);
+        font-weight: 600;
+        font-size: 0.9375rem;
+        color: var(--ink-soft);
+    }
+    .media-placeholder .ph-sub {
+        font-family: var(--sans);
+        font-size: 0.6875rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: var(--ink-muted);
+    }
+    .act-divider {
+        grid-column: 1 / -1;
+        font-family: var(--serif);
+        font-size: clamp(1.75rem, 4vw, 2.75rem);
+        font-weight: 400;
+        color: var(--ink);
+        line-height: 1.15;
+        margin: var(--space-10, 40px) 0 var(--space-2, 8px);
+        padding-top: var(--space-8, 32px);
+        border-top: 1px solid var(--surface-3);
+    }
+    .media-grid > .act-divider:first-child {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
+    }
+    .act-divider .act-label {
+        display: block;
+        font-family: var(--sans);
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 8px;
+    }
+    #image-lightbox {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(15, 15, 15, 0.95);
+        z-index: 99999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        padding: 24px;
+        box-sizing: border-box;
+    }
+    #image-lightbox.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+    #image-lightbox img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        border-radius: 4px;
+        transform: scale(0.95);
+        transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    #image-lightbox.active img {
+        transform: scale(1);
+    }
+    #lightbox-close {
+        position: absolute;
+        top: 24px;
+        right: 32px;
+        color: #ffffff;
+        font-size: 40px;
+        font-family: sans-serif;
+        cursor: pointer;
+        line-height: 1;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+    #lightbox-close:hover {
+        opacity: 1;
+        transform: scale(1.2) rotate(90deg);
+    }
+    #lightbox-close:focus-visible {
+        outline: 2px solid #ffffff;
+        outline-offset: 4px;
+        border-radius: 2px;
+    }
+    .media-item img:focus-visible, .research-grid img:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 4px;
+    }
+    .about-btn {
+        transition: transform 0.2s ease, opacity 0.2s ease, background-color 0.2s ease;
+    }
+    .about-btn:hover {
+        transform: translateY(-2px);
+        opacity: 0.9;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .nav-link {
+        transition: color 0.2s ease, transform 0.2s ease;
+    }
+    .nav-link:hover {
+        color: var(--accent);
+        transform: translateY(-1px);
+    }
+    .footer-col a {
+        transition: color 0.2s ease, transform 0.2s ease;
+        display: inline-block;
+    }
+    .footer-col a:hover {
+        color: var(--accent);
+        transform: translateX(4px);
+    }
+    .floating-btt {
+        transition: transform 0.2s ease, opacity 0.2s ease, background-color 0.2s ease;
+    }
+    .floating-btt:hover {
+        transform: translateY(-4px) scale(1.05);
+        background-color: var(--accent);
+    }
+    .lang-text, .mobile-lang-text {
+        transition: color 0.2s ease, transform 0.2s ease;
+        position: relative;
+    }
+    .lang-text::after, .mobile-lang-text::after {
+        content: '';
+        position: absolute;
+        top: -12px;
+        right: -12px;
+        bottom: -12px;
+        left: -12px;
+    }
+    @media (hover: hover) {
+        .lang-text:hover, .mobile-lang-text:hover {
+            transform: translateY(-1px);
+            color: var(--accent);
+        }
+    }
+</style>
+    <script type="module">
+    import replaceElement from "/assets/icons/replaceElement.js";
+    import ArrowRight from "/assets/icons/arrow-right.js";
+    import ArrowUp from "/assets/icons/arrow-up.js";
+    const lucideIcons = { ArrowRight, ArrowUp };
+    window.lucide = { createIcons: () => { document.querySelectorAll('[data-lucide]').forEach(el => replaceElement(el, { nameAttr: 'data-lucide', icons: lucideIcons, attrs: {} })); } };
+    </script>
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicons/site.webmanifest">
+</head>
+<body class="loading">
+<div class="site-loader" id="site-loader" aria-hidden="true">
+    <div class="site-loader-inner">
+        <div class="loader-graphic">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="loader-icon">
+                <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"/>
+            </svg>
+            <span class="site-loader-bar"><span class="site-loader-bar-fill"></span></span>
+        </div>
+        <div class="loader-text-group">
+            <span class="site-loader-text">Loading...</span>
+            <span class="site-loader-timeout">
+                If you are having issues loading the app <a href="javascript:window.location.reload(true)">click here to refresh.</a>
+            </span>
+        </div>
+    </div>
+</div>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<div class="scroll-progress-bar" id="scroll-progress" aria-hidden="true"></div>
+
+<noscript>
+    <style>
+        body.loading { overflow: auto; }
+        .reveal-up, .section-fade-in { opacity: 1 !important; transform: none !important; }
+        .card-image img, .media-item img, .research-grid img { opacity: 1 !important; }
+    </style>
+</noscript>
+
+<script>
+    function loadGA() {
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = "https://www.googletagmanager.com/gtag/js?id=G-24MX1C8QK3";
+        document.head.appendChild(script);
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-24MX1C8QK3');
+    }
+
+    if (localStorage.getItem('cookieConsent') === 'granted') {
+        loadGA();
+    }
+</script>
+
+<header class="main-header scrolled" id="main-header">
+    <div class="nav-inner">
+        <a href="/index.html" class="nav-logo" aria-label="Chatura Dissanayake Home">
+            <span class="brand-wordmark">Chatura Dissanayake</span>
+        </a>
+        <nav class="desktop-nav" role="navigation" aria-label="Primary">
+            <a href="/index.html#projects"       class="nav-link">Work</a>
+            <a href="/index.html#about"          class="nav-link">About</a>
+            <a href="/index.html#services"       class="nav-link">Services</a>
+            <a href="/index.html#insights"       class="nav-link">Writing</a>
+            <a href="/index.html#visualisations" class="nav-link">Visualisations</a>
+            <a href="/notes.html" class="nav-link">Notes</a>
+        </nav>
+        <div class="nav-actions">
+            <div class="lang-switcher" role="group" aria-label="Select language">
+                <button type="button" class="lang-text is-active" data-lang="en" aria-pressed="true">EN</button>
+                <span class="lang-divider" aria-hidden="true">/</span>
+                <button type="button" class="lang-text" data-lang="fr" aria-pressed="false">FR</button>
+            </div>
+            <a href="/index.html#contact" class="nav-cta">Get in touch <i data-lucide="arrow-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></a>
+            <button type="button" class="hamburger-btn" id="mobile-nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-nav-menu">
+                <span></span><span></span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<div class="mobile-menu" id="mobile-nav-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+    <div class="mobile-lang-switcher" role="group" aria-label="Select language">
+        <button type="button" class="mobile-lang-text is-active" data-lang="en" aria-pressed="true">EN</button>
+        <span class="mobile-lang-divider" aria-hidden="true">/</span>
+        <button type="button" class="mobile-lang-text" data-lang="fr" aria-pressed="false">FR</button>
+    </div>
+    <nav class="mobile-nav-links">
+        <a href="/index.html#projects"       class="mobile-link">Work</a>
+        <a href="/index.html#about"          class="mobile-link">About</a>
+        <a href="/index.html#services"       class="mobile-link">Services</a>
+        <a href="/index.html#insights"       class="mobile-link">Writing</a>
+        <a href="/index.html#visualisations" class="mobile-link">Visualisations</a>
+        <a href="/notes.html" class="mobile-link">Notes</a>
+        <a href="/index.html#contact"        class="mobile-link mobile-cta">Get in touch <i data-lucide="arrow-right" aria-hidden="true" style="width:18px;height:18px;margin-left:6px;"></i></a>
+    </nav>
+    <div class="mobile-menu-footer">
+        <a href="https://linkedin.com/in/chaturadissanayake" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/chaturadissanayake"      target="_blank" rel="noopener">GitHub</a>
+        <a href="https://consultchatura.medium.com"          target="_blank" rel="noopener">Medium</a>
+        <a href="https://rss.app/feeds/1QjFWlxkKTZLVQd7.xml" target="_blank" rel="noopener">RSS</a>
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms &amp; Conditions</a>
+    </div>
+</div>
+
+<main id="main-content" tabindex="-1" style="outline: none;">
+    <div class="site-wrapper">
+
+        <header class="project-header">
+            <h1>Veediya Display</h1>
+            <p class="subtitle">A typographic exploration drawn from the vernacular streets, storefronts, and temple signs of Kandy, Sri Lanka.</p>
+        </header>
+
+        <div class="controls-row">
+            <div class="tags-col">
+                <span class="tag">Arts & Culture</span>
+                <span class="tag">Typefaces</span>
+            </div>
+            <div class="btn-wrapper">
+                <button class="about-btn"
+                        id="sidebar-toggle-desktop"
+                        aria-expanded="true"
+                        aria-controls="sidebarWrap"
+                        onclick="toggleSidebar()">
+                    <span class="btn-label">About the project</span>
+                    <span class="toggle-icon" aria-hidden="true">+</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="layout-grid" id="mainLayout">
+            
+            <div class="media-col">
+                <div class="media-grid">
+
+                    <!-- HERO: THE CONTEXT -->
+                    <div class="media-item full-width section-fade-in">
+                        <img src="assets/20260815_111112_024431.webp"
+                             alt="Raja Vidiya trilingual street sign in Kandy"
+                             loading="eager"
+                             fetchpriority="high"
+                             width="1200"
+                             height="800"
+                             style="view-transition-name: project-img-veediya-display;"
+                             onload="this.classList.add('img-loaded')">
+                        <p class="media-caption">The starting point: Examining how Sinhala, Tamil, and English sit side-by-side in formal institutional signage along Raja Veediya.</p>
+                    </div>
+
+                    <div class="act-divider">
+                        <span class="act-label">Part One</span>
+                        The Audit: Boots on the Ground
+                    </div>
+
+                    <!-- THE AUDIT / PROOF OF WORK GRID -->
+                    <div class="media-item full-width section-fade-in">
+                        <div class="research-grid">
+                            <img src="assets/20260815_111345_024506.webp" width="4000" height="3000" alt="Designer taking reference photos" loading="lazy" onload="this.classList.add('img-loaded')">
+                            <img src="assets/20260815_112548_024809.webp" width="4000" height="3000" alt="Inside the church scanning historical plaques" loading="lazy" onload="this.classList.add('img-loaded')">
+                            <img src="assets/20260815_110852_024412.webp" width="4000" height="3000" alt="No parking sign context" loading="lazy" onload="this.classList.add('img-loaded')">
+                            <img src="assets/20260815_111909_024738.webp" width="4000" height="3000" alt="Diocesan building context" loading="lazy" onload="this.classList.add('img-loaded')">
+                        </div>
+                        <p class="media-caption">A typeface built on assumption is useless. The first step was a massive visual audit of Kandy, tracking exactly how letters function in the wild - from modern streets to colonial architecture.</p>
+                    </div>
+
+                    <div class="act-divider">
+                        <span class="act-label">Part Two</span>
+                        Field Research & Categorization
+                    </div>
+
+                    <!-- MASSIVE GALLERY 1: INSTITUTIONAL -->
+                    <p class="gallery-intro is-first">
+                        <strong>1. Civic & Institutional Structure:</strong> Finding the rigid, formal baselines in banks, legal offices, temples, and civic infrastructure.
+                    </p>
+                    
+                    <div class="media-item full-width section-fade-in">
+                        <div class="research-grid">
+                            <img src="assets/20260815_102407_023628.webp" width="4000" height="3000" alt="Notary door 1" loading="lazy" onload="this.classList.add('img-loaded')">
+                            <img src="assets/20260815_102419_023649.webp" width="4000" height="3000" alt="Notary door 2" loading="lazy" onload="this.classList.add('img-loaded')">
+                            <img src="assets/20260815_102437_023706.webp" width="4000" height="3000" alt="Notary door 3" loading="lazy" onload="this.classList.add('img-loaded')">
+                            <img src="assets/20260815_103008_023722.webp" width="4000" height="3000" alt="Temple plaque" loading="lazy" onload="this.classList.add('img-loaded')">
+                            <img src="assets/20260815_111635_024713.webp" width="4000" height="3000" alt="Bank acrylic sign" loading="lazy" onload="this.classList.add('img-loaded')">
+                            <img src="assets/20260815_113234_025047.webp" width="4000" height="3000" alt="Pillar box" loading="lazy" onload="this.classList.add('img-loaded')">
+                            <img src="assets/20260815_115529_025418.webp" width="3000" height="2250" alt="Historical mural text" loading="lazy" onload="this.classList.add('img-loaded')">
+                            <img src="assets/20260815_120059_031227.webp" width="3000" height="2250" alt="Municipal Central Market" loading="lazy" onload="this.classList.add('img-loaded')">
+                        </div>
+                    </div>
+
+                    <!-- MASSIVE GALLERY 2: COMMERCIAL -->
+                    <p class="gallery-intro">
+                        <strong>2. Commerce & Transit:</strong> Tracking how brushwork and spacing adapt for maximum legibility on storefronts and moving vehicles.
+                    </p>
+
+                    <div class="media-item full-width section-fade-in">
+                        <div class="research-grid">
+                            <img src="assets/20260815_103940_023902.webp" width="4000" height="3000" alt="Vasuuk Brothers sign" loading="lazy" onload="this.classList.add('img-loaded')">
+                            <img src="assets/20260815_105429_024105.webp" width="4000" height="3000" alt="SA Traders vertical column" loading="lazy" onload="this.classList.add('img-loaded')">
+                            <img src="assets/20260815_111451_024622.webp" width="4000" height="3000" alt="Eagle electricals" loading="lazy" onload="this.classList.add('img-loaded')">
+                            <img src="assets/20260815_113421_025105.webp" width="4000" height="3000" alt="Premadasa signs" loading="lazy" onload="this.classList.add('img-loaded')">
+                            <img src="assets/20260815_113720_025146.webp" width="4000" height="3000" alt="Stationery display" loading="lazy" onload="this.classList.add('img-loaded')">
+                            <img src="assets/20260815_111420_024607.webp" width="4000" height="3000" alt="Lorry paint text" loading="lazy" onload="this.classList.add('img-loaded')">
+                            <img src="assets/20260815_110814_024356.webp" width="4000" height="3000" alt="Wood lorry lettering" loading="lazy" onload="this.classList.add('img-loaded')">
+                            <img src="assets/20260815_105824_024123.webp" width="4000" height="3000" alt="Blue metal tuk tuk sign" loading="lazy" onload="this.classList.add('img-loaded')">
+                        </div>
+                    </div>
+
+                    <!-- MASSIVE GALLERY 3: VERNACULAR -->
+                    <p class="gallery-intro">
+                        <strong>3. The Unpolished Vernacular:</strong> How everyday people handle the complex loops and curves of the script when writing at speed on rough surfaces.
+                    </p>
+
+                    <div class="media-item full-width section-fade-in">
+                        <div class="research-grid">
+                            <img src="assets/20260815_113911_025235.webp" width="4000" height="3000" alt="Whiteboard menu" loading="lazy" onload="this.classList.add('img-loaded')">
+                            <img src="assets/20260815_103241_023839.webp" width="4000" height="3000" alt="Fish market tags" loading="lazy" onload="this.classList.add('img-loaded')">
+                            <img src="assets/20260815_110202_024206.webp" width="4000" height="3000" alt="Blue spray paint" loading="lazy" onload="this.classList.add('img-loaded')">
+                            <img src="assets/20260815_104546_023940.webp" width="4000" height="3000" alt="Chalk on brick" loading="lazy" onload="this.classList.add('img-loaded')">
+                            <img src="assets/20260815_110241_024247.webp" width="4000" height="3000" alt="Marker on metal box" loading="lazy" onload="this.classList.add('img-loaded')">
+                            <img src="assets/20260815_110127_024138.webp" width="4000" height="3000" alt="Rooster graffiti" loading="lazy" onload="this.classList.add('img-loaded')">
+                            <img src="assets/20260815_115858_025606.webp" width="4000" height="3000" alt="Park wall text" loading="lazy" onload="this.classList.add('img-loaded')">
+                            <img src="assets/20260815_113858_025207.webp" width="4000" height="3000" alt="Horn speaker text" loading="lazy" onload="this.classList.add('img-loaded')">
+                        </div>
+                    </div>
+
+                    <!-- ACT 3: FROM PHOTOGRAPH TO GLYPH -->
+                    <div class="act-divider">
+                        <span class="act-label">Part Three</span>
+                        From Photograph to Glyph
+                    </div>
+
+                    <p class="gallery-intro is-first">
+                        <strong>1. Letter Extraction:</strong> Before drawing anything, individual characters are cropped straight out of the street photography, isolated from their original sign, and dropped into a raw glyph bank. This is the honesty check - if a letterform only looks consistent in one photo, it isn't a pattern yet, it's an accident.
+                    </p>
+                    <div class="media-item full-width section-fade-in">
+                        <div class="placeholder-grid">
+                            <div class="media-placeholder"><span class="ph-title">Glyph - Vasuuk Brothers Sign</span><span class="ph-sub">In progress</span></div>
+                            <div class="media-placeholder"><span class="ph-title">Glyph - SA Traders Column</span><span class="ph-sub">In progress</span></div>
+                            <div class="media-placeholder"><span class="ph-title">Glyph - Temple Plaque</span><span class="ph-sub">In progress</span></div>
+                            <div class="media-placeholder"><span class="ph-title">Glyph - Notary Door</span><span class="ph-sub">In progress</span></div>
+                            <div class="media-placeholder"><span class="ph-title">Glyph - Lorry Paint Text</span><span class="ph-sub">In progress</span></div>
+                            <div class="media-placeholder"><span class="ph-title">Glyph - Bank Acrylic Sign</span><span class="ph-sub">In progress</span></div>
+                            <div class="media-placeholder"><span class="ph-title">Glyph - Whiteboard Menu</span><span class="ph-sub">In progress</span></div>
+                            <div class="media-placeholder"><span class="ph-title">Glyph - Eagle Electricals</span><span class="ph-sub">In progress</span></div>
+                        </div>
+                        <p class="media-caption">Each tile will hold one character, cropped directly from its source photograph and named for where it came from - so the provenance of every letterform stays traceable back to a real wall, door, or signboard.</p>
+                    </div>
+
+                    <p class="gallery-intro">
+                        <strong>2. Word Assemblies - Testing Rhythm with Found Type:</strong> Extracted letters, often from completely unrelated signs, are then set side by side to spell real words. This is the experiment that tells me whether a shared system is actually hiding inside the chaos, before I commit a single stroke to paper.
+                    </p>
+                    <div class="media-item full-width section-fade-in">
+                        <div class="placeholder-grid cols-2">
+                            <div class="media-placeholder"><span class="ph-title">Word Test 01 - "Raja Veediya"</span><span class="ph-sub">Composited from photo crops</span></div>
+                            <div class="media-placeholder"><span class="ph-title">Word Test 02 - Shop signage phrase</span><span class="ph-sub">Composited from photo crops</span></div>
+                            <div class="media-placeholder"><span class="ph-title">Word Test 03 - Numerals & punctuation</span><span class="ph-sub">Composited from photo crops</span></div>
+                            <div class="media-placeholder"><span class="ph-title">Word Test 04 - Mixed-baseline sentence</span><span class="ph-sub">Composited from photo crops</span></div>
+                        </div>
+                        <p class="media-caption">Where the crops fight each other - mismatched weight, drifting baselines, inconsistent stroke contrast - is exactly where the typeface needs a firm design decision instead of a borrowed one.</p>
+                    </div>
+
+                    <!-- ACT 4: SKETCHING & DIGITIZATION -->
+                    <div class="act-divider">
+                        <span class="act-label">Part Four</span>
+                        Sketching & Digitization
+                    </div>
+
+                    <p class="gallery-intro is-first">
+                        <strong>3. Sketching the Typeface:</strong> With the glyph bank and word tests as reference, letterforms are drawn by hand - first loosely, then tightened into a consistent skeleton, x-height, and stroke logic.
+                    </p>
+                    <div class="media-item section-fade-in">
+                        <div class="media-placeholder">
+                            <span class="ph-title">Notebook Sketches</span>
+                            <span class="ph-sub">Consonant skeleton studies</span>
+                        </div>
+                        <p class="media-caption">First-pass pencil studies, working directly over tracings of the extracted street letters to find a shared skeleton.</p>
+                    </div>
+                    <div class="media-item section-fade-in">
+                        <div class="media-placeholder">
+                            <span class="ph-title">Notebook Sketches</span>
+                            <span class="ph-sub">Vowel modifiers & pillu</span>
+                        </div>
+                        <p class="media-caption">Sinhala's vowel signs carry most of a word's rhythm - these need their own pass, separate from the base consonants.</p>
+                    </div>
+                    <div class="media-item section-fade-in">
+                        <div class="media-placeholder">
+                            <span class="ph-title">Stroke Contrast Study</span>
+                            <span class="ph-sub">Brush weight mapping</span>
+                        </div>
+                        <p class="media-caption">Mapping where the brush naturally thickens and thins across the loops, to decide how much of that contrast survives into a functional display face.</p>
+                    </div>
+                    <div class="media-item section-fade-in">
+                        <div class="media-placeholder">
+                            <span class="ph-title">Baseline & x-height Grid</span>
+                            <span class="ph-sub">Construction system</span>
+                        </div>
+                        <p class="media-caption">Distilling the massive photo audit into a cohesive set of anatomical rules - the balance between brush-painted curves and geometric consistency.</p>
+                    </div>
+
+                    <p class="gallery-intro">
+                        <strong>4. Digitization - Illustrator Snapshots:</strong> Once a sketch holds up, it moves to Illustrator for vector tracing. These are working snapshots of that process, not final artwork - kept here so the transition from tracing paper to bezier curves stays visible.
+                    </p>
+                    <div class="media-item full-width section-fade-in">
+                        <div class="placeholder-grid cols-2">
+                            <div class="media-placeholder"><span class="ph-title">Raw Vector Trace</span><span class="ph-sub">Illustrator - snapshot</span></div>
+                            <div class="media-placeholder"><span class="ph-title">Cleaned Bezier Paths</span><span class="ph-sub">Illustrator - snapshot</span></div>
+                            <div class="media-placeholder"><span class="ph-title">Spacing & Kerning Test</span><span class="ph-sub">Illustrator - snapshot</span></div>
+                            <div class="media-placeholder"><span class="ph-title">Weight Consistency Pass</span><span class="ph-sub">Illustrator - snapshot</span></div>
+                        </div>
+                        <p class="media-caption">The tension between authenticity and digital legibility gets resolved here, one anchor point at a time.</p>
+                    </div>
+
+                    <div class="media-item full-width section-fade-in">
+                        <div class="media-placeholder" style="aspect-ratio: 16/9;">
+                            <span class="ph-title">Before & After Morphology</span>
+                            <span class="ph-sub">Structural breakdown - in progress</span>
+                        </div>
+                        <p class="media-caption">Mapping the street references directly to the digital letterforms, to show how specific typographic quirks are retained rather than smoothed away.</p>
+                    </div>
+
+                    <!-- ACT 5: FINAL TYPEFACE -->
+                    <div class="act-divider">
+                        <span class="act-label">Part Five</span>
+                        The Final Typeface
+                    </div>
+
+                    <div class="media-item full-width section-fade-in">
+                        <div class="media-placeholder" style="aspect-ratio: 16/9; background: var(--ink); color: white;">
+                            <span class="ph-title" style="color: white; font-size: 1.5rem;">Veediya Display Specimen</span>
+                            <span class="ph-sub" style="color: rgba(255,255,255,0.6);">Final character set - not yet started</span>
+                        </div>
+                        <p class="media-caption">The complete character set, including ligatures, numerals, and punctuation. This section fills in once the digitization pass above is finished.</p>
+                    </div>
+
+                    <div class="media-item section-fade-in">
+                        <div class="media-placeholder">
+                            <span class="ph-title">Real-world Application</span>
+                            <span class="ph-sub">Poster mockup - not yet started</span>
+                        </div>
+                    </div>
+                    <div class="media-item section-fade-in">
+                        <div class="media-placeholder">
+                            <span class="ph-title">Real-world Application</span>
+                            <span class="ph-sub">Editorial mockup - not yet started</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="sidebar-wrap" id="sidebarWrap">
+                <div class="text-col-inner">
+                    
+                    <div class="project-description">
+
+                        <p>Veediya Display is a typographic case study rooted in visual archaeology. A typeface built on assumption is useless; to design a display face that feels authentically Sri Lankan, I had to isolate the shared visual DNA directly from the source.</p>
+                
+                        <h2 class="part-heading">The Research</h2>
+                        
+                        <span class="section-label">Walking the Grid</span>
+                        <p>I mapped a route through the middle of my hometown - from the Dalada Maligawa to the Municipal Central Market, down Raja Veediya. The goal was to exhaustively document how local sign painters, temple artisans, and everyday shop owners handled the complex loops and proportions of the Sinhala script.</p>
+
+                        <span class="section-label">Categorizing the Chaos</span>
+                        <p>After auditing over 70 unique instances of typography in the wild, I organized the references into three distinct baselines: <strong>Institutional Structure</strong> (formal colonial-era embossing and civic signs), <strong>Commercial Display</strong> (high-legibility brushwork on storefronts and lorries), and <strong>The Unpolished Vernacular</strong> (handwritten price tags, graffiti, and whiteboard menus).</p>
+                        
+                        <p>The friction between the highly structured civic signs and the raw, high-speed handwriting formed the creative brief for the typeface.</p>
+                        
+                        <h2 class="part-heading">The Design Process</h2>
+
+                        <span class="section-label">From Photograph to Glyph</span>
+                        <p>The process doesn't start with a pencil. It starts with a pair of scissors, digitally speaking. Every usable character from the audit gets cropped out of its original photograph and dropped into a raw glyph bank, tagged by the sign it came from. Nothing is redrawn yet - the point is to see the letterforms sitting next to each other exactly as they were found, warts and all.</p>
+
+                        <span class="section-label">Word Assemblies</span>
+                        <p>Once there's a decent bank of extracted letters, I composite them into real words - often mixing a character from a temple plaque with one from a lorry's side panel. Setting found type this way exposes the gaps a single photo can hide: mismatched weight, drifting baselines, stroke contrast that doesn't agree with itself. Wherever the crops fight each other is exactly where the typeface needs a firm decision instead of a borrowed one.</p>
+
+                        <span class="section-label">Sketching & Digitization</span>
+                        <p>Only after that friction is visible do I start sketching - tracing over the word assemblies to pull out a shared skeleton, x-height, and stroke logic, with a separate pass for the vowel modifiers that carry most of Sinhala's rhythm. Sketches that hold up move into Illustrator for vector tracing, where the tension between street authenticity and kerning-friendly digital legibility actually gets resolved, one anchor point at a time.</p>
+
+                        <span class="section-label">Where This Stands Now</span>
+                        <p>This is an active, self-initiated study, not a finished typeface. The reference audit and categorization are done; letter extraction and the word-assembly experiments are underway; sketching and digitization are the current focus. The galleries above will fill in as each stage produces real material - this page updates as the work does.</p>
+
+                        <h2 class="part-heading">The Result</h2>
+                        
+                        <span class="section-label">Veediya Display</span>
+                        <p><em>To be written once digitization produces a working character set - covering final weights, intended use-cases (editorial, display, branding), and the specific cultural typographic quirks the face preserves.</em></p>
+
+                    </div>
+
+                    <div class="meta-section section-fade-in">
+                        <div class="meta-grid">
+                            <div class="meta-item">
+                                <div class="meta-label">Client</div>
+                                <div class="meta-value">Independent Initiative</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Office</div>
+                                <div class="meta-value">Homebased</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Sector</div>
+                                <div class="meta-value">Arts & Culture</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Discipline</div>
+                                <div class="meta-value">Typefaces</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Project team</div>
+                                <div class="meta-value">Chatura Dissanayake</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Collaborators</div>
+                                <div class="meta-value">Imali Nillekumbura</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+<section class="next-project-section section-fade-in" id="nextProjectTarget">
+</section>
+
+        <div class="btn-wrapper-mobile" id="mobileFloatBtn">
+            <button class="about-btn"
+                    id="sidebar-toggle-mobile"
+                    aria-expanded="false"
+                    aria-controls="sidebarWrap"
+                    onclick="toggleSidebar()">
+                <span class="btn-label">About the project</span>
+                <span class="toggle-icon" aria-hidden="true">+</span>
+            </button>
+        </div>
+
+    </div>
+</main>
+
+<button id="floating-back-to-top" class="floating-btt" aria-label="Back to top">
+    <i data-lucide="arrow-up" aria-hidden="true"></i>
+</button>
+
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <p class="footer-title">Navigate</p>
+                <a href="/index.html#projects">Work</a>
+                <a href="/index.html#about">About</a>
+                <a href="/index.html#services">Services</a>
+                <a href="/index.html#insights">Writing</a>
+                <a href="/index.html#visualisations">Visualisations</a>
+                <a href="/notes.html">Notes</a>
+            </div>
+            <div class="footer-col">
+                <p class="footer-title">Connect</p>
+                <a href="https://linkedin.com/in/chaturadissanayake" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="https://github.com/chaturadissanayake"      target="_blank" rel="noopener">GitHub</a>
+                <a href="https://consultchatura.medium.com" target="_blank" rel="noopener">Medium</a>
+                <a href="https://rss.app/feeds/1QjFWlxkKTZLVQd7.xml" target="_blank" rel="noopener">RSS Feed</a>
+            </div>
+            <div class="footer-col">
+                <p class="footer-title">Resources &amp; Legal</p>
+                <a href="/assets/documents/Services_Guide.pdf" target="_blank" rel="noopener">Services Guide</a>
+                <a href="/assets/documents/Chatura_CurriculumVitae.pdf" target="_blank" rel="noopener" download>Download CV</a>
+                <a href="/privacy.html">Privacy Policy</a>
+                <a href="/terms.html">Terms &amp; Conditions</a>
+            </div>
+        </div>
+        <div class="footer-bottom-container">
+            <div class="footer-divider"></div>
+            <div class="footer-bottom-bar">
+                <div class="footer-copyright">
+                    © 2022–2026 Chatura Dissanayake. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<div id="cookie-banner" class="cookie-banner" style="display: none;" role="dialog" aria-live="polite" aria-label="Cookie consent">
+    <div class="cookie-content">
+        <p>I use Google Analytics to analyse how visitors interact with this site, ensuring you have the best experience while using our website. <a href="/privacy.html" target="_blank" rel="noopener">Cookie Policy</a>.</p>
+        <div class="cookie-actions">
+            <button id="accept-cookies" class="btn-primary" style="padding: 8px 18px; font-size: 0.8125rem;">Accept</button>
+            <button id="decline-cookies" class="show-more-btn" style="padding: 8px 18px; font-size: 0.8125rem; margin-top: 0;">Decline</button>
+        </div>
+    </div>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var lightbox = document.createElement("div");
+    lightbox.id = "image-lightbox";
+    lightbox.setAttribute("role", "dialog");
+    lightbox.setAttribute("aria-modal", "true");
+    lightbox.setAttribute("aria-label", "Image viewer");
+    lightbox.innerHTML = "<span id='lightbox-close' role='button' tabindex='0' aria-label='Close'>&times;</span><img id='lightbox-img' src='' alt=''>";
+    document.body.appendChild(lightbox);
+
+    var lbImg = document.getElementById("lightbox-img");
+    var closeBtn = document.getElementById("lightbox-close");
+    var lastFocused = null;
+
+    function openLB(imgEl) {
+        lastFocused = document.activeElement;
+        lbImg.src = imgEl.src;
+        lbImg.alt = imgEl.alt;
+        lightbox.classList.add("active");
+        document.body.classList.add("modal-open");
+        var mainContent = document.getElementById("main-content");
+        var mainHeader = document.getElementById("main-header");
+        if (mainContent) mainContent.setAttribute("aria-hidden", "true");
+        if (mainHeader) mainHeader.setAttribute("aria-hidden", "true");
+        closeBtn.focus();
+    }
+
+    function closeLB() {
+        if (!lightbox.classList.contains("active")) return;
+        lightbox.classList.remove("active");
+        document.body.classList.remove("modal-open");
+        var mainContent = document.getElementById("main-content");
+        var mainHeader = document.getElementById("main-header");
+        if (mainContent) mainContent.removeAttribute("aria-hidden");
+        if (mainHeader) mainHeader.removeAttribute("aria-hidden");
+        if (lastFocused) lastFocused.focus();
+    }
+
+    closeBtn.addEventListener("click", closeLB);
+    closeBtn.addEventListener("keydown", function(e) {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            closeLB();
+        }
+    });
+    lightbox.addEventListener("click", function(e) {
+        if (e.target === lightbox) closeLB();
+    });
+    document.addEventListener("keydown", function(e) {
+        if (e.key === "Escape") closeLB();
+    });
+
+    var imgs = document.querySelectorAll(".media-item img, .research-grid img");
+    for (var i = 0; i < imgs.length; i++) {
+        imgs[i].setAttribute("tabindex", "0");
+        imgs[i].addEventListener("click", function() { openLB(this); });
+        imgs[i].addEventListener("keydown", function(e) {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                openLB(this);
+            }
+        });
+    }
+});
+</script>
+<script src="/assets/js/utilities.js" defer></script>
+<script src="/assets/js/main.js" defer></script>
+<script src="/assets/js/navigation.js" defer></script>
+<script src="/assets/js/modals.js" defer></script>
+
+</body>
+</html>

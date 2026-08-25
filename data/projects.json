@@ -245,5 +245,24 @@
     "sortDate": "2025-08-01",
     "priority": 13,
     "archive": false
+  },
+  {
+    "id": "veediya-display",
+    "category": "Arts & Culture",
+    "title": "Veediya Display",
+    "challenge": "Sri Lanka doesn't have a display typeface that speaks with the voice of its own streets. Most 'authentic' options lean on tourist-brochure cliches or borrow shapes from unrelated scripts. I wanted to build a typeface from the actual handwriting, sign-painting, and brushwork of Kandy, not from assumption.",
+    "role": "This is a self-initiated, ongoing type design study. I'm running the full process myself: a field audit of over 70 typographic instances across Kandy, categorised into institutional, commercial, and vernacular baselines, followed by extracting individual letterforms from the photographs, compositing them into test words, and sketching and digitising the results in Illustrator. Imali Nillekumbura is collaborating with me on letterform review.",
+    "outcome": "Still in progress. The reference audit and categorisation are complete; letter extraction, word-assembly testing, sketching, and digitisation are actively underway, with a first working character set still to come.",
+    "link": "projects/veediya-display/veediya-display.html",
+    "status": "Active Development",
+    "tags": [
+      "Arts & Culture",
+      "Typefaces"
+    ],
+    "thumbnail": "projects/veediya-display/assets/20260815_111112_024431.webp",
+    "date": "Active Development",
+    "sortDate": "2026-12-29",
+    "priority": 14,
+    "archive": false
   }
 ]

@@ -295,6 +295,14 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
+    /* UX: same Fitts's Law logic as .card-tag-btn - a mouse is precise, so
+       the 40px touch-sized pill reads as oversized clutter on desktop.
+       Trimmed to a size proportionate to its job as a repeated-tap filter. */
+    .filter-pill {
+        padding: 6px 14px;
+        min-height: 30px;
+    }
+
     .filter-pill:hover { color: var(--ink); background: var(--surface-3); }
 }
 
