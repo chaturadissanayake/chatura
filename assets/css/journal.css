@@ -208,13 +208,25 @@
         margin-bottom: var(--space-12);
     }
     
-    /* Reset widths to full on mobile so they don't look awkwardly inset */
+    /* UX: full-bleed (100%) images with no height ceiling let a single tall
+       photo dominate the entire viewport, which is exactly what the desktop
+       80% rule above exists to avoid - it just forces more scrolling per
+       post and makes the feed harder to scan quickly. A small inset plus a
+       height cap keeps mobile feeling like a feed of photos rather than a
+       stack of full-screen images, while still reading as "Instagram-style"
+       rather than desktop's boxed-in card. */
     .thread-post-media {
-        width: 100%;
+        width: 94%;
+    }
+
+    .thread-post-media img,
+    .thread-post-media video {
+        max-height: 65vh;
+        object-fit: cover;
     }
     
     .thread-post-caption {
-        width: 100%; 
+        width: 94%; 
         font-size: 1rem; 
     }
     

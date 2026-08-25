@@ -286,7 +286,7 @@
 .filter-pill {
     flex-shrink: 0; font-size: 0.875rem; font-weight: 500; letter-spacing: 0.01em;
     color: var(--ink-muted); background: transparent;
-    padding: 6px 14px; min-height: 30px; border-radius: var(--radius-pill);
+    padding: 10px 16px; min-height: 40px; border-radius: var(--radius-pill); /* UX: Fitts's Law - matches .filter-btn on notes.html, a repeated-tap control needs a comfortably large target */
     white-space: nowrap;
     transition: color var(--dur-fast), background var(--dur-fast), border-color var(--dur-fast);
     border: 1px solid transparent;
@@ -306,7 +306,6 @@
 .filter-pill.active { background: var(--ink); color: var(--white); }
 
 @media (max-width: 640px) {
-    .filter-pill { padding: 6px 14px; min-height: 30px; font-size: 0.8125rem; }
     .desktop-only-filter { display: none !important; }
 }
 
@@ -1064,6 +1063,7 @@
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--surface-3);
+    will-change: transform; /* sticky + a live backdrop-filter recomputes on every scroll frame as content passes underneath it - this keeps it on its own composited layer instead, which was the stutter source when scrolling inside the opened project card overlay */
 }
 
 .modal-eyebrow {
