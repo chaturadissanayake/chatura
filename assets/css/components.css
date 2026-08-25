@@ -546,6 +546,7 @@
     letter-spacing: 0.05em; color: var(--white);
     background: rgba(16, 21, 28, 0.45);
     backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     padding: 5px 9px; border-radius: var(--radius-pill);
     line-height: 1;
     opacity: 0.9;
@@ -579,7 +580,7 @@
 .card-overlay {
     position: absolute; inset: 0; background: rgba(23,19,15,0.52);
     display: flex; align-items: center; justify-content: center;
-    opacity: 0; transition: opacity var(--dur-med); backdrop-filter: blur(12px); z-index: 10;
+    opacity: 0; transition: opacity var(--dur-med); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 10;
     pointer-events: none;
 }
 
@@ -985,13 +986,18 @@
    frame to transition from, and the same class drives a symmetric close. */
 .modal-overlay::backdrop {
     background: rgba(10, 15, 23, 0);
-    backdrop-filter: blur(0px);
-    transition: background var(--dur-med) var(--ease-out), backdrop-filter var(--dur-med) var(--ease-out);
+    /* Blur is applied instantly (not transitioned) below - animating blur
+       radius forces the browser to recompute the blur on every frame, which
+       is one of the heaviest things you can transition and is the main
+       cause of stutter on mobile while the panel is also trying to slide
+       in. Only the cheap part (background opacity) animates. */
+    transition: background var(--dur-med) var(--ease-out);
 }
 
 .modal-overlay.is-open::backdrop {
     background: rgba(10, 15, 23, 0.4);
     backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); /* iOS Safari silently ignores the unprefixed property */
 }
 
 .modal-panel {
@@ -1000,6 +1006,7 @@
     position: relative; transform: translateX(100%);
     transition: transform var(--dur-med) var(--ease-out); box-shadow: -8px 0 32px rgba(0,0,0,0.08);
     display: flex; flex-direction: column;
+    will-change: transform; /* promotes the panel to its own compositor layer so the slide animates smoothly instead of repainting with the rest of the page */
 }
 
 .modal-scroll {
@@ -1055,6 +1062,7 @@
     padding: 20px 32px;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--surface-3);
 }
 
@@ -1317,6 +1325,7 @@
 .personal-badge {
     background: rgba(23,19,15,0.72); color: rgba(255,255,255,0.88);
     backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
 }
 
 .client-badge {

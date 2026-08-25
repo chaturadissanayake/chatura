@@ -6,11 +6,17 @@
 
 .main-header {
     position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 0;
-    transition: background var(--dur-med) var(--ease-out), box-shadow var(--dur-med) var(--ease-out), backdrop-filter var(--dur-med) var(--ease-out);
+    /* backdrop-filter is intentionally left out of this transition - animating
+       blur radius forces a per-frame recompute and is a common cause of
+       scroll jank on mobile. Only the cheap properties (background, shadow)
+       animate; the blur itself applies instantly when .scrolled toggles. */
+    transition: background var(--dur-med) var(--ease-out), box-shadow var(--dur-med) var(--ease-out);
 }
 
 .main-header.scrolled {
-    background: rgba(244,247,249,0.93); backdrop-filter: blur(20px) saturate(180%);
+    background: rgba(244,247,249,0.93);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
     box-shadow: 0 1px 0 rgba(23,19,15,0.07);
 }
 
