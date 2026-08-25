@@ -1194,6 +1194,188 @@
     text-decoration-color: var(--accent);
 }
 
+/* ============================================
+   TESTIMONIALS / RECEPTION
+   Deliberately not uniform "5-star review" cards - the sources are
+   mixed (email, DMs, a public comment, a formal review), so each
+   card leads with its source label first. Showing provenance before
+   the quote lets the reader calibrate trust themselves rather than
+   Claude presenting every line with equal, and therefore suspicious,
+   weight (a flat wall of unattributed praise reads as fabricated).
+   Von Restorff effect: the one verifiable/official item (the signed
+   performance review) gets a quiet accent border + badge so it reads
+   as the anchor of the set, without breaking the shared card grid
+   that keeps scanning predictable (Jakob's Law).
+   ============================================ */
+
+.testimonials-section { padding: var(--space-24) 0; background: var(--surface); }
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-5);
+    align-items: stretch;
+}
+
+.testimonial-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--white);
+    border: 1px solid var(--surface-3);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    transition: border-color var(--dur-med) var(--ease-out), box-shadow var(--dur-med) var(--ease-out);
+}
+
+.testimonial-card.is-verified {
+    border-color: var(--accent-dim);
+    box-shadow: var(--shadow-sm);
+}
+
+.testimonial-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+}
+
+.testimonial-badge {
+    flex-shrink: 0;
+    font-family: var(--mono);
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: transparent;
+    border: 1px solid var(--accent-dim);
+    padding: 3px 9px;
+    border-radius: var(--radius-pill);
+    white-space: nowrap;
+}
+
+.testimonial-source {
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+}
+
+.testimonial-card.is-verified .testimonial-source { color: var(--accent); }
+
+.testimonial-quote {
+    position: relative;
+    flex-grow: 1;
+    margin: 0 0 var(--space-5);
+}
+
+.testimonial-quote::before {
+    content: "\201C";
+    position: absolute;
+    top: -20px;
+    left: -6px;
+    font-family: var(--serif);
+    font-size: 3.5rem;
+    line-height: 1;
+    color: var(--surface-3);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.testimonial-quote p {
+    position: relative;
+    z-index: 1;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin: 0;
+}
+
+.testimonial-footer {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: auto;
+}
+
+.testimonial-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--white);
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    letter-spacing: 0.01em;
+    flex-shrink: 0;
+}
+
+.testimonial-card.is-verified .testimonial-avatar { background: var(--accent); }
+
+.testimonial-who { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+
+.testimonial-name { font-family: var(--sans); font-weight: 600; font-size: 0.9375rem; color: var(--ink); }
+
+.testimonial-role { font-family: var(--sans); font-size: 0.8125rem; line-height: 1.4; color: var(--ink-muted); }
+
+.testimonial-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    min-height: 40px; /* UX: Fitts's Law tap target even though it isn't a filled pill */
+    margin-top: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--surface-3);
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease-out), gap var(--dur-fast) var(--ease-out);
+}
+
+.testimonial-link:hover { color: var(--ink); gap: 7px; }
+
+.testimonial-link svg.lucide { width: 13px; height: 13px; }
+
+@media (max-width: 860px) {
+    .testimonials-grid { grid-template-columns: 1fr; gap: var(--space-4); }
+}
+
+@media (max-width: 640px) {
+    .testimonial-card { padding: var(--space-5); }
+    .testimonial-quote p { font-size: 1rem; }
+    .testimonial-quote::before { font-size: 3rem; top: -16px; }
+    .testimonial-avatar { width: 36px; height: 36px; font-size: 0.75rem; }
+
+    /* UX: same fade-and-expand pattern as .exp-list - four full quote
+       cards stacked on a small screen is more scrolling and scanning
+       than a first-time visitor owes this section (Hick's Law: fewer
+       visible choices = faster decisions). Show one card fully, tease
+       the next, let people opt into the rest. */
+    .testimonials-grid {
+        position: relative;
+        overflow: hidden;
+        transition: max-height 0.4s ease, mask-image 0.4s ease, -webkit-mask-image 0.4s ease;
+    }
+    .testimonials-grid.is-collapsed-mobile {
+        max-height: 480px;
+        mask-image: linear-gradient(to bottom, black 55%, transparent 92%);
+        -webkit-mask-image: linear-gradient(to bottom, black 55%, transparent 92%);
+    }
+}
+
 .contact-section { padding: var(--space-24) 0; background: var(--white); }
 
 .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: var(--space-16); align-items: start; }
