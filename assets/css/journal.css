@@ -62,7 +62,10 @@
 }
 
 .filter-btn {
-    padding: 6px 14px;
+    padding: 10px 16px; /* UX: Fitts's Law - raised from 6px vertical padding, this is a repeated-tap control */
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
     border: 1px solid transparent;
     border-radius: var(--radius-pill);
     background: var(--surface-3);

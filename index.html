@@ -211,7 +211,7 @@
         </div>
         <div class="hero-proof-strip reveal-up" style="--d:280ms">
             <div class="proof-item" style="--pd:0ms">
-                <span class="proof-num" data-count-to="4" data-suffix="+">0</span>
+                <span class="proof-num" data-count-to="5" data-suffix="+">0</span>
                 <span class="proof-label">Years of Experience</span>
             </div>
             <div class="proof-item" style="--pd:100ms">
@@ -234,8 +234,8 @@
                 <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; width: 100%;">
                     <h2 class="section-title" style="margin: 0; line-height: 1;">Projects</h2>
                     <div class="view-controls" style="display: flex; gap: 8px;">
-                        <button id="sort-toggle-btn" class="show-more-btn" style="margin: 0; min-height: 32px; padding: 0 14px; font-size: 0.75rem !important;">Sort: Featured <i data-lucide="arrow-down-up" style="width:14px;height:14px; margin-left:6px;"></i></button>
-                        <button id="archive-toggle-btn" class="show-more-btn" style="margin: 0; min-height: 32px; padding: 0 14px; font-size: 0.75rem !important;">Archive <i data-lucide="archive" style="width:14px;height:14px; margin-left:6px;"></i></button>
+                        <button id="sort-toggle-btn" class="show-more-btn" style="margin: 0; font-size: 0.75rem !important;">Sort: Featured <i data-lucide="arrow-down-up" style="width:14px;height:14px; margin-left:6px;"></i></button>
+                        <button id="archive-toggle-btn" class="show-more-btn" style="margin: 0; font-size: 0.75rem !important;">Archive <i data-lucide="archive" style="width:14px;height:14px; margin-left:6px;"></i></button>
                     </div>
                 </div>
             </div>
@@ -356,7 +356,7 @@
                     <p>I've worked this way for the <a href="https://srilanka.un.org/en/about/about-the-resident-coordinator-office" target="_blank" rel="noopener" class="inline-link">UN Resident Coordinator's Office</a>, the <a href="https://npd.treasury.gov.lk/" target="_blank" rel="noopener" class="inline-link">Department of National Planning</a>, and <a href="https://www.veriteresearch.org/" target="_blank" rel="noopener" class="inline-link">Verité Research</a>, where communication had to hold up under real scrutiny, from ministers, from the public, from people who'd stop reading at the first confusing paragraph.</p>
                     <p>Outside of client work, I'm probably deep into a game, out on a run, or making something just because I felt like it. A few of those things live on my <a href="notes.html" class="inline-link">notes</a>, if you're curious.</p>
                 </div>
-                <button id="about-read-more-btn" class="show-more-btn read-more-toggle" style="margin-bottom: 32px;">Read more <i data-lucide="chevron-down" style="width:14px;height:14px;margin-left:4px;"></i></button>
+                <button id="about-read-more-btn" class="btn-tertiary read-more-toggle" style="margin-bottom: 32px;">Read more <i data-lucide="chevron-down"></i></button>
 
                 <div class="about-capabilities">
                     <div class="cap-block">
@@ -373,7 +373,7 @@
                     </div>
                 </div>
 
-                <div class="about-experience">
+<div class="about-experience">
                     <h3>Experience</h3>
                     <div class="exp-list">
                         <div class="exp-item">
@@ -384,7 +384,7 @@
                             </div>
                         </div>
                         <div class="exp-item">
-                            <span class="exp-period">Jul 2025</span>
+                            <span class="exp-period">Jul 2025 - Jul 2025</span>
                             <div class="exp-detail">
                                 <strong>Communications Design Consultant</strong>
                                 <a href="https://npd.treasury.gov.lk/" target="_blank" rel="noopener" class="exp-org-link">Govt. of Sri Lanka, Dept. of National Planning</a>
@@ -419,6 +419,7 @@
                             </div>
                         </div>
                     </div>
+                    <button id="exp-read-more-btn" class="btn-tertiary read-more-toggle" style="margin: 12px 0 24px 0;">View earlier roles <i data-lucide="chevron-down"></i></button>
                 </div>
 
                 <div class="about-links">
@@ -814,8 +815,9 @@
 
 <dialog id="project-detail-modal" class="modal-overlay" aria-labelledby="pm-title">
     <div class="modal-panel">
+        <div class="modal-scroll">
         <div class="modal-close-row">
-            <span class="brand-wordmark" style="pointer-events: auto;">Chatura Dissanayake</span>
+            <span class="modal-eyebrow" id="pm-eyebrow">Case Study</span>
             <button type="button" class="modal-close" id="close-project-modal" aria-label="Close">
                 <i data-lucide="x" aria-hidden="true"></i>
             </button>
@@ -851,7 +853,9 @@
             </div>
             <div class="modal-footer-action">
                 <a href="#" id="pm-link" target="_blank" rel="noopener" class="modal-cta-btn-primary">View Project <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></a>
+                <button type="button" class="modal-cta-btn-secondary" id="pm-close-secondary">Close</button>
             </div>
+        </div>
         </div>
     </div>
 </dialog>

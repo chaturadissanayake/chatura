@@ -83,6 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(() => {
             requestAnimationFrame(() => {
                 projectModal.classList.add('is-open');
+                closeProjectBtn?.focus({ preventScroll: true });
             });
         });
     };
@@ -115,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     closeProjectBtn?.addEventListener('click', closeModal);
+    document.getElementById('pm-close-secondary')?.addEventListener('click', closeModal);
     projectModal?.addEventListener('mousedown', e => {
         if (e.target === projectModal) closeModal();
     });

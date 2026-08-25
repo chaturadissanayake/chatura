@@ -190,9 +190,10 @@ button { border: none; background: none; font-family: var(--sans); cursor: point
 svg.lucide { width: 1em; height: 1em; vertical-align: -0.125em; flex-shrink: 0; }
 
 body.project-modal-open .main-header {
-    opacity: 0.45;
+    opacity: 0;
+    visibility: hidden;
     pointer-events: none;
-    transition: opacity var(--dur-med) var(--ease-out);
+    transition: opacity var(--dur-fast) var(--ease-out), visibility 0s linear var(--dur-fast);
 }
 
 body.project-modal-open .main-header .desktop-nav,

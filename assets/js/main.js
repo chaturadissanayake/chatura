@@ -122,9 +122,24 @@ document.addEventListener('DOMContentLoaded', () => {
         aboutReadMoreBtn.addEventListener('click', () => {
             aboutContent.classList.toggle('is-collapsed-mobile');
             aboutReadMoreBtn.innerHTML = aboutContent.classList.contains('is-collapsed-mobile') 
-                ? 'Read more <i data-lucide="chevron-down" style="width:14px;height:14px;margin-left:4px;"></i>' 
-                : 'Show less <i data-lucide="chevron-up" style="width:14px;height:14px;margin-left:4px;"></i>';
+                ? 'Read more <i data-lucide="chevron-down"></i>' 
+                : 'Show less <i data-lucide="chevron-up"></i>';
             if (window.lucide) lucide.createIcons({ root: aboutReadMoreBtn });
+        });
+    }
+
+    const expContent = document.querySelector('.exp-list');
+    const expReadMoreBtn = document.getElementById('exp-read-more-btn');
+    if (expContent && expReadMoreBtn) {
+        if (window.innerWidth <= 640) {
+            expContent.classList.add('is-collapsed-mobile');
+        }
+        expReadMoreBtn.addEventListener('click', () => {
+            expContent.classList.toggle('is-collapsed-mobile');
+            expReadMoreBtn.innerHTML = expContent.classList.contains('is-collapsed-mobile') 
+                ? 'View earlier roles <i data-lucide="chevron-down"></i>' 
+                : 'Show fewer roles <i data-lucide="chevron-up"></i>';
+            if (window.lucide) lucide.createIcons({ root: expReadMoreBtn });
         });
     }
 
