@@ -1545,12 +1545,18 @@
     .standard-quote { font-size: clamp(1.125rem, 2.5vw, 2rem); }
 }
 
+@media (max-width: 640px) {
+    .project-header h1 { font-size: clamp(1.75rem, 8vw, 2.25rem); }
+    .project-header .subtitle { font-size: 1rem; }
+}
+
 .project-description p {
     font-family: var(--sans);
     font-size: 0.9375rem;
-    line-height: 1.65;
+    line-height: 1.7;
     color: var(--ink);
-    margin-bottom: var(--space-5, 20px);
+    margin-bottom: var(--space-6, 24px);
+    max-width: 62ch;
 }
 
 .project-description p:first-child {

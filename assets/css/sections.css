@@ -1735,9 +1735,11 @@
     transition: background var(--dur-fast, 0.2s), border-color var(--dur-fast, 0.2s);
 }
 
-.about-btn:hover {
-    background: var(--surface-2, #f5f5f5);
-    border-color: var(--ink-muted);
+@media (hover: hover) and (pointer: fine) {
+    .about-btn:hover {
+        background: var(--surface-2, #f5f5f5);
+        border-color: var(--ink-muted);
+    }
 }
 
 .about-btn:active {
