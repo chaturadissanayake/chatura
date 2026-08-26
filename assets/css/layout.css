@@ -510,7 +510,7 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 16px); }
 }
 
 .sidebar-wrap {
-    width: clamp(300px, 30vw, 400px);
+    width: clamp(340px, 42vw, 520px);
     flex-shrink: 0;
     overflow: clip;
     position: relative;
@@ -530,7 +530,7 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 16px); }
     height: max-content;
     max-height: calc(100vh - var(--nav-h, 80px) - var(--space-8, 32px));
 
-    width: clamp(300px, 30vw, 400px);
+    width: clamp(340px, 42vw, 520px);
     padding-right: var(--space-4, 16px);
     opacity: 1;
     overflow-y: auto;

@@ -1519,10 +1519,19 @@
     }
 }
 
+@media (max-width: 640px) {
+    .tag {
+        padding: 3px 9px;
+        font-size: 0.6875rem;
+    }
+}
+
 .standard-quote {
-    font-family: var(--serif);
-    font-size: clamp(1.5rem, 3.5vw, 2.5rem);
-    font-weight: 400;
+    font-family: var(--sans);
+    font-size: clamp(1.375rem, 3vw, 2.125rem);
+    font-weight: 500;
+    font-style: normal;
+    letter-spacing: -0.01em;
     color: var(--ink);
     grid-column: 1 / -1;
     margin: var(--space-8, 32px) 0;
@@ -1530,14 +1539,16 @@
     max-width: 95%;
 }
 
-.standard-quote .quote-author {
+.standard-quote .quote-author,
+.standard-quote .quote-source {
     display: block;
     font-family: var(--sans);
-    font-size: 0.875rem;
+    font-weight: 400;
+    font-size: 0.8125rem;
     color: var(--ink-muted);
-    margin-top: 16px;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    margin-top: 14px;
+    letter-spacing: 0;
+    text-transform: none;
 }
 
 @media (min-width: 1024px) and (max-width: 1440px) {
@@ -1566,13 +1577,17 @@
 .project-description a {
     color: var(--ink);
     text-decoration: underline;
-    text-decoration-color: var(--surface-3);
+    text-decoration-color: currentColor;
     text-underline-offset: 3px;
-    transition: text-decoration-color 0.2s ease;
+    text-decoration-thickness: 1px;
+    transition: opacity 0.15s ease, text-decoration-color 0.2s ease;
 }
 
-.project-description a:hover {
-    text-decoration-color: var(--ink);
+@media (hover: hover) {
+    .project-description a:hover {
+        opacity: 0.6;
+        text-decoration-color: transparent;
+    }
 }
 
 .meta-section {

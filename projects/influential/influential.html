@@ -28,22 +28,6 @@
     <link rel="stylesheet" href="/assets/css/sections.css">
     <link rel="stylesheet" href="/assets/css/animations.css">
 <style>
-    .project-description a,
-    .project-description a:visited {
-        color: var(--accent);
-        text-decoration: underline;
-        text-decoration-color: var(--accent);
-        text-underline-offset: 3px;
-        text-decoration-thickness: 1px;
-        transition: opacity 0.15s ease, text-decoration-color 0.2s ease;
-    }
-    @media (hover: hover) {
-        .project-description a:hover {
-            opacity: 0.6;
-            text-decoration-color: transparent;
-        }
-    }
-
     .project-description p {
         line-height: 1.7;
         margin-bottom: 24px;
@@ -87,7 +71,6 @@
         text-align: left !important;
     }
     .standard-quote {
-        font-style: italic;
         transition: transform 0.3s ease;
     }
     @media (hover: hover) {
@@ -128,9 +111,6 @@
             pointer-events: none !important;
             position: relative !important;
             transform: none !important;
-        }
-        .text-col-inner {
-            width: clamp(300px, 30vw, 400px) !important;
         }
     }
     @media (max-width: 1024px) {
@@ -244,6 +224,7 @@
         .next-desc-single { font-size: 0.9375rem; margin-bottom: 12px; }
         .next-label-single { margin-bottom: 8px; }
         .next-tags-single { margin-bottom: 24px; }
+        .next-tags-single .tag { padding: 3px 9px; font-size: 0.6875rem; }
         .next-image-single {
             height: 100px;
             margin-bottom: calc(-1 * var(--space-24, 48px)); 
@@ -334,19 +315,19 @@
     }
     .act-divider {
         grid-column: 1 / -1;
-        font-family: var(--serif);
-        font-size: clamp(1.5rem, 3vw, 2.125rem);
-        font-weight: 400;
-        letter-spacing: -0.01em;
+        font-family: var(--sans);
+        font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+        font-weight: 600;
+        letter-spacing: -0.005em;
         color: var(--ink);
-        line-height: 1.2;
+        line-height: 1.25;
         margin: var(--space-10, 40px) 0 var(--space-2, 8px);
         padding-top: var(--space-8, 32px);
         border-top: 1px solid var(--surface-3);
     }
     @media (max-width: 640px) {
         .act-divider {
-            font-size: 1.375rem;
+            font-size: 1.125rem;
             margin: var(--space-8, 32px) 0 var(--space-2, 8px);
             padding-top: var(--space-6, 24px);
         }
@@ -1031,54 +1012,32 @@
 
                         <p>Influential is a B2B SaaS platform that consolidates review and reputation management for business owners running multiple locations or brands. I led the project as UX researcher and designer, from the first sketch through research, structure, and flows, bringing on two designers partway through to help carry it to high fidelity.</p>
 
-                        <h2 class="part-heading">Discover</h2>
-
-                        <span class="section-label">Who this is for</span>
                         <p>Three groups sit inside the target audience: multi-location owners, who are the primary buyer and decision-maker; single-location owners scaling toward multiple sites; and front-line team members, who don't buy the product but live in it daily, actioning the reviews assigned to them.</p>
 
-                        <span class="section-label">Talking to owners, not just guessing</span>
                         <p>Discovery combined short interviews with a structured questionnaire and a small focus group reacting to the core concept. Interviews surfaced the emotional side, the sense of always being slightly behind on reputation. The questionnaire quantified it: how many platforms owners actually check, how often, and whether they had any way to benchmark against competitors. The focus group tested the "one dashboard" idea itself before a single screen was designed.</p>
 
-                        <span class="section-label">Where the gap actually was</span>
                         <p>Competitor analysis covered Birdeye, Podium, and ReviewTrackers. All three consolidate reviews into a single dashboard; ReviewTrackers goes furthest on competitor benchmarking. None of them turn that data into a shared, gamified team goal they're built for the person managing reputation, not for aligning the staff who actually respond to it. That gap became Influential's clearest point of difference.</p>
 
-                        <h2 class="part-heading">Define</h2>
-
-                        <span class="section-label">The problem, stated plainly</span>
                         <p>Business owners managing multiple locations have no single place to track how their business is performing. They check platforms manually, one at a time; have no benchmark against competitors; and have no way to turn team effort into a shared, visible goal. Feedback goes unnoticed, performance isn't benchmarked, and teams lack a shared target.</p>
 
-                        <span class="section-label">Two people, two very different needs</span>
                         <p>Research consolidated around two personas: the business owner (admin), who needs oversight without babysitting every platform herself, and the team member (user), who needs clarity on what's assigned to her and proof that her work is actually landing.</p>
 
-                        <span class="section-label">Mapping the manual routine</span>
                         <p>The owner persona's current-state journey traces exactly how she copes today: checking her own reviews, checking competitors', taking notes into an internal meeting, assigning follow-up goals by hand, then reconvening weeks later just to manually collect everyone's progress. That eight-step routine, slow and entirely manual, became the direct target for the redesign.</p>
 
-                        <h2 class="part-heading">Develop</h2>
-
-                        <span class="section-label">From one sitemap to two</span>
                         <p>The first pass at the information architecture was role-agnostic: one structure for every user. Once research made clear that owners and team members needed fundamentally different levels of access, the sitemap was split in two. Admins kept full oversight assigning reviews, assigning roles, defining business goals, configuring the platform while the member sitemap was scoped down to only what a team member actually needed: their own assigned reviews, their own goals, their own metrics.</p>
 
-                        <span class="section-label">Designing the core loops</span>
                         <p>Two flows carried the weight of the product: sign-in, including social login and a full password-recovery path, and review management the loop of viewing, filtering, responding to, flagging, or reporting on a review, with predefined templates to keep responses fast and consistent.</p>
 
-                        <span class="section-label">Wireframes, then a first round of testing</span>
                         <p>Low-fidelity wireframes proved the IA held up as real screens before any visual design began. The first usability round tested three core tasks on those wireframes: finding and responding to a review, assigning a review to a teammate, and locating the team leaderboard, with five participants per round.</p>
 
-                        <span class="section-label">A visual language built for data</span>
                         <p>The design system leans on a teal-and-neutral palette chosen for clarity against dense data, a component library for cards, charts, and status tags, and typography that stays legible at dashboard density rather than at hero-image scale.</p>
 
-                        <h2 class="part-heading">Deliver</h2>
-
-                        <span class="section-label">From mid to high fidelity</span>
                         <p>I carried the design solo through mid-fidelity, then brought on two designers to help take the dashboard, review management, and team leaderboard through to high fidelity, directing the work through review and comments as lead.</p>
 
-                        <span class="section-label">A second look, on the real thing</span>
                         <p>The same three tasks from round one were re-tested on the high-fidelity build, to check whether the changes made in between actually resolved the friction found earlier, rather than assuming they had.</p>
 
-                        <span class="section-label">In the real world</span>
                         <p>The result replaces the old manual routine with one dashboard: a benchmarked score, a platform-by-platform breakdown, and a shared leaderboard that turns individual review responses into visible team progress.</p>
 
-                        <h2 class="part-heading" style="font-size: 1.125rem;">Reflection</h2>
                         <p>If I revisited this today, I'd run the first usability round even earlier, at the sketch stage, so structural problems could surface before any wireframing time was spent on them. I'd also want to validate the leaderboard and gamification concept directly with team members rather than owners alone, since it's their day-to-day motivation it depends on. Next up: finishing the second usability round, then using those findings to decide whether the leaderboard needs a lighter-weight alternative for smaller teams.</p>
 
                     </div>

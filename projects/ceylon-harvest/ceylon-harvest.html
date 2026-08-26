@@ -28,22 +28,6 @@
     <link rel="stylesheet" href="/assets/css/sections.css">
     <link rel="stylesheet" href="/assets/css/animations.css">
 <style>
-    .project-description a,
-    .project-description a:visited {
-        color: var(--accent);
-        text-decoration: underline;
-        text-decoration-color: var(--accent);
-        text-underline-offset: 3px;
-        text-decoration-thickness: 1px;
-        transition: opacity 0.15s ease, text-decoration-color 0.2s ease;
-    }
-    @media (hover: hover) {
-        .project-description a:hover {
-            opacity: 0.6;
-            text-decoration-color: transparent;
-        }
-    }
-
     .project-description p {
         line-height: 1.7;
         margin-bottom: 24px;
@@ -87,7 +71,6 @@
         text-align: left !important;
     }
     .standard-quote {
-        font-style: italic;
         transition: transform 0.3s ease;
     }
     @media (hover: hover) {
@@ -128,9 +111,6 @@
             pointer-events: none !important;
             position: relative !important;
             transform: none !important;
-        }
-        .text-col-inner {
-            width: clamp(300px, 30vw, 400px) !important;
         }
     }
     @media (max-width: 1024px) {
@@ -244,6 +224,7 @@
         .next-desc-single { font-size: 0.9375rem; margin-bottom: 12px; }
         .next-label-single { margin-bottom: 8px; }
         .next-tags-single { margin-bottom: 24px; }
+        .next-tags-single .tag { padding: 3px 9px; font-size: 0.6875rem; }
         .next-image-single {
             height: 100px;
             margin-bottom: calc(-1 * var(--space-24, 48px)); 
@@ -334,19 +315,19 @@
     }
     .act-divider {
         grid-column: 1 / -1;
-        font-family: var(--serif);
-        font-size: clamp(1.5rem, 3vw, 2.125rem);
-        font-weight: 400;
-        letter-spacing: -0.01em;
+        font-family: var(--sans);
+        font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+        font-weight: 600;
+        letter-spacing: -0.005em;
         color: var(--ink);
-        line-height: 1.2;
+        line-height: 1.25;
         margin: var(--space-10, 40px) 0 var(--space-2, 8px);
         padding-top: var(--space-8, 32px);
         border-top: 1px solid var(--surface-3);
     }
     @media (max-width: 640px) {
         .act-divider {
-            font-size: 1.375rem;
+            font-size: 1.125rem;
             margin: var(--space-8, 32px) 0 var(--space-2, 8px);
             padding-top: var(--space-6, 24px);
         }
@@ -816,29 +797,18 @@
 
                         <p>Ceylon Harvest Co. is a premium Sri Lankan export brand selling Ceylon cinnamon, black pepper, and traditional spices, traceable to source and built for global trade. I worked on this project solo, from the first sketch through to the packaging on shelf.</p>
 
-                        <h2 class="part-heading">The Challenge</h2>
-
-                        <span class="section-label">What the client asked for</span>
                         <p>The client arrived with a logo the client had already designed and a feeling that something was off, though the client couldn't quite say what. What the client could describe was the feeling the client wanted instead: quiet, powerful, like discovering something rare. Ancient. Trustworthy. Not exotic, not touristy.</p>
 
-                        <span class="section-label">Why the sun didn't work</span>
                         <p>The client's mark used a sun face inside a seal, captioned "Live. Long. Rich." The drawing wasn't the problem. A sun is simply a universal symbol. It says optimism and warmth for a resort or a suncream just as easily as for a spice trade. It couldn't say Sri Lanka, and it couldn't say ancient. Naming that gave the direction: move the mark from the sky to the soil.</p>
 
-                        <span class="section-label">A brief in tension</span>
                         <p>The client also wanted the mark to stay minimal, but carry real weight and story, two things that don't naturally sit together. Research into the competitive set (Dilmah, Burlap &amp; Barrel, and similar export brands) confirmed the client's real buyers are trade buyers, who barely pause on a logo. They scan for origin, authenticity, and proof of quality. The seal needed to signal all three instantly, without decoration.</p>
 
-                        <h2 class="part-heading">The Solution</h2>
-
-                        <span class="section-label">From sky to soil, and a name</span>
                         <p>I replaced the sun with what the brand actually exports: Ceylon cinnamon, black pepper, cardamom, chilli, cloves, tea leaves, coffee, and vanilla, arranged into a wreath, with the wordmark and the motto "Pure Heritage. Naturally Sri Lankan." set around the outer ring. I also pushed the name toward "Ceylon Harvest Co." over the client's other option, "Ceylon Botanical Spice Co." Harvest reads like an export house with a supply chain behind it; Botanical Spice Co. reads like a boutique shelf label.</p>
 
-                        <span class="section-label">Type, colour, system</span>
                         <p>Baskerville Old Face carries the weight of history; Poppins keeps packaging copy and digital use functional. The palette (Heritage Green, Raw Parchment, Cinnamon Bark, and Cracked Pepper) comes from the spices themselves, not a generic "premium brand" palette.</p>
 
-                        <span class="section-label">In the real world</span>
                         <p>The system now runs across tea tins, spice tubes, tote bags, and a wax-style stamp. A business card, letterhead, and a multi-SKU label sheet are next. I've left space for them rather than pretend the system is more finished than it is.</p>
 
-                        <h2 class="part-heading" style="font-size: 1.125rem;">Reflection</h2>
                         <p>If I revisited this today, I'd push for the full stationery suite earlier, instead of treating packaging as the finish line. I'd also test the seal at very small sizes before finalising it, as a mark this detailed needs a simplified fallback for anywhere it has to work under 20mm.</p>
 
                     </div>

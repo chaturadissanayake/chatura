@@ -28,22 +28,6 @@
     <link rel="stylesheet" href="/assets/css/sections.css">
     <link rel="stylesheet" href="/assets/css/animations.css">
 <style>
-    .project-description a,
-    .project-description a:visited {
-        color: var(--accent);
-        text-decoration: underline;
-        text-decoration-color: var(--accent);
-        text-underline-offset: 3px;
-        text-decoration-thickness: 1px;
-        transition: opacity 0.15s ease, text-decoration-color 0.2s ease;
-    }
-    @media (hover: hover) {
-        .project-description a:hover {
-            opacity: 0.6;
-            text-decoration-color: transparent;
-        }
-    }
-
     .project-description p {
         line-height: 1.7;
         margin-bottom: 24px;
@@ -144,9 +128,13 @@
        hand-tuned inline margins per instance. */
     .gallery-intro {
         grid-column: 1 / -1;
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 6px;
+        row-gap: 0;
         font-family: var(--sans);
         font-size: 0.8125rem;
-        font-weight: 600;
+        font-weight: 400;
         line-height: 1.5;
         color: var(--ink-soft);
         margin-top: var(--space-8, 32px);
@@ -158,6 +146,11 @@
     .gallery-intro strong {
         color: var(--ink);
         font-weight: 600;
+        flex-shrink: 0;
+    }
+    .gallery-intro .gallery-intro-desc {
+        flex: 1 1 220px;
+        min-width: 0;
     }
 
     .media-caption {
@@ -172,7 +165,6 @@
         text-align: left !important;
     }
     .standard-quote {
-        font-style: italic;
         transition: transform 0.3s ease;
     }
     @media (hover: hover) {
@@ -213,9 +205,6 @@
             pointer-events: none !important;
             position: relative !important;
             transform: none !important;
-        }
-        .text-col-inner {
-            width: clamp(300px, 30vw, 400px) !important;
         }
     }
     @media (max-width: 1024px) {
@@ -329,6 +318,7 @@
         .next-desc-single { font-size: 0.9375rem; margin-bottom: 12px; }
         .next-label-single { margin-bottom: 8px; }
         .next-tags-single { margin-bottom: 24px; }
+        .next-tags-single .tag { padding: 3px 9px; font-size: 0.6875rem; }
         .next-image-single {
             height: 100px;
             margin-bottom: calc(-1 * var(--space-24, 48px)); 
@@ -419,19 +409,19 @@
     }
     .act-divider {
         grid-column: 1 / -1;
-        font-family: var(--serif);
-        font-size: clamp(1.5rem, 3vw, 2.125rem);
-        font-weight: 400;
-        letter-spacing: -0.01em;
+        font-family: var(--sans);
+        font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+        font-weight: 600;
+        letter-spacing: -0.005em;
         color: var(--ink);
-        line-height: 1.2;
+        line-height: 1.25;
         margin: var(--space-10, 40px) 0 var(--space-2, 8px);
         padding-top: var(--space-8, 32px);
         border-top: 1px solid var(--surface-3);
     }
     @media (max-width: 640px) {
         .act-divider {
-            font-size: 1.375rem;
+            font-size: 1.125rem;
             margin: var(--space-8, 32px) 0 var(--space-2, 8px);
             padding-top: var(--space-6, 24px);
         }
@@ -727,7 +717,7 @@
 
                     <!-- MASSIVE GALLERY 1: INSTITUTIONAL -->
                     <p class="gallery-intro is-first">
-                        <strong>1. Civic & Institutional Structure:</strong> Finding the rigid, formal baselines in banks, legal offices, temples, and civic infrastructure.
+                        <strong>1. Civic &amp; Institutional Structure:</strong><span class="gallery-intro-desc">Finding the rigid, formal baselines in banks, legal offices, temples, and civic infrastructure.</span>
                     </p>
                     
                     <div class="media-item full-width section-fade-in">
@@ -745,7 +735,7 @@
 
                     <!-- MASSIVE GALLERY 2: COMMERCIAL -->
                     <p class="gallery-intro">
-                        <strong>2. Commerce & Transit:</strong> Tracking how brushwork and spacing adapt for maximum legibility on storefronts and moving vehicles.
+                        <strong>2. Commerce &amp; Transit:</strong><span class="gallery-intro-desc">Tracking how brushwork and spacing adapt for maximum legibility on storefronts and moving vehicles.</span>
                     </p>
 
                     <div class="media-item full-width section-fade-in">
@@ -763,7 +753,7 @@
 
                     <!-- MASSIVE GALLERY 3: VERNACULAR -->
                     <p class="gallery-intro">
-                        <strong>3. The Unpolished Vernacular:</strong> How everyday people handle the complex loops and curves of the script when writing at speed on rough surfaces.
+                        <strong>3. The Unpolished Vernacular:</strong><span class="gallery-intro-desc">How everyday people handle the complex loops and curves of the script when writing at speed on rough surfaces.</span>
                     </p>
 
                     <div class="media-item full-width section-fade-in">
@@ -786,7 +776,7 @@
                     </div>
 
                     <p class="gallery-intro is-first">
-                        <strong>1. Letter Extraction:</strong> Before drawing anything, individual characters are cropped straight out of the street photography, isolated from their original sign, and dropped into a raw glyph bank. This is the honesty check - if a letterform only looks consistent in one photo, it isn't a pattern yet, it's an accident.
+                        <strong>1. Letter Extraction:</strong><span class="gallery-intro-desc">Before drawing anything, individual characters are cropped straight out of the street photography, isolated from their original sign, and dropped into a raw glyph bank. This is the honesty check - if a letterform only looks consistent in one photo, it isn't a pattern yet, it's an accident.</span>
                     </p>
                     <div class="media-item full-width section-fade-in">
                         <div class="placeholder-grid">
@@ -803,7 +793,7 @@
                     </div>
 
                     <p class="gallery-intro">
-                        <strong>2. Word Assemblies - Testing Rhythm with Found Type:</strong> Extracted letters, often from completely unrelated signs, are then set side by side to spell real words. This is the experiment that tells me whether a shared system is actually hiding inside the chaos, before I commit a single stroke to paper.
+                        <strong>2. Word Assemblies - Testing Rhythm with Found Type:</strong><span class="gallery-intro-desc">Extracted letters, often from completely unrelated signs, are then set side by side to spell real words. This is the experiment that tells me whether a shared system is actually hiding inside the chaos, before I commit a single stroke to paper.</span>
                     </p>
                     <div class="media-item full-width section-fade-in">
                         <div class="placeholder-grid cols-2">
@@ -822,7 +812,7 @@
                     </div>
 
                     <p class="gallery-intro is-first">
-                        <strong>3. Sketching the Typeface:</strong> With the glyph bank and word tests as reference, letterforms are drawn by hand - first loosely, then tightened into a consistent skeleton, x-height, and stroke logic.
+                        <strong>3. Sketching the Typeface:</strong><span class="gallery-intro-desc">With the glyph bank and word tests as reference, letterforms are drawn by hand - first loosely, then tightened into a consistent skeleton, x-height, and stroke logic.</span>
                     </p>
                     <div class="media-item section-fade-in">
                         <div class="media-placeholder">
@@ -854,7 +844,7 @@
                     </div>
 
                     <p class="gallery-intro">
-                        <strong>4. Digitization - Illustrator Snapshots:</strong> Once a sketch holds up, it moves to Illustrator for vector tracing. These are working snapshots of that process, not final artwork - kept here so the transition from tracing paper to bezier curves stays visible.
+                        <strong>4. Digitization - Illustrator Snapshots:</strong><span class="gallery-intro-desc">Once a sketch holds up, it moves to Illustrator for vector tracing. These are working snapshots of that process, not final artwork - kept here so the transition from tracing paper to bezier curves stays visible.</span>
                     </p>
                     <div class="media-item full-width section-fade-in">
                         <div class="placeholder-grid cols-2">
@@ -910,40 +900,24 @@
                     <div class="project-description">
 
                         <p>Veediya Display is a typographic case study rooted in visual archaeology. A typeface built on assumption is useless; to design a display face that feels authentically Sri Lankan, I had to isolate the shared visual DNA directly from the source.</p>
-                
-                        <h2 class="part-heading">The Research</h2>
-                        
-                        <span class="section-label">Walking the Grid</span>
+
                         <p>I mapped a route through the middle of my hometown - from the Dalada Maligawa to the Municipal Central Market, down Raja Veediya. The goal was to exhaustively document how local sign painters, temple artisans, and everyday shop owners handled the complex loops and proportions of the Sinhala script.</p>
 
-                        <span class="section-label">Categorizing the Chaos</span>
-                        <p>After auditing over 70 unique instances of typography in the wild, I organized the references into three distinct baselines: <strong>Institutional Structure</strong> (formal colonial-era embossing and civic signs), <strong>Commercial Display</strong> (high-legibility brushwork on storefronts and lorries), and <strong>The Unpolished Vernacular</strong> (handwritten price tags, graffiti, and whiteboard menus).</p>
-                        
-                        <p>The friction between the highly structured civic signs and the raw, high-speed handwriting formed the creative brief for the typeface.</p>
-                        
-                        <h2 class="part-heading">The Design Process</h2>
+                        <p>After auditing over 70 unique instances of typography in the wild, I organized the references into three distinct baselines: <strong>Institutional Structure</strong> (formal colonial-era embossing and civic signs), <strong>Commercial Display</strong> (high-legibility brushwork on storefronts and lorries), and <strong>The Unpolished Vernacular</strong> (handwritten price tags, graffiti, and whiteboard menus). The friction between the highly structured civic signs and the raw, high-speed handwriting formed the creative brief for the typeface.</p>
 
-                        <span class="section-label">From Photograph to Glyph</span>
                         <p>The process doesn't start with a pencil. It starts with a pair of scissors, digitally speaking. Every usable character from the audit gets cropped out of its original photograph and dropped into a raw glyph bank, tagged by the sign it came from. Nothing is redrawn yet - the point is to see the letterforms sitting next to each other exactly as they were found, warts and all.</p>
 
-                        <span class="section-label">Word Assemblies</span>
                         <p>Once there's a decent bank of extracted letters, I composite them into real words - often mixing a character from a temple plaque with one from a lorry's side panel. Setting found type this way exposes the gaps a single photo can hide: mismatched weight, drifting baselines, stroke contrast that doesn't agree with itself. Wherever the crops fight each other is exactly where the typeface needs a firm decision instead of a borrowed one.</p>
 
-                        <span class="section-label">Sketching & Digitization</span>
                         <p>Only after that friction is visible do I start sketching - tracing over the word assemblies to pull out a shared skeleton, x-height, and stroke logic, with a separate pass for the vowel modifiers that carry most of Sinhala's rhythm. Sketches that hold up move into Illustrator for vector tracing, where the tension between street authenticity and kerning-friendly digital legibility actually gets resolved, one anchor point at a time.</p>
 
-                        <span class="section-label">Where This Stands Now</span>
                         <p>This is an active, self-initiated study, not a finished typeface. The reference audit and categorization are done; letter extraction and the word-assembly experiments are underway; sketching and digitization are the current focus. The galleries above will fill in as each stage produces real material - this page updates as the work does.</p>
 
-                        <h2 class="part-heading">The Result</h2>
-                        
-                        <span class="section-label">Veediya Display</span>
                         <p><em>To be written once digitization produces a working character set - covering final weights, intended use-cases (editorial, display, branding), and the specific cultural typographic quirks the face preserves.</em></p>
 
                     </div>
 
                     <div class="meta-section section-fade-in">
-                        <span class="section-label" style="margin-top: 0;">Project details</span>
                         <div class="meta-grid">
                             <div class="meta-item">
                                 <div class="meta-label">Client</div>
