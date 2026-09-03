@@ -314,3 +314,14 @@
     0%   { transform: translateX(-100%); }
     100% { transform: translateX(250%); }
 }
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+.card-image:not(.shimmer-complete) {
+    background: linear-gradient(90deg, var(--surface-2) 25%, var(--surface-3) 50%, var(--surface-2) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite linear;
+}

@@ -19,7 +19,7 @@
     <link rel="canonical" href="https://chaturadissanayake.vercel.app/">
 
 <meta name="theme-color" content="#f4f7f9">
-    <link rel="preload" as="font" href="assets/fonts/inter-regular.woff2" type="font/woff2" crossorigin>
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
     <link rel="preload" as="font" href="assets/fonts/fraunces-variable.woff2" type="font/woff2" crossorigin>
     <link rel="preload" as="style" href="/assets/css/base.css">
     <link rel="stylesheet" href="/assets/css/base.css">
@@ -105,23 +105,7 @@
     }
     </script>
 </head>
-<body class="loading">
-<div class="site-loader" id="site-loader" aria-hidden="true">
-    <div class="site-loader-inner">
-        <div class="loader-graphic">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="loader-icon">
-                <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"/>
-            </svg>
-            <span class="site-loader-bar"><span class="site-loader-bar-fill"></span></span>
-        </div>
-        <div class="loader-text-group">
-            <span class="site-loader-text">Loading...</span>
-            <span class="site-loader-timeout">
-                If you are having issues loading the app <a href="javascript:window.location.reload(true)">click here to refresh.</a>
-            </span>
-        </div>
-    </div>
-</div>
+<body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
 <div class="scroll-progress-bar" id="scroll-progress" aria-hidden="true"></div>
 
@@ -291,6 +275,10 @@
                 <p class="section-eyebrow">Global Reach</p>
                 <h2 class="section-title">Delivering projects across 8 countries.</h2>
                 <p class="section-header-desc">A look at the countries my work has reached.</p>
+                <div class="desktop-only about-link-pill" style="margin-top: 16px; width: fit-content; gap: 6px; pointer-events: none;">
+                    <i data-lucide="zoom-in" aria-hidden="true" style="width: 14px; height: 14px;"></i>
+                    Hover map for details
+                </div>
             </div>
         </div>
         <div class="clients-map-wrapper">
@@ -349,13 +337,12 @@
             <div class="about-right">
 <div class="about-philosophy">
                     <h3>How I Work</h3>
-                    <p>I am a digital communications and information design specialist who works at the intersection of technology, data analytics, and information design. I've helped institutions, including UN agencies and government ministries, translate complex, high-stakes work into clear communications that reach the people who need to act.</p>
+                    <p>I am a digital communications and information design specialist who works at the intersection of technology, data analytics, and information design. Outside of client work, I'm probably deep into a game, out on a run, or making something just because I felt like it (a few of those live on my <a href="notes.html" class="inline-link">notes</a> page). I learn by doing, and that curiosity drives my professional work too.</p>
                     <p>Good communication isn't just about making things look nice; it's about ensuring the right message lands with the right person. Sometimes that's a national report. Sometimes it's an interactive data story for a public audience that has never read a policy brief in their life. The work changes, but the core question stays the same: who needs to understand this, and what do they actually need to see?</p>
                     <p>Most people think being informed means keeping up with what's broken: the war, the crisis, the headline of the day. That's real, but it isn't the whole picture, and it rarely tells you how anything actually works. Understanding how a policy affects you, how a budget gets spent, or how a system is supposed to function takes a different kind of communication, one built to explain rather than alarm. That's the gap I work in.</p>
                     <p>Organisations frequently invest significant resources in thorough research and detailed analysis, yet they often stumble at the final step: communication. When this aspect is treated as an afterthought, the findings get misunderstood, ignored, or never reach the people meant to act on them. That's where I step in, turning finished analysis into something the <a href="projects/mood-of-the-nation/mood-of-the-nation.html" class="inline-link">intended audience will actually read and use</a>.</p>
                     <p>I've worked this way for the <a href="https://srilanka.un.org/en/about/about-the-resident-coordinator-office" target="_blank" rel="noopener" class="inline-link">UN Resident Coordinator's Office</a>, the <a href="https://npd.treasury.gov.lk/" target="_blank" rel="noopener" class="inline-link">Department of National Planning</a>, and <a href="https://www.veriteresearch.org/" target="_blank" rel="noopener" class="inline-link">Verité Research</a>, where communication had to hold up under real scrutiny, from ministers, from the public, from people who'd stop reading at the first confusing paragraph.</p>
                     <p>It started in 2021: a flyer I designed for United Nations Volunteers Sri Lanka ahead of the <a href="https://www.behance.net/gallery/138936917/Youth-Community-Leadership-Initiative-%28YCLI%29?platform=direct" target="_blank" rel="noopener" class="inline-link">Youth Community Leadership Initiative (YCLI)</a>'s launch during National Youth Week, before I'd have called any of this a career. There's a <a href="https://youtu.be/HPuG0y1gj1M?si=3bQMxQH6W_9GHpVw" target="_blank" rel="noopener" class="inline-link">short recap video</a> from that week, if you're curious where it all started.</p>
-                    <p>Outside of client work, I'm probably deep into a game, out on a run, or making something just because I felt like it. A few of those things live on my <a href="notes.html" class="inline-link">notes</a>, if you're curious.</p>
                 </div>
                 <button id="about-read-more-btn" class="btn-tertiary read-more-toggle" style="margin-bottom: 32px;">Read more <i data-lucide="chevron-down"></i></button>
 
@@ -761,33 +748,16 @@
                         <span class="testimonial-role">Supervisor, UN Resident Coordinator's Office · UN Volunteers Performance Assessment</span>
                     </div>
                 </div>
-                <!-- TODO: swap in a link to the actual project this review covers, e.g. testimonial-link with arrow-up-right icon -->
-            </article>
-
-            <article class="testimonial-card">
-                <div class="testimonial-top">
-                    <span class="testimonial-source">Instagram · Comment</span>
-                </div>
-                <blockquote class="testimonial-quote">
-                    <p>Great work! I've been trying to find proper articles like this capturing the true extent of the disaster, and this is the best I've found so far.</p>
-                </blockquote>
-                <div class="testimonial-footer">
-                    <span class="testimonial-avatar" aria-hidden="true">M</span>
-                    <div class="testimonial-who">
-                        <span class="testimonial-name">@mee_thama</span>
-                    </div>
-                </div>
-                <a href="https://consultchatura.medium.com/i-built-a-data-story-about-cyclone-ditwah-heres-every-decision-i-made-and-why-c9c19c89398f" target="_blank" rel="noopener" class="testimonial-link">
-                    Read the Cyclone Ditwah story <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+                <a href="https://srilanka.un.org/en/293540-un-sri-lanka-2024-annual-results-report" target="_blank" rel="noopener" class="testimonial-link">
+                    Read the UN Sri Lanka 2024 Annual Results <i data-lucide="arrow-up-right" aria-hidden="true"></i>
                 </a>
             </article>
-
             <article class="testimonial-card">
                 <div class="testimonial-top">
                     <span class="testimonial-source">Email</span>
                 </div>
                 <blockquote class="testimonial-quote">
-                    <p>I checked your work on Medium — "I Built a Data Story About Cyclone Ditwah." It's super impressive, great work.</p>
+                    <p>I checked your work on Medium - "I Built a Data Story About Cyclone Ditwah." It's super impressive, great work.</p>
                 </blockquote>
                 <div class="testimonial-footer">
                     <span class="testimonial-avatar" aria-hidden="true">MK</span>
@@ -801,28 +771,9 @@
                 </a>
             </article>
 
-            <article class="testimonial-card">
-                <div class="testimonial-top">
-                    <span class="testimonial-source">Instagram · Direct Message</span>
-                </div>
-                <blockquote class="testimonial-quote">
-                    <p>I'm reaching out to you after seeing your project, The Shadow War, on Reddit and your GitHub.</p>
-                </blockquote>
-                <div class="testimonial-footer">
-                    <span class="testimonial-avatar" aria-hidden="true">H</span>
-                    <div class="testimonial-who">
-                        <span class="testimonial-name">Haseena</span>
-                        <span class="testimonial-role">2nd-Year Software Engineering Student</span>
-                    </div>
-                </div>
-                <a href="https://chaturadissanayake.github.io/theshadowwar/" target="_blank" rel="noopener" class="testimonial-link">
-                    View The Shadow War <i data-lucide="arrow-up-right" aria-hidden="true"></i>
-                </a>
-            </article>
-
         </div>
 
-        <button id="testimonials-read-more-btn" class="btn-tertiary read-more-toggle">Show more <i data-lucide="chevron-down"></i></button>
+
     </div>
 </section>
 
@@ -857,7 +808,7 @@
                     </div>
                     <div class="form-group">
                         <label for="contact-message">Message</label>
-                        <textarea id="contact-message" name="message" rows="5" placeholder="What are you working on?" autocomplete="off" required aria-required="true"></textarea>
+                        <textarea id="contact-message" name="message" rows="4" placeholder="What are you working on?" autocomplete="off" required aria-required="true"></textarea>
                     </div>
                     <button type="submit" class="form-submit" id="form-submit-btn">
                         Send message <i data-lucide="send" aria-hidden="true"></i>
@@ -913,7 +864,7 @@
 
 </main>
 
-<dialog id="project-detail-modal" class="modal-overlay" aria-labelledby="pm-title">
+<div id="project-detail-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="pm-title">
     <div class="modal-panel">
         <div class="modal-scroll">
         <div class="modal-close-row">
@@ -958,7 +909,7 @@
         </div>
         </div>
     </div>
-</dialog>
+</div>
 
 <div id="lightbox-modal" class="lightbox-overlay" role="dialog" aria-modal="true" aria-label="Image viewer">
     <button type="button" class="lightbox-close" aria-label="Close lightbox"><i data-lucide="x" aria-hidden="true"></i></button>

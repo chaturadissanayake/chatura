@@ -283,9 +283,10 @@
 }
 
 .proof-label {
-    font-family: var(--mono);
-    font-size: 0.625rem;
-    letter-spacing: 0.08em;
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
     color: var(--ink-muted);
 }
@@ -1244,23 +1245,24 @@
 
 .testimonial-badge {
     flex-shrink: 0;
-    font-family: var(--mono);
-    font-size: 0.625rem;
+    font-family: var(--sans);
+    font-size: 0.6875rem;
     font-weight: 600;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
     color: var(--accent);
     background: transparent;
     border: 1px solid var(--accent-dim);
-    padding: 3px 9px;
+    padding: 4px 10px;
     border-radius: var(--radius-pill);
     white-space: nowrap;
 }
 
 .testimonial-source {
-    font-family: var(--mono);
-    font-size: 0.6875rem;
-    letter-spacing: 0.08em;
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
     color: var(--ink-muted);
 }
@@ -1275,14 +1277,14 @@
 
 .testimonial-quote::before {
     content: "\201C";
-    position: absolute;
-    top: -20px;
-    left: -6px;
+    display: block;
     font-family: var(--serif);
     font-size: 3.5rem;
-    line-height: 1;
+    line-height: 0.5; /* Squishes the invisible bounding box */
     color: var(--surface-3);
-    z-index: 0;
+    margin-top: 12px; 
+    margin-bottom: -4px; /* Pulls the text block up tightly */
+    margin-left: -4px;
     pointer-events: none;
 }
 
@@ -1356,24 +1358,10 @@
 @media (max-width: 640px) {
     .testimonial-card { padding: var(--space-5); }
     .testimonial-quote p { font-size: 1rem; }
-    .testimonial-quote::before { font-size: 3rem; top: -16px; }
+    .testimonial-quote::before { font-size: 3rem; margin-top: 8px; margin-bottom: -4px; }
     .testimonial-avatar { width: 36px; height: 36px; font-size: 0.75rem; }
 
-    /* UX: same fade-and-expand pattern as .exp-list - four full quote
-       cards stacked on a small screen is more scrolling and scanning
-       than a first-time visitor owes this section (Hick's Law: fewer
-       visible choices = faster decisions). Show one card fully, tease
-       the next, let people opt into the rest. */
-    .testimonials-grid {
-        position: relative;
-        overflow: hidden;
-        transition: max-height 0.4s ease, mask-image 0.4s ease, -webkit-mask-image 0.4s ease;
-    }
-    .testimonials-grid.is-collapsed-mobile {
-        max-height: 480px;
-        mask-image: linear-gradient(to bottom, black 55%, transparent 92%);
-        -webkit-mask-image: linear-gradient(to bottom, black 55%, transparent 92%);
-    }
+
 }
 
 .contact-section { padding: var(--space-24) 0; background: var(--white); }
@@ -1517,6 +1505,11 @@
     .insights-grid { grid-template-columns: 1fr; gap: var(--space-6); }
     .section-eyebrow { margin-bottom: var(--space-2); }
     .contact-form { padding: var(--space-5); }
+    .form-group input, .form-group textarea {
+        padding: 10px 14px;
+        border-radius: var(--radius);
+        font-size: 0.9375rem;
+    }
     .modal-close-row { padding: 16px 24px; }
     .modal-inner { padding: 24px 24px 0; }
     .modal-header h2 { font-size: 1.75rem; }

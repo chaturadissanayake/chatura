@@ -6,46 +6,6 @@
     font-display: swap;
 }
 
-@font-face {
-    font-family: 'IBM Plex Mono';
-    src: url('/assets/fonts/ibm-plex-mono-500.woff2') format('woff2');
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'IBM Plex Mono';
-    src: url('/assets/fonts/ibm-plex-mono-600.woff2') format('woff2');
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Inter';
-    src: url('/assets/fonts/inter-regular.woff2') format('woff2');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Inter';
-    src: url('/assets/fonts/inter-medium.woff2') format('woff2');
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'Inter';
-    src: url('/assets/fonts/inter-semibold.woff2') format('woff2');
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
-}
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 a, button, input, textarea, select, .card-interactive { -webkit-tap-highlight-color: transparent; }
@@ -67,8 +27,8 @@ a, button, input, textarea, select, .card-interactive { -webkit-tap-highlight-co
 
 
     --serif:   'Fraunces', Georgia, serif;
-    --sans:    'Inter', system-ui, sans-serif;
-    --mono:    'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    --sans:    'Satoshi', system-ui, sans-serif;
+    --mono:    'Satoshi', system-ui, sans-serif;
 
 
     --space-1:  0.25rem;
@@ -114,7 +74,6 @@ a, button, input, textarea, select, .card-interactive { -webkit-tap-highlight-co
 html { 
     font-size: 16px; 
     width: 100%; 
-    scrollbar-gutter: stable; 
 }
 
 * {
@@ -158,9 +117,6 @@ body {
 
 body.loading, body.modal-open { overflow: hidden; overscroll-behavior: none; }
 
-html:has(body.loading),
-html:has(body.modal-open) { overflow: hidden; }
-
 body.modal-open { touch-action: none; }
 
 img {
@@ -188,18 +144,6 @@ button { border: none; background: none; font-family: var(--sans); cursor: point
 }
 
 svg.lucide { width: 1em; height: 1em; vertical-align: -0.125em; flex-shrink: 0; }
-
-body.project-modal-open .main-header {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity var(--dur-fast) var(--ease-out), visibility 0s linear var(--dur-fast);
-}
-
-body.project-modal-open .main-header .desktop-nav,
-body.project-modal-open .main-header .nav-cta {
-    pointer-events: none;
-}
 
 body:not(.loading) .reveal-up { opacity: 1; transform: translateY(0); }
 
@@ -251,5 +195,27 @@ body.modal-open {
 }
 
 body.modal-open .main-header {
-    padding-right: var(--scroll-pad, 0px); /* Prevents the header from jumping */
+    padding-right: var(--scroll-pad, 0px) !important; /* Prevents the header from jumping */
+}
+
+/* 1. KEEP CAPS: Normalize tracking for tiny metadata (Crisp and architectural) */
+.proof-label, .card-cat, .card-date, .insight-meta, 
+.card-methodology, .card-tags span, .lab-pills span, .card-tag-btn, 
+.modal-eyebrow, .modal-tags span, .pm-tag, 
+.modal-methodology, .modal-section-num, 
+.testimonial-badge, .testimonial-source, .archive-mode-text, 
+.service-row-num, .service-row-tools span, .services-footer-bar p, 
+.insight-upcoming-label, .viz-counter, .timeline-period, 
+.hero-visual-tag, .project-breadcrumb, 
+.lang-text, .mobile-lang-text, .thread-back-btn, .thread-post-meta {
+    letter-spacing: 0.04em !important;
+    font-weight: 500;
+}
+
+/* 2. REMOVE CAPS: Soften conversational labels to normal case (Modern and readable) */
+.section-eyebrow, .form-group label, .modal-section-label h3, 
+.cap-block .cap-title, .footer-col .footer-title {
+    letter-spacing: 0.02em !important;
+    font-weight: 500;
+    text-transform: none !important;
 }

@@ -1,32 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const siteLoader = document.getElementById('site-loader');
-    const prefersReducedMotionLoader = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    let typingDone = false;
-    let pageReady = false;
-
-    const revealContent = () => {
-        if (!typingDone || !pageReady) return;
-        document.body.classList.remove('loading');
-        if (siteLoader) {
-            siteLoader.classList.add('is-hidden');
-            setTimeout(() => {
-                if (siteLoader.parentNode) siteLoader.parentNode.removeChild(siteLoader);
-            }, 500);
-        }
-    };
-
-    typingDone = true;
-
-    if (document.readyState === 'complete') {
-        pageReady = true;
-    } else {
-        window.addEventListener('load', () => { pageReady = true; revealContent(); });
-    }
-    
-    setTimeout(() => { pageReady = true; revealContent(); }, 12000);
-
-    if (typingDone && pageReady) revealContent();
+    // The global loading screen has been removed for instant rendering.
+    document.body.classList.remove('loading');
 
     SiteUtils.initIcons();
 
@@ -140,21 +114,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 ? 'View earlier roles <i data-lucide="chevron-down"></i>' 
                 : 'Show fewer roles <i data-lucide="chevron-up"></i>';
             if (window.lucide) lucide.createIcons({ root: expReadMoreBtn });
-        });
-    }
-
-    const testimonialsGrid = document.getElementById('testimonials-grid');
-    const testimonialsReadMoreBtn = document.getElementById('testimonials-read-more-btn');
-    if (testimonialsGrid && testimonialsReadMoreBtn) {
-        if (window.innerWidth <= 640) {
-            testimonialsGrid.classList.add('is-collapsed-mobile');
-        }
-        testimonialsReadMoreBtn.addEventListener('click', () => {
-            testimonialsGrid.classList.toggle('is-collapsed-mobile');
-            testimonialsReadMoreBtn.innerHTML = testimonialsGrid.classList.contains('is-collapsed-mobile')
-                ? 'Show more <i data-lucide="chevron-down"></i>'
-                : 'Show less <i data-lucide="chevron-up"></i>';
-            if (window.lucide) lucide.createIcons({ root: testimonialsReadMoreBtn });
         });
     }
 

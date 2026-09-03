@@ -61,15 +61,16 @@
 
 .nav-cta {
     display: inline-flex; align-items: center; justify-content: center;
-    font-size: 0.875rem; font-weight: 500; letter-spacing: 0.01em;
+    font-family: var(--sans); font-size: 0.8125rem; font-weight: 500;
+    line-height: 1; letter-spacing: 0.01em;
     color: var(--white); background: var(--ink);
-    padding: 10px var(--space-6); border-radius: var(--radius-pill);
+    padding: 12px var(--space-6); border-radius: var(--radius-pill);
     border: 1.5px solid var(--ink);
     box-shadow: none;
     transition: all var(--dur-med) var(--ease-out);
     white-space: nowrap;
     box-sizing: border-box;
-    line-height: 1.2;
+    gap: 8px;
 }
 
 .main-header--home:not(.scrolled) .nav-cta {
@@ -91,7 +92,7 @@
 }
 
 .nav-cta svg.lucide {
-    stroke-width: 2; transform: none; margin-left: 6px;
+    width: 15px !important; height: 15px !important; margin-left: 0 !important; stroke-width: 1.75; transform: none;
 }
 
 .nav-cta-ghost {
@@ -163,17 +164,6 @@
 .hamburger-btn.is-active span:nth-child(2) { transform: translateY(-4px) rotate(-45deg); }
 
 .hamburger-btn.is-active span { background: var(--white); }
-
-.main-header.is-behind-modal .brand-wordmark,
-body.modal-open .main-header .brand-wordmark {
-    color: var(--white) !important;
-}
-
-body.modal-open .main-header {
-    background: transparent;
-    backdrop-filter: none;
-    box-shadow: none;
-}
 
 .mobile-menu {
     position: fixed; inset: 0; background: var(--ink); z-index: 999;
@@ -734,4 +724,30 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 16px); }
     .scroll-progress-bar {
         display: none !important;
     }
+}
+
+/* ----- OVERRIDE TO KEEP HEADER VISIBLE BEHIND PROJECT MODAL ----- */
+body.project-modal-open .main-header {
+    opacity: 1 !important;
+    visibility: visible !important;
+    background: rgba(244,247,249,0.93) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    box-shadow: 0 1px 0 rgba(23,19,15,0.07) !important;
+}
+
+body.project-modal-open .main-header .brand-wordmark {
+    color: var(--ink) !important;
+}
+
+/* ----- KEEP HEADER READABLE ABOVE THE DARK MOBILE MENU (no light bar) ----- */
+body.modal-open:not(.project-modal-open) .main-header {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+}
+
+body.modal-open:not(.project-modal-open) .main-header .brand-wordmark {
+    color: var(--white) !important;
 }

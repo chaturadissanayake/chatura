@@ -11,7 +11,7 @@
 }
 
 .section-eyebrow {
-    font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.14em;
+    font-family: var(--sans); font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.05em;
     text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-3);
 }
 
@@ -977,44 +977,45 @@
 .modal-overlay {
     position: fixed; inset: 0; margin: 0; padding: 0; border: none;
     width: 100%; height: 100%; max-width: none; max-height: none;
-    background: transparent; z-index: 9999; overflow: hidden;
-    display: none; align-items: center; justify-content: flex-end;
+    z-index: 9999; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    padding: 6vh 5vw; /* Creates dynamic, guaranteed breathing room on all screen sizes */
+    visibility: hidden;
+    transition: visibility var(--dur-med);
 }
 
-.modal-overlay[open] {
-    display: flex;
-}
-
-/* Backdrop and panel animate off a JS-controlled .is-open class rather than
-   the native [open] attribute. [open] flips display none->flex in the same
-   frame showModal() runs, so a transition keyed off [open] never has a
-   "before" state to animate from - it just snaps in. Keying off .is-open
-   (added a frame later by modals.js) gives the browser a real starting
-   frame to transition from, and the same class drives a symmetric close. */
-.modal-overlay::backdrop {
-    background: rgba(10, 15, 23, 0);
-    /* Blur is applied instantly (not transitioned) below - animating blur
-       radius forces the browser to recompute the blur on every frame, which
-       is one of the heaviest things you can transition and is the main
-       cause of stutter on mobile while the panel is also trying to slide
-       in. Only the cheap part (background opacity) animates. */
-    transition: background var(--dur-med) var(--ease-out);
-}
-
-.modal-overlay.is-open::backdrop {
+/* We move the heavy blur to a separate sibling layer to stop the GPU crash */
+.modal-overlay::before {
+    content: '';
+    position: absolute; inset: 0;
     background: rgba(10, 15, 23, 0.4);
     backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px); /* iOS Safari silently ignores the unprefixed property */
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 0;
+    z-index: -1;
+    transition: opacity var(--dur-med) var(--ease-out);
+}
+
+.modal-overlay.is-open {
+    visibility: visible;
+    padding-right: var(--scroll-pad, 0px);
+}
+
+.modal-overlay.is-open::before {
+    opacity: 1;
 }
 
 .modal-panel {
-    background: var(--white); width: 100%; max-width: 600px; height: 100%; height: 100dvh;
-    overflow: hidden; /* UX fix: was overflow-y:auto directly on this rounded element, so the native scrollbar track wasn't clipped to the rounded corners and showed as a stray square notch top/bottom-right. Scrolling now happens one level down on .modal-scroll, which this element clips cleanly. */
-    position: relative; transform: translateX(100%);
-    transition: transform var(--dur-med) var(--ease-out); box-shadow: -8px 0 32px rgba(0,0,0,0.08);
-    display: flex; flex-direction: column;
-    will-change: transform; /* promotes the panel to its own compositor layer so the slide animates smoothly instead of repainting with the rest of the page */
-}
+        background: var(--white); width: 100%; max-width: 960px !important; height: auto; max-height: 85vh !important;
+        border-radius: 16px;
+        overflow: hidden; 
+        position: relative; 
+        transform: scale(0.96) translateY(16px); 
+        opacity: 0;
+        transition: transform var(--dur-med) var(--ease-out), opacity var(--dur-med) var(--ease-out); 
+        box-shadow: 0 24px 64px rgba(0,0,0,0.12);
+        display: flex; flex-direction: column;
+    }
 
 .modal-scroll {
     flex: 1;
@@ -1037,26 +1038,16 @@
     outline: none;
 }
 
-@media (min-width: 641px) {
-    /* UX: Was a flush, hard-cornered full-height slab pinned to the edge -
-       reads as a bolted-on drawer rather than a floating panel. Inset it
-       from all three open edges and round the corners so it presents as a
-       deliberate surface over the page, consistent with the rest of the
-       site's rounded-card language (--radius-xl is used throughout). */
-    .modal-panel {
-        max-width: 560px;
-        height: calc(100dvh - 32px);
-        margin: 16px 16px 16px 0;
-        border-radius: var(--radius-xl);
-        box-shadow: var(--shadow-xl);
-    }
+
+
+.modal-overlay.is-open .modal-panel { 
+    transform: scale(1) translateY(0); 
+    opacity: 1; 
 }
 
-.modal-overlay.is-open .modal-panel { transform: translateX(0); }
-
 @media (prefers-reduced-motion: reduce) {
-    .modal-overlay::backdrop,
-    .modal-overlay.is-open::backdrop,
+    .modal-overlay,
+    .modal-overlay.is-open,
     .modal-panel,
     .modal-overlay.is-open .modal-panel {
         transition: none;
@@ -1071,7 +1062,6 @@
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--surface-3);
-    will-change: transform; /* sticky + a live backdrop-filter recomputes on every scroll frame as content passes underneath it - this keeps it on its own composited layer instead, which was the stutter source when scrolling inside the opened project card overlay */
 }
 
 .modal-eyebrow {
@@ -1128,24 +1118,26 @@
 }
 
 @media (max-width: 640px) {
-    /* UX: Project modal reads as a full-viewport takeover on mobile - convert
-       side-panel-on-desktop into a proper bottom sheet with backdrop peeking
-       through at the top, matching the native iOS/Android sheet convention
-       so it feels like a layer on the page rather than a whole new screen. */
+    /* Mobile: Slide-up bottom sheet */
     .modal-overlay {
+        padding: 0;
         align-items: flex-end;
     }
 
     .modal-panel {
-        max-width: none;
-        height: auto;
-        max-height: 88dvh;
-        border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+        max-width: 100% !important;
+        height: 90dvh !important;
+        max-height: none !important;
+        border-radius: 24px 24px 0 0;
         transform: translateY(100%);
-        box-shadow: 0 -8px 32px rgba(0,0,0,0.14);
+        opacity: 1; 
+        transition: transform var(--dur-med) var(--ease-out);
     }
 
-    .modal-overlay.is-open .modal-panel { transform: translateY(0); }
+    .modal-overlay.is-open .modal-panel {
+        transform: translateY(0);
+        opacity: 1;
+    }
 
     .modal-panel::before {
         content: '';
@@ -1193,12 +1185,21 @@
 
 .modal-section-label { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-2); }
 
-.modal-section-num { font-family: var(--mono); font-size: 0.625rem; color: var(--accent); letter-spacing: 0.1em; }
+.modal-section-num { 
+    font-family: var(--mono); 
+    font-size: 0.6875rem; 
+    font-weight: 600; 
+    letter-spacing: 0.12em; 
+    color: var(--ink); 
+}
 
 .modal-section-label h3 {
     font-family: var(--mono);
-    font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--ink);
+    font-size: 0.6875rem; 
+    font-weight: 600; 
+    letter-spacing: 0.12em;
+    text-transform: uppercase; 
+    color: var(--ink);
 }
 
 .modal-section p { font-size: 1rem; color: var(--ink-soft); line-height: 1.65; }
@@ -1643,6 +1644,12 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+@media (hover: none) {
+    .map-tooltip {
+        display: none !important;
+    }
+}
+
 .map-tooltip::after {
     content: '';
     position: absolute;
@@ -1657,4 +1664,62 @@
 .map-tooltip.is-visible {
     opacity: 1;
     transform: translate(-50%, calc(-100% - 14px));
+}
+
+/* ----- MOBILE FOOTER FLUSH FIX ----- */
+/* Collapse the Next Project section if it hasn't loaded */
+.next-project-section:empty {
+    display: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+}
+
+@media (max-width: 1024px) {
+    /* Take the mobile floating button out of the document flow so it stops creating a white gap below the image */
+    #mobileFloatBtn {
+        position: absolute !important;
+        bottom: var(--space-4);
+        left: 0;
+        width: 100%;
+        pointer-events: none; /* Lets clicks pass through the invisible wrapper */
+    }
+    
+    #mobileFloatBtn button {
+        pointer-events: auto; /* Keeps the actual button clickable */
+    }
+}
+
+/* ----- MOBILE FOOTER FLUSH FIX ----- */
+/* Completely collapse the Next Project section if it hasn't loaded */
+.next-project-section:empty {
+    display: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+}
+
+@media (max-width: 640px) {
+    /* Fix the mobile overlap by neutralizing the negative margin ONLY on mobile */
+    .next-image-single {
+        margin-bottom: 0 !important;
+    }
+
+    /* Strip bottom padding from main wrappers so content hits the footer */
+    main, .site-wrapper {
+        padding-bottom: 0 !important;
+        margin-bottom: 0 !important;
+    }
+    
+    /* Zero out grid spacing at the bottom */
+    .layout-grid, .media-grid {
+        padding-bottom: 0 !important;
+        margin-bottom: 0 !important;
+    }
+    
+    /* Remove bottom gap from the very last image in the grid */
+    .media-grid .media-item:last-child {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
 }

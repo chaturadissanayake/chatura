@@ -69,78 +69,98 @@ document.addEventListener('DOMContentLoaded', () => {
         const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
         document.body.style.setProperty('--scroll-pad', `${scrollbarWidth}px`);
 
-        projectModal.showModal();
+        // Pure CSS toggle (no showModal API)
+        projectModal.classList.add('is-open');
         document.body.classList.add('modal-open');
         document.body.classList.add('project-modal-open');
 
         const panel = projectModal.querySelector('.modal-panel');
         if (panel) panel.scrollTop = 0;
-
-        // Let the browser paint one frame with the panel still off-screen
-        // (display just switched to flex via [open], but .is-open isn't on
-        // yet) before triggering the slide-in transition. Two rAFs is the
-        // safe margin some browsers need to guarantee that paint happens.
-        requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-                projectModal.classList.add('is-open');
-                closeProjectBtn?.focus({ preventScroll: true });
-            });
-        });
+        
+        setTimeout(() => {
+            closeProjectBtn?.focus({ preventScroll: true });
+        }, 50);
     };
 
     const closeModal = () => {
-        if (!projectModal?.open) return;
-        if (!projectModal.classList.contains('is-open')) {
-            // Already mid-close or never finished opening; just bail out cleanly.
-            projectModal.close();
-            return;
-        }
-
-        const panel = projectModal.querySelector('.modal-panel');
-        let finished = false;
-        const finishClose = () => {
-            if (finished) return;
-            finished = true;
-            if (projectModal.open) projectModal.close();
-        };
+        if (!projectModal.classList.contains('is-open')) return;
 
         projectModal.classList.remove('is-open');
-        if (panel) {
-            panel.addEventListener('transitionend', finishClose, { once: true });
-            // Fallback in case transitionend doesn't fire (e.g. reduced motion,
-            // or the panel was hidden mid-transition).
-            setTimeout(finishClose, 400);
-        } else {
-            finishClose();
-        }
-    };
-
-    closeProjectBtn?.addEventListener('click', closeModal);
-    document.getElementById('pm-close-secondary')?.addEventListener('click', closeModal);
-    projectModal?.addEventListener('mousedown', e => {
-        if (e.target === projectModal) closeModal();
-    });
-    projectModal?.addEventListener('cancel', e => {
-        // Escape key fires 'cancel' and would otherwise close the dialog
-        // instantly, skipping the slide-out entirely.
-        e.preventDefault();
-        closeModal();
-    });
-    document.querySelector('.modal-panel')?.addEventListener('mousedown', e => {
-        e.stopPropagation();
-    });
-    projectModal?.addEventListener('close', () => {
         document.body.classList.remove('modal-open');
         document.body.classList.remove('project-modal-open');
+
         if (window.location.hash === '#project-details') {
             history.pushState(null, '', window.location.pathname + window.location.search);
         }
         if (lastFocusedElement) lastFocusedElement.focus();
+    };
+
+    closeProjectBtn?.addEventListener('click', closeModal);
+    document.getElementById('pm-close-secondary')?.addEventListener('click', closeModal);
+    
+    projectModal?.addEventListener('mousedown', e => {
+        if (e.target === projectModal) closeModal();
+    });
+    
+    document.querySelector('.modal-panel')?.addEventListener('mousedown', e => {
+        e.stopPropagation();
     });
 
     window.addEventListener('hashchange', () => {
-        if (window.location.hash !== '#project-details' && projectModal?.open) {
+        if (window.location.hash !== '#project-details' && projectModal.classList.contains('is-open')) {
             closeModal();
+        }
+    });
+    
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && projectModal.classList.contains('is-open')) {
+            closeModal();
+        }
+    });
+
+    // --- Mobile Swipe-to-Close Physics ---
+    let startY = 0;
+    let currentY = 0;
+    let isDragging = false;
+    const swipePanel = projectModal?.querySelector('.modal-panel');
+
+    swipePanel?.addEventListener('touchstart', (e) => {
+        const scrollArea = swipePanel.querySelector('.modal-scroll');
+        // Only allow pulling down if we are at the very top of the content
+        if (scrollArea && scrollArea.scrollTop > 0) return;
+        
+        startY = e.touches[0].clientY;
+        isDragging = true;
+        swipePanel.style.transition = 'none'; // Disable CSS animation so it tracks finger perfectly 1:1
+    }, { passive: true });
+
+    swipePanel?.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        currentY = e.touches[0].clientY;
+        const dragDistance = currentY - startY;
+        
+        // Only allow the panel to be pulled downwards
+        if (dragDistance > 0) {
+            swipePanel.style.transform = `translateY(${dragDistance}px)`;
+        }
+    }, { passive: true });
+
+    swipePanel?.addEventListener('touchend', () => {
+        if (!isDragging) return;
+        isDragging = false;
+        swipePanel.style.transition = ''; // Restore smooth CSS animations
+        
+        const dragDistance = currentY - startY;
+        
+        // If pulled down more than 120px, snap it closed
+        if (dragDistance > 120) {
+            closeModal();
+            setTimeout(() => {
+                swipePanel.style.transform = ''; 
+            }, 400); // Clear the inline transform after it finishes closing
+        } else {
+            // Otherwise, it wasn't pulled far enough, so snap it back up
+            swipePanel.style.transform = ''; 
         }
     });
 

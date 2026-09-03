@@ -149,7 +149,7 @@
     "date": "2021-2022",
     "sortDate": "2022-01-01",
     "priority": 8,
-    "archive": false
+    "archive": true
   },
   {
     "id": "ceylon-harvest",
@@ -263,6 +263,6 @@
     "date": "Active Development",
     "sortDate": "2026-12-29",
     "priority": 14,
-    "archive": false
+    "archive": true
   }
 ]
