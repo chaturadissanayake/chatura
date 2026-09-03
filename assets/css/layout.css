@@ -642,7 +642,7 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 16px); }
     .cookie-banner {
         bottom: var(--space-4);
         left: var(--space-4);
-        right: var(--space-4);
+        right: calc(var(--space-4) + 60px);
         max-width: none;
     }
 }
