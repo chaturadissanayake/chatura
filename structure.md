@@ -1,8 +1,8 @@
-# Site structure – chaturadissanayake.vercel.app
+# Site structure – chaturadissanayake.com
 
 This reflects what is actually deployed today. The old version of this file was out of date: it pointed at a `chaturadissanayake.github.io` host, a single global `style.css`/`app.js`, and an `index.html`-per-project convention – none of which match the live site. (That mismatch is what caused `sitemap.xml` to point at `/projects/<slug>/index.html` URLs that don't exist.)
 
-chaturadissanayake.vercel.app/
+chaturadissanayake.com/
   index.html                  Homepage
   notes.html                  "Off Duty" personal page – noindex, linked
                                   from index.html's About section only

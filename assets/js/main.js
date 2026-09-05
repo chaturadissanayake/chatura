@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     console.log('%cChatura Dissanayake', 'font-size:22px;font-weight:bold;color:#111;');
-    console.log('%cThis site design and code are original work by Chatura Dissanayake (chaturadissanayake.vercel.app). Copying or reusing this template without permission is not permitted.', 'font-size:13px;color:#555;');
+    console.log('%cThis site design and code are original work by Chatura Dissanayake (chaturadissanayake.com). Copying or reusing this template without permission is not permitted.', 'font-size:13px;color:#555;');
 
     document.addEventListener('contextmenu', e => {
         if (e.target.closest('img')) e.preventDefault();
