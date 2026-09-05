@@ -6,13 +6,10 @@
 
 .hero-section {
     background: var(--surface);
-    padding-top: calc(var(--nav-h) + var(--space-16));
-    padding-bottom: var(--space-12);
+    padding-top: calc(var(--nav-h) + var(--space-12));
+    padding-bottom: var(--space-16);
     position: relative;
     overflow: hidden;
-    min-height: 72vh;
-    display: flex;
-    align-items: center;
 }
 
 .hero-label {
@@ -276,7 +273,7 @@
 
 .proof-num {
     font-family: var(--serif);
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     color: var(--ink);
     line-height: 1;
     font-variant-numeric: tabular-nums;
