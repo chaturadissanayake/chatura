@@ -17,10 +17,10 @@
 
 .hero-label {
     font-family: var(--sans);
-    font-size: 0.6875rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: none;
     color: var(--accent);
     margin: 0 0 var(--space-6) 0;
     display: block;
