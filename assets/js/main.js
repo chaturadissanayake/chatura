@@ -1,7 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // The global loading screen has been removed for instant rendering.
-    document.body.classList.remove('loading');
-
     SiteUtils.initIcons();
 
     document.querySelectorAll('.tag[data-tag-filter]').forEach(tagEl => {
