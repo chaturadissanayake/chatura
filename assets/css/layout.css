@@ -610,6 +610,23 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 16px); }
     .btn-wrapper-mobile {
         display: none !important;
     }
+
+    /* UX: this used to live inline in .controls-row and scrolled away
+       with the page - once you passed the top of a long case study
+       there was no way back to it. Pinning it as a floating pill
+       mirrors the mobile pattern so it's reachable everywhere. */
+    .controls-row .btn-wrapper {
+        position: fixed;
+        bottom: var(--space-8, 32px);
+        left: 50%;
+        transform: translate(-50%, 0);
+        z-index: 120;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .controls-row .btn-wrapper .about-btn {
+        box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
 }
 
 .cookie-banner {
