@@ -24,6 +24,7 @@ a, button, input, textarea, select, .card-interactive { -webkit-tap-highlight-co
     --accent:      #2f5fa8;
     --accent-warm: #5b8fd6;
     --accent-dim:  rgba(47, 95, 168, 0.07);
+    --accent-2:    #b5502f;
 
 
     --serif:   'Fraunces', Georgia, serif;

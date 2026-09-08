@@ -7,7 +7,7 @@
 .hero-section {
     background: var(--surface);
     padding-top: calc(var(--nav-h) + var(--space-12));
-    padding-bottom: var(--space-16);
+    padding-bottom: var(--space-8);
     position: relative;
     overflow: hidden;
 }
@@ -99,7 +99,7 @@
     width: 100%;
     aspect-ratio: 1800 / 844;
     overflow: hidden;
-    border-radius: var(--radius-lg);
+    border-radius: 0;
 }
 
 .hero-visual-media {
@@ -110,16 +110,21 @@
 }
 
 .hero-visual-caption {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
+    display: inline-block;
+    white-space: nowrap;
     margin-top: var(--space-3);
     font-family: var(--sans);
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
     font-weight: 500;
     letter-spacing: 0.01em;
     color: var(--ink-muted);
     transition: color var(--dur-fast);
+}
+
+.hero-visual-caption svg.lucide {
+    display: inline-block;
+    vertical-align: -2px;
+    margin-left: 2px;
 }
 
 .hero-visual-caption:hover { color: var(--accent); }
@@ -334,11 +339,11 @@
     }
 }
 
-.projects-section { padding: var(--space-16) 0 var(--space-24); background: var(--surface); position: relative; }
+.projects-section { padding: var(--space-8) 0 var(--space-24); background: var(--surface); position: relative; }
 
 /* Reserve extra clearance so the floating "View all work" button never
    sits flush against (or overlaps) the last row of project cards. */
-.projects-section { padding-bottom: calc(var(--space-24) + 32px); }
+.projects-section { padding-bottom: calc(var(--space-16) + 32px); }
 
 @media (max-width: 1023px) {
     .projects-section {
@@ -544,7 +549,8 @@
 }
 
 .clients-map-section {
-    padding: var(--space-20) 0;
+    padding-top: var(--space-20);
+    padding-bottom: var(--space-10);
     background: var(--surface);
 }
 
@@ -1120,9 +1126,9 @@
 
 .cap-block .cap-title {
     font-family: var(--mono);
-    font-size: 0.6875rem;
+    font-size: 0.8125rem;
     font-weight: 500;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--ink);
     margin-bottom: var(--space-3);
@@ -1331,7 +1337,7 @@
 .testimonial-link {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 5px;
     min-height: 40px; /* UX: Fitts's Law tap target even though it isn't a filled pill */
     margin-top: var(--space-4);
     padding-top: var(--space-4);
@@ -1341,10 +1347,10 @@
     font-weight: 500;
     color: var(--accent);
     text-decoration: none;
-    transition: color var(--dur-fast) var(--ease-out), gap var(--dur-fast) var(--ease-out);
+    transition: color var(--dur-fast) var(--ease-out);
 }
 
-.testimonial-link:hover { color: var(--ink); gap: 7px; }
+.testimonial-link:hover { color: var(--ink); }
 
 .testimonial-link svg.lucide { width: 13px; height: 13px; }
 
@@ -1403,7 +1409,7 @@
 }
 
 .availability-note strong {
-    color: #E05C00;
+    color: var(--accent-2);
     font-weight: 700;
 }
 
@@ -1548,7 +1554,7 @@
 }
 
 .about-experience {
-    margin-bottom: var(--space-10);
+    margin-bottom: var(--space-6);
     border-top: 1px solid var(--surface-3);
     padding-top: var(--space-8);
 }
@@ -1604,11 +1610,25 @@
     padding-top: 2px; flex-shrink: 0;
 }
 
+.about-right {
+    display: flex;
+    flex-direction: column;
+}
+
 .exp-archive-note {
     font-size: 0.8125rem;
     line-height: 1.6;
     color: var(--ink-muted);
-    margin-top: var(--space-4);
+    margin-top: 0;
+    margin-bottom: var(--space-6);
+}
+
+@media (max-width: 640px) {
+    .exp-archive-note {
+        order: 1;
+        margin-top: var(--space-6);
+        margin-bottom: 0;
+    }
 }
 
 .exp-detail { display: flex; flex-direction: column; gap: 2px; }
@@ -1884,12 +1904,11 @@
     text-decoration-color: var(--surface-3);
     text-decoration-thickness: 2px;
     text-underline-offset: 5px;
-    transition: text-decoration-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+    transition: text-decoration-color var(--dur-fast) var(--ease-out);
 }
 
 .hero-word-link:hover,
 .hero-word-link:focus-visible {
-    color: var(--accent);
     text-decoration-color: var(--accent);
 }
 
