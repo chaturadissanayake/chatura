@@ -65,7 +65,7 @@
     font-family: var(--sans); font-size: 0.8125rem; font-weight: 500;
     line-height: 1; letter-spacing: 0.01em;
     color: var(--white); background: var(--ink);
-    padding: 12px var(--space-6); border-radius: var(--radius-pill);
+    padding: 10px 20px; border-radius: var(--radius-pill);
     border: 1.5px solid var(--ink);
     box-shadow: none;
     transition: all var(--dur-med) var(--ease-out);
@@ -130,7 +130,7 @@
 .mobile-lang-text {
     font-family: var(--mono); font-size: 0.75rem; font-weight: 500;
     letter-spacing: 0.08em; text-transform: uppercase;
-    color: rgba(255,255,255,0.4);
+    color: rgba(255,255,255,0.55);
     display: inline-flex; align-items: center; justify-content: center;
     min-width: 44px; min-height: 44px; /* UX: Fitts's Law - was 4px/2px padding, well under tap target minimum */
     transition: color var(--dur-fast);
@@ -189,7 +189,7 @@
 
 .mobile-nav-links { 
     display: flex; flex-direction: column; align-items: flex-start; margin-top: var(--space-8); flex: 1; width: 100%;
-    justify-content: center; gap: var(--space-3);
+    justify-content: flex-start; gap: var(--space-3);
 }
 
 .mobile-link {
@@ -199,6 +199,7 @@
     display: flex; align-items: center; min-height: 44px; 
     line-height: 1.1; width: 100%;
     opacity: 0; transform: translateY(18px);
+    will-change: transform, opacity;
     transition: color var(--dur-fast), transform var(--dur-fast), opacity 380ms ease;
 }
 
@@ -221,6 +222,7 @@
     border-bottom: none; margin-top: var(--space-4);
     display: inline-flex; align-items: center; justify-content: flex-start;
     opacity: 0; transform: translateY(18px);
+    will-change: transform, opacity;
     transition: color var(--dur-fast), opacity 380ms ease, transform 380ms ease;
     transition-delay: 370ms;
 }
@@ -243,10 +245,21 @@
 }
 
 .mobile-menu-footer a {
+    position: relative;
     display: inline-block;
     font-family: var(--sans); font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.1em;
-    text-transform: uppercase; color: rgba(255,255,255,0.4);
+    text-transform: uppercase; color: rgba(255,255,255,0.55);
     transition: color var(--dur-fast);
+}
+
+.mobile-menu-footer a::before {
+    /* UX: Fitts's Law tap target, sized to 44px without affecting the row's
+       visible layout height like a min-height on the anchor itself would. */
+    content: '';
+    position: absolute;
+    top: 50%; left: 0; right: 0;
+    height: 44px;
+    transform: translateY(-50%);
 }
 
 .mobile-menu-footer a:hover { color: var(--white); }

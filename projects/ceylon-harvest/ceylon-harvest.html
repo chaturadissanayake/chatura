@@ -52,12 +52,7 @@
     .media-item img.img-loaded {
         opacity: 1;
     }
-    @media (hover: hover) {
-        .media-item img:hover {
-            transform: scale(1.02);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-        }
-    }
+    /* Removed image scale on hover for a cleaner, flatter editorial reading experience */
     .media-caption {
         font-family: var(--sans);
         font-size: 0.8125rem;
@@ -290,7 +285,6 @@
         transition: transform 0.3s ease, background-color 0.3s ease;
     }
     .media-placeholder:hover {
-        transform: scale(1.02);
         background-color: var(--surface-3);
     }
     .media-placeholder .ph-title {
@@ -383,16 +377,23 @@
         position: absolute;
         top: 24px;
         right: 32px;
-        color: #ffffff;
-        font-size: 40px;
-        font-family: sans-serif;
+        color: rgba(255, 255, 255, 0.7);
+        background: transparent;
+        border: none;
         cursor: pointer;
-        line-height: 1;
-        transition: transform 0.2s ease, opacity 0.2s ease;
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.2s ease, transform 0.2s ease;
     }
     #lightbox-close:hover {
-        opacity: 1;
-        transform: scale(1.2) rotate(90deg);
+        color: #ffffff;
+        transform: scale(1.1) rotate(90deg);
+    }
+    #lightbox-close svg {
+        width: 32px;
+        height: 32px;
     }
     #lightbox-close:focus-visible {
         outline: 2px solid #ffffff;
@@ -403,46 +404,7 @@
         outline: 2px solid var(--accent);
         outline-offset: 4px;
     }
-    .nav-link {
-        transition: color 0.2s ease, transform 0.2s ease;
-    }
-    .nav-link:hover {
-        color: var(--accent);
-        transform: translateY(-1px);
-    }
-    .footer-col a {
-        transition: color 0.2s ease, transform 0.2s ease;
-        display: inline-block;
-    }
-    .footer-col a:hover {
-        color: var(--accent);
-        transform: translateX(4px);
-    }
-    .floating-btt {
-        transition: transform 0.2s ease, opacity 0.2s ease, background-color 0.2s ease;
-    }
-    .floating-btt:hover {
-        transform: translateY(-4px) scale(1.05);
-        background-color: var(--accent);
-    }
-    .lang-text, .mobile-lang-text {
-        transition: color 0.2s ease, transform 0.2s ease;
-        position: relative;
-    }
-    .lang-text::after, .mobile-lang-text::after {
-        content: '';
-        position: absolute;
-        top: -12px;
-        right: -12px;
-        bottom: -12px;
-        left: -12px;
-    }
-    @media (hover: hover) {
-        .lang-text:hover, .mobile-lang-text:hover {
-            transform: translateY(-1px);
-            color: var(--accent);
-        }
-    }
+    /* Cleaned up rogue inline hover translations; elements now defer to global CSS logic */
 </style>
 <script type="module">
     import replaceElement from "/assets/icons/replaceElement.js";
@@ -754,7 +716,7 @@ document.addEventListener("DOMContentLoaded", function() {
     lightbox.setAttribute("role", "dialog");
     lightbox.setAttribute("aria-modal", "true");
     lightbox.setAttribute("aria-label", "Image viewer");
-    lightbox.innerHTML = "<span id='lightbox-close' role='button' tabindex='0' aria-label='Close'>&times;</span><img id='lightbox-img' src='' alt=''>";
+    lightbox.innerHTML = "<button id='lightbox-close' aria-label='Close'><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M18 6 6 18'/><path d='m6 6 12 12'/></svg></button><img id='lightbox-img' src='' alt=''>";
     document.body.appendChild(lightbox);
 
     var lbImg = document.getElementById("lightbox-img");

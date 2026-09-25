@@ -580,8 +580,20 @@
     display: block;
 }
 
+.clients-divider-label {
+    font-family: var(--serif);
+    font-size: clamp(1rem, 1.6vw, 1.125rem);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    color: var(--ink-muted);
+    text-align: center;
+    margin: 0 0 var(--space-6);
+}
+
 .clients-roller-section {
-    padding: var(--space-12) 0;
+    padding: var(--space-12) var(--space-8);
+    max-width: var(--max-w);
+    margin: 0 auto;
     border-top: 1px solid var(--surface-3);
     border-bottom: 1px solid var(--surface-3);
     background: var(--surface);
@@ -1671,9 +1683,9 @@
         transition: max-height 0.4s ease, mask-image 0.4s ease, -webkit-mask-image 0.4s ease;
     }
     .exp-list.is-collapsed-mobile {
-        max-height: 360px; /* UX: Scaled up to accommodate the new list length without clipping text */
-        mask-image: linear-gradient(to bottom, black 65%, transparent 95%);
-        -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent 95%);
+        max-height: 240px; /* UX: Scaled specifically to show only the top 3 items on mobile */
+        mask-image: linear-gradient(to bottom, black 50%, transparent 95%);
+        -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 95%);
     }
     .exp-item {
         display: flex;
@@ -1719,12 +1731,12 @@
     background: var(--surface, #ffffff);
     border: 1px solid var(--surface-3, #e5e5e5);
     border-radius: var(--radius-pill);
-    padding: 5px 12px 5px 14px;
+    padding: 3px 10px 3px 12px;
     min-height: unset;
     min-width: unset;
     font-family: var(--sans);
     font-size: 0.8125rem;
-    font-weight: 400;
+    font-weight: 500;
     color: var(--ink-soft, #555);
     cursor: pointer;
     transition: background var(--dur-fast, 0.2s), border-color var(--dur-fast, 0.2s);
@@ -1747,9 +1759,9 @@
 }
 
 .about-btn .toggle-icon {
-    font-size: 1.25rem;
+    font-size: 1rem;
     line-height: 1;
-    font-weight: 300;
+    font-weight: 400;
     display: inline-block;
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -1902,4 +1914,39 @@
     padding: 4px 10px;
     border-radius: var(--radius-pill);
     margin-bottom: var(--space-3);
+}
+
+/* Ensure Next Project image sits perfectly flush with the footer on mobile */
+@media (max-width: 768px) {
+    /* Target the section, its inner containers, and the hyperlink wrapper */
+    .next-project-section,
+    .next-project-section .container,
+    .next-project-section .container-narrow,
+    .next-project-single-wrapper {
+        padding-bottom: 0 !important;
+        margin-bottom: 0 !important;
+    }
+    
+    /* Target the image wrapper */
+    .next-image-single {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+        border-bottom-left-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+    }
+    
+    /* Target the physical image */
+    .next-image-single img {
+        display: block !important;
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+        border-bottom-left-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+    }
+
+    /* Target the main wrapper (removes global mobile scroll padding specifically for project pages) */
+    main:has(.next-project-section) {
+        padding-bottom: 0 !important;
+        margin-bottom: 0 !important;
+    }
 }

@@ -103,9 +103,6 @@
 </div>
 <main id="main-content" tabindex="-1" class="thread-main">
     <section class="thread-hero">
-        <a href="/index.html#hero" class="thread-back-btn">
-            <i data-lucide="arrow-left"></i> Back to site
-        </a>
         <h1 class="thread-hero-title">Notes</h1>
         <p class="thread-hero-desc">The stuff that doesn't fit anywhere else on this site: what I'm playing, half-finished drawings, songs on loop, and the slow build of a game I'm making in my spare time. Less portfolio, more open tab.</p>
         <!-- Filter Menu -->
@@ -289,7 +286,7 @@ document.addEventListener("DOMContentLoaded", function() {
     lightbox.setAttribute("role", "dialog");
     lightbox.setAttribute("aria-modal", "true");
     lightbox.setAttribute("aria-label", "Image viewer");
-    lightbox.innerHTML = "<span id='lightbox-close' class='lightbox-close' role='button' tabindex='0' aria-label='Close'>&times;</span><img id='lightbox-img' class='lightbox-img' src='' alt=''>";
+    lightbox.innerHTML = "<button id='lightbox-close' class='lightbox-close' aria-label='Close'><svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M18 6 6 18'/><path d='m6 6 12 12'/></svg></button><img id='lightbox-img' class='lightbox-img' src='' alt=''>";
     document.body.appendChild(lightbox);
 
     var lbImg = document.getElementById("lightbox-img");

@@ -21,16 +21,15 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-family: var(--mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.06em;
+    font-family: var(--sans);
+    font-size: 0.8125rem;
+    font-weight: 500;
     color: var(--ink-muted);
     margin-bottom: var(--space-8);
-    transition: color var(--dur-fast) var(--ease-out);
-    text-transform: uppercase;
+    transition: color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
 }
 
-.thread-back-btn:hover { color: var(--accent); }
+.thread-back-btn:hover { color: var(--ink); transform: translateX(-4px); }
 .thread-back-btn svg.lucide { width: 14px; height: 14px; }
 
 .thread-hero-title {
@@ -45,9 +44,9 @@
 
 .thread-hero-desc {
     max-width: 65ch;
-    font-size: 1.0625rem;
+    font-size: 1rem;
     line-height: 1.55;
-    color: var(--ink-muted);
+    color: var(--ink-soft);
     margin-bottom: var(--space-6);
 }
 
@@ -62,8 +61,8 @@
 }
 
 .filter-btn {
-    padding: 10px 16px; /* UX: Fitts's Law - raised from 6px vertical padding, this is a repeated-tap control */
-    min-height: 40px;
+    padding: 6px 14px; 
+    min-height: unset;
     display: inline-flex;
     align-items: center;
     border: 1px solid transparent;
@@ -80,17 +79,6 @@
 .filter-btn:hover {
     background: var(--surface-2);
     border-color: var(--surface-3);
-}
-
-@media (hover: hover) and (pointer: fine) {
-    /* UX: same Fitts's Law logic as .card-tag-btn and .filter-pill - a
-       mouse is precise, so the 40px touch-sized pill reads as oversized
-       clutter on desktop. Trimmed to a size proportionate to its job as a
-       repeated-tap filter. */
-    .filter-btn {
-        padding: 6px 14px;
-        min-height: 30px;
-    }
 }
 
 .filter-btn.is-active {
@@ -133,8 +121,9 @@
     align-items: baseline;
     gap: var(--space-3);
     font-family: var(--mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.05em;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
     color: var(--ink-muted);
     text-transform: uppercase;
     margin-bottom: var(--space-3);
@@ -188,8 +177,8 @@
 }
 
 .thread-post-caption {
-    width: 85%; /* Keeps reading measure comfortable and aligned with smaller images */
-    font-size: 0.95rem;
+    width: 85%; 
+    font-size: 0.9375rem;
     line-height: 1.55;
     color: var(--ink-soft);
 }
@@ -206,10 +195,10 @@
 .thread-post-quote {
     font-family: var(--serif);
     font-style: italic;
-    font-size: 1.1875rem; /* Clean, slightly smaller italic font */
-    line-height: 1.5;
-    color: var(--ink);
-    /* Removed the blue left border entirely to blend naturally */
+    font-weight: 400;
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
 }
 
 /* ============================================
@@ -227,8 +216,8 @@
     .thread-main { padding-top: calc(var(--nav-h) + var(--space-6)); }
     .thread-hero { padding-bottom: var(--space-8); }
     
-    .thread-hero-title { font-size: clamp(2rem, 9vw, 2.5rem); line-height: 1.15; }
-    .thread-hero-desc { font-size: 1rem; line-height: 1.5; }
+    .thread-hero-title { font-size: clamp(1.6rem, 7vw, 1.95rem); line-height: 1.25; margin-left: -0.02em; }
+    .thread-hero-desc { font-size: 1.0625rem; line-height: 1.5; color: var(--ink-soft); }
     
     .thread-post { 
         margin-bottom: var(--space-12);
@@ -242,7 +231,7 @@
        stack of full-screen images, while still reading as "Instagram-style"
        rather than desktop's boxed-in card. */
     .thread-post-media {
-        width: 94%;
+        width: 100%;
     }
 
     .thread-post-media img,
@@ -252,8 +241,8 @@
     }
     
     .thread-post-caption {
-        width: 94%; 
-        font-size: 1rem; 
+        width: 100%; 
+        font-size: 0.9375rem; 
     }
     
     .thread-filters {
