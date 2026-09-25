@@ -90,12 +90,7 @@
     border-radius: 50%;
     background: var(--accent);
     flex-shrink: 0;
-    animation: pulse-dot 2.6s ease-in-out infinite;
-}
-
-@keyframes pulse-dot {
-    0%, 100% { opacity: 0.35; transform: scale(1); }
-    50%       { opacity: 1;    transform: scale(1.35); }
+    /* Removed pulse animation for solid stability */
 }
 
 .status-dot {
@@ -104,13 +99,7 @@
     border-radius: 50%;
     background-color: var(--accent);
     flex-shrink: 0;
-    animation: statusPulse 2s infinite;
-}
-
-@keyframes statusPulse {
-    0% { box-shadow: 0 0 0 0 rgba(26, 68, 128, 0.4); }
-    70% { box-shadow: 0 0 0 6px rgba(26, 68, 128, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(26, 68, 128, 0); }
+    /* Removed pulse animation for solid stability */
 }
 
 @keyframes badge-pulse {

@@ -264,5 +264,24 @@
     "sortDate": "2026-12-29",
     "priority": 14,
     "archive": true
+  },
+  {
+    "id": "pacific-blind-spot",
+    "category": "Climate & Sustainability",
+    "title": "The Pacific Blind Spot",
+    "challenge": "The Pacific Ocean isn't just sinking due to rising seas, parts of it are also vanishing from our measurements. The Pacific faces the highest climate risks, yet effective monitoring depends on strong and well funded data systems, which are currently insufficient.",
+    "role": "I designed and developed an interactive data story-built natively with HTML, CSS, and JavaScript-that maps out this critical observation gap. Rather than just visualizing climate impact, the experience focuses on visualizing the missing data itself, guiding users through the paradox of the world's most vulnerable region being its least measured.",
+    "outcome": "The resulting narrative translates systemic underfunding into a tangible, scrollytelling experience. By making the absence of information visually stark, the project shifts the conversation from simply acknowledging climate change to advocating for the fundamental measurement infrastructure needed to fight it.",
+    "link": "https://chaturadissanayake.github.io/thepacificblindspot/",
+    "status": "View Full Story",
+    "tags": [
+      "Climate & Sustainability",
+      "Data Driven Experiences"
+    ],
+    "thumbnail": "projects/pacific-blind-spot/assets/pacificblindspot.webp",
+    "date": "SEP 2026",
+    "sortDate": "2026-09-01",
+    "priority": 15,
+    "archive": false
   }
 ]

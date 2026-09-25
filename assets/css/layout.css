@@ -89,6 +89,8 @@
 @media (hover: hover) and (pointer: fine) {
     .nav-cta:hover {
         background: var(--accent); border-color: var(--accent);
+        box-shadow: var(--shadow-md);
+        transform: translateY(-2px);
     }
 }
 
@@ -142,7 +144,7 @@
 
 .nav-cta-ghost:hover {
     background: var(--ink); color: var(--white); border-color: var(--ink);
-    transform: translateY(-1px);
+    transform: none;
 }
 
 .hamburger-btn {
@@ -168,9 +170,13 @@
 .hamburger-btn.is-active span { background: var(--white); }
 
 .mobile-menu {
-    position: fixed; inset: 0; background: var(--ink); z-index: 999;
+    position: fixed; inset: 0; 
+    background: rgba(16, 21, 28, 0.96);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 999;
     display: flex; flex-direction: column; align-items: flex-start; text-align: left;
-    height: 100dvh; padding: 80px var(--space-5) var(--space-6); /* UX: Reduced padding to save vertical space */
+    height: 100dvh; padding: 80px var(--space-5) var(--space-6);
     opacity: 0; pointer-events: none; transform: translateY(-10px);
     transition: opacity 0.3s ease, transform 0.3s ease;
     overflow-y: auto; -webkit-overflow-scrolling: touch;
@@ -182,18 +188,18 @@
 }
 
 .mobile-nav-links { 
-    display: flex; flex-direction: column; align-items: flex-start; margin-top: var(--space-4); flex: 1; width: 100%;
-    justify-content: center; /* UX: Naturally centers the tightened links */
+    display: flex; flex-direction: column; align-items: flex-start; margin-top: var(--space-8); flex: 1; width: 100%;
+    justify-content: center; gap: var(--space-3);
 }
 
 .mobile-link {
-    font-family: var(--serif); font-size: clamp(1.75rem, 6.5vw, 2.125rem); /* UX: restored legible scale, fluid across widths */
-    color: rgba(255,255,255,0.6); padding: 0.875rem 0; /* UX: Tighter vertical rhythm */
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    display: flex; align-items: center; min-height: 44px; /* UX: Fitts's Law - full 44px tap target even though visual text is shorter */
+    font-family: var(--serif); font-size: clamp(1.75rem, 8vw, 2.25rem); 
+    color: rgba(255,255,255,0.6); padding: var(--space-1) 0; 
+    border-bottom: none;
+    display: flex; align-items: center; min-height: 44px; 
     line-height: 1.1; width: 100%;
     opacity: 0; transform: translateY(18px);
-    transition: color var(--dur-fast), opacity 380ms ease, transform 380ms ease;
+    transition: color var(--dur-fast), transform var(--dur-fast), opacity 380ms ease;
 }
 
 .mobile-menu.is-active .mobile-link {
@@ -207,10 +213,10 @@
 .mobile-menu.is-active .mobile-link:nth-child(5) { transition-delay: 270ms; }
 .mobile-menu.is-active .mobile-link:nth-child(6) { transition-delay: 320ms; }
 
-.mobile-link:hover, .mobile-link.active { color: var(--white); }
+.mobile-link:hover, .mobile-link.active { color: var(--white); transform: translateX(8px); }
 
 .mobile-cta {
-    font-family: var(--serif); font-size: clamp(1.5rem, 6vw, 1.75rem); /* UX: Scaled down to match links */
+    font-family: var(--serif); font-size: clamp(1.75rem, 7vw, 2rem);
     color: var(--white) !important; border-color: transparent !important; background: transparent !important;
     border-bottom: none; margin-top: var(--space-4);
     display: inline-flex; align-items: center; justify-content: flex-start;
@@ -260,11 +266,11 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 16px); }
 
 .footer-col .footer-title {
     font-family: var(--mono);
-    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--white); margin-bottom: var(--space-2);
+    font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--white); margin-bottom: var(--space-3);
 }
 
-.footer-col a { font-size: 0.875rem; color: rgba(255,255,255,0.6); transition: color var(--dur-fast); }
+.footer-col a { font-size: 0.8125rem; color: rgba(255,255,255,0.6); transition: color var(--dur-fast); }
 
 .footer-col a:hover { color: var(--white); }
 
@@ -650,6 +656,20 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 16px); }
     color: var(--ink-muted);
     line-height: 1.6;
     margin-bottom: var(--space-4);
+}
+
+.cookie-content a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--surface-3);
+    text-underline-offset: 3px;
+    transition: color var(--dur-fast), text-decoration-color var(--dur-fast);
+    font-weight: 500;
+}
+
+.cookie-content a:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
 }
 
 .cookie-actions {

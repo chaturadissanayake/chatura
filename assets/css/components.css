@@ -27,7 +27,7 @@
 
 .header-text-block { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0; }
 
-.section-header-desc { max-width: 500px; color: var(--ink-muted); font-size: 0.9375rem; line-height: 1.65; margin-top: var(--space-2); }
+.section-header-desc { max-width: 500px; color: var(--ink-muted); font-size: 0.9375rem; line-height: 1.5; margin-top: var(--space-2); }
 
 .section-header-center { text-align: center; margin-bottom: var(--space-12); }
 
@@ -79,9 +79,6 @@
 @media (hover: hover) and (pointer: fine) {
     .btn-primary:hover, .form-submit:hover {
         background: var(--accent); border-color: var(--accent); color: var(--white);
-    }
-
-    .btn-primary:not(.magnetic-btn):not(#hero-cta):hover {
         box-shadow: var(--shadow-md);
         transform: translateY(-2px);
     }
@@ -89,11 +86,8 @@
 
 .btn-primary:active, .form-submit:active {
     box-shadow: var(--shadow-sm);
-    transition: transform 0.1s ease, box-shadow 0.1s ease;
-}
-
-.btn-primary:not(.magnetic-btn):not(#hero-cta):active, .form-submit:active {
     transform: translateY(0) scale(0.96);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
 
 /* Tier 2 - outlined utility actions. .show-more-btn and .modal-cta-btn kept
@@ -262,11 +256,19 @@
     background: var(--white) !important; color: var(--ink) !important;
     border: 1.5px solid var(--white) !important; border-radius: var(--radius-pill);
     padding: 8px 16px; font-family: var(--sans); font-size: 0.8125rem; font-weight: 500;
-    cursor: pointer; transition: background var(--dur-fast), transform var(--dur-fast);
+    cursor: pointer; transition: background-color var(--dur-fast), color var(--dur-fast), transform var(--dur-fast), border-color var(--dur-fast);
     flex-shrink: 0;
 }
 
-.archive-back-btn:hover { background: var(--surface-2) !important; transform: translateY(-1px); }
+.archive-back-btn:hover { 
+    background: var(--surface-3) !important; 
+    border-color: var(--surface-3) !important; 
+    transform: translateY(-1px); 
+}
+
+.archive-back-btn:active {
+    transform: scale(0.96);
+}
 
 .archive-back-btn svg.lucide { width: 14px !important; height: 14px !important; }
 
@@ -361,6 +363,7 @@
     padding: var(--space-2);
     max-height: min(60vh, 360px);
     overflow-y: auto;
+    overscroll-behavior: contain; /* Prevents the background page from scrolling */
     opacity: 0;
     visibility: hidden;
     transform: translateY(-6px);
@@ -724,7 +727,7 @@
 .project-card:hover .card-title { color: var(--accent); }
 
 .card-desc {
-    font-size: 0.8125rem; color: var(--ink-muted); line-height: 1.6;
+    font-size: 0.8125rem; color: var(--ink-muted); line-height: 1.5;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     line-clamp: 2;
@@ -733,7 +736,7 @@
 }
 
 .lab-body p, .insight-body p {
-    font-size: 0.8125rem; color: var(--ink-muted); line-height: 1.65;
+    font-size: 0.8125rem; color: var(--ink-muted); line-height: 1.5;
     margin-bottom: var(--space-4); flex: 1;
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -1005,7 +1008,7 @@
 }
 
 .modal-panel {
-        background: var(--white); width: 100%; max-width: 960px !important; height: auto; max-height: 85vh !important;
+        background: var(--white); width: 100%; max-width: 640px !important; height: auto; max-height: 85vh !important;
         border-radius: 16px;
         overflow: hidden; 
         position: relative; 
@@ -1097,11 +1100,10 @@
 .modal-header { margin-bottom: var(--space-8); }
 
 .modal-header h2 {
-    font-family: var(--serif); font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 400;
+    font-family: var(--serif); font-size: clamp(1.5rem, 3.5vw, 2rem); font-weight: 400;
     letter-spacing: -0.01em; line-height: 1.15;
     margin-bottom: var(--space-4); color: var(--ink);
 }
-
 .modal-tags { 
     display: flex; 
     flex-wrap: wrap; 
@@ -1122,7 +1124,6 @@
     }
 
     .modal-panel {
-        max-width: 680px !important;
         max-height: 78vh !important;
     }
 }
@@ -1134,10 +1135,11 @@
         align-items: flex-end;
     }
 
-    .modal-panel {
+.modal-panel {
         max-width: 100% !important;
-        height: 90dvh !important;
-        max-height: none !important;
+        height: auto !important;
+        max-height: 90dvh !important;
+        min-height: 40dvh;
         border-radius: 24px 24px 0 0;
         transform: translateY(100%);
         opacity: 1; 
@@ -1211,7 +1213,7 @@
     text-transform: uppercase; 
     color: var(--ink);
 }
-.modal-section p { font-size: 1rem; color: var(--ink-soft); line-height: 1.65; }
+.modal-section p { font-size: 1rem; color: var(--ink-soft); line-height: 1.55; }
 
 .modal-sections { padding-bottom: var(--space-6); }
 
@@ -1260,7 +1262,11 @@
 .modal-cta-btn-primary svg.lucide { width: 16px; height: 16px; margin-left: 0; }
 
 .lightbox-overlay {
-    position: fixed; inset: 0; background: rgba(23,19,15,0.94); z-index: 3000;
+    position: fixed; inset: 0; 
+    background: rgba(244, 247, 249, 0.92); 
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    z-index: 3000;
     display: none; align-items: center; justify-content: center; padding: var(--space-8);
     opacity: 0;
     transition: opacity var(--dur-med) var(--ease-out);
@@ -1284,45 +1290,55 @@
 .lightbox-close {
     position: absolute; top: var(--space-5); right: var(--space-5);
     width: 44px; height: 44px; border-radius: 50%;
-    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    background: var(--surface-2); border: 1px solid var(--surface-3);
     display: flex; align-items: center; justify-content: center;
-    color: var(--white); cursor: pointer; transition: background var(--dur-fast);
+    color: var(--ink); cursor: pointer; transition: background-color var(--dur-fast), color var(--dur-fast), transform var(--dur-fast);
+    z-index: 3010;
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .lightbox-close:hover { background: rgba(255,255,255,0.2); }
+    .lightbox-close:hover { background: var(--surface-3); color: var(--ink); transform: rotate(90deg); }
 }
 
-.lightbox-close:active { background: rgba(255,255,255,0.25); }
+.lightbox-close:active { background: var(--surface-3); transform: rotate(90deg) scale(0.94); }
 
 .lightbox-img {
-    max-width: 80vw; max-height: 90vh; object-fit: contain;
-    border-radius: var(--radius-lg); box-shadow: var(--shadow-xl); width: auto; height: auto;
+    max-width: 85vw; max-height: 90vh; object-fit: contain;
+    border-radius: var(--radius); box-shadow: var(--shadow-md); width: auto; height: auto;
 }
 
 .lightbox-nav-btn {
     position: absolute; top: 50%; transform: translateY(-50%);
     width: 44px; height: 44px; border-radius: 50%;
-    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    background: var(--surface-2); border: 1px solid var(--surface-3);
     display: flex; align-items: center; justify-content: center;
-    color: var(--white); cursor: pointer; transition: background var(--dur-fast);
+    color: var(--ink); cursor: pointer; transition: background-color var(--dur-fast), color var(--dur-fast), transform var(--dur-fast);
     z-index: 3010;
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .lightbox-nav-btn:hover { background: rgba(255,255,255,0.2); }
+    .lightbox-nav-btn:hover { background: var(--surface-3); color: var(--ink); transform: translateY(-50%) scale(1.05); }
 }
 
-.lightbox-nav-btn:active { background: rgba(255,255,255,0.25); }
+.lightbox-nav-btn:active { background: var(--surface-3); transform: translateY(-50%) scale(0.94); }
 
-.lightbox-prev { left: 5vw; }
+.lightbox-prev { left: 4vw; }
 
-.lightbox-next { right: 5vw; }
+.lightbox-next { right: 4vw; }
 
-@media (max-width: 640px) {
-    .lightbox-nav-btn { top: auto; bottom: var(--space-5); transform: none; }
-    .lightbox-prev { left: 35%; }
-    .lightbox-next { right: 35%; }
+@media (max-width: 860px) {
+    .lightbox-overlay { padding: 0; }
+    .lightbox-img { max-width: 100vw; max-height: 85vh; border-radius: 0; box-shadow: none; }
+    .lightbox-nav-btn {
+        top: 50%; bottom: auto; transform: translateY(-50%);
+        width: 38px; height: 38px;
+    }
+    .lightbox-prev { left: var(--space-2); }
+    .lightbox-next { right: var(--space-2); }
+    .lightbox-close {
+        top: var(--space-4); right: var(--space-4);
+        width: 40px; height: 40px;
+    }
 }
 
 .carousel-btn:focus-visible, .back-to-top:focus-visible, .lightbox-close:focus-visible, .modal-close:focus-visible { border-radius: 50%; }
@@ -1367,22 +1383,7 @@
     overflow: hidden;
 }
 
-.project-card::before, .service-card::before, .insight-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 2px;
-    background: var(--accent);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform var(--dur-med) var(--ease-out);
-}
-
-@media (hover: hover) and (pointer: fine) {
-    .project-card:hover::before, .service-card:hover::before, .insight-card:hover::before {
-        transform: scaleX(1);
-    }
-}
+/* Removed sliding top border on hover to ensure a clean, unified shadow-lift interaction across all cards */
 
 @media (hover: hover) and (pointer: fine) {
     .project-card:hover, .service-card:hover, .insight-card:hover {
@@ -1452,7 +1453,7 @@
 .legal-content p, .legal-content ul, .legal-content li {
     font-size: 0.9375rem;
     color: var(--ink-soft);
-    line-height: 1.8;
+    line-height: 1.6;
     margin-bottom: var(--space-4);
 }
 
@@ -1593,7 +1594,7 @@
 .project-description p {
     font-family: var(--sans);
     font-size: 0.9375rem;
-    line-height: 1.7;
+    line-height: 1.55;
     color: var(--ink);
     margin-bottom: var(--space-6, 24px);
     max-width: 62ch;

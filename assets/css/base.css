@@ -111,7 +111,7 @@ img {
 
 body {
     font-family: var(--sans); font-weight: 400; color: var(--ink);
-    background: var(--surface); line-height: 1.65;
+    background: var(--surface); line-height: 1.55;
     -webkit-font-smoothing: antialiased; width: 100%; position: relative;
     font-optical-sizing: auto;
 }

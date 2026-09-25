@@ -308,9 +308,17 @@ document.addEventListener('DOMContentLoaded', () => {
         let viewData = rawProjectsData.filter(p => !!p.archive === isArchiveView);
 
         if (currentSortMode === 'impact') {
-            viewData.sort((a, b) => (a.priority || 99) - (b.priority || 99));
+            viewData.sort((a, b) => {
+                const pA = parseInt(a.priority, 10) || 999;
+                const pB = parseInt(b.priority, 10) || 999;
+                return pA - pB;
+            });
         } else {
-            viewData.sort((a, b) => new Date(b.sortDate || '2000-01-01') - new Date(a.sortDate || '2000-01-01'));
+            viewData.sort((a, b) => {
+                const dateA = new Date(a.sortDate || '2000-01-01').getTime() || 0;
+                const dateB = new Date(b.sortDate || '2000-01-01').getTime() || 0;
+                return dateB - dateA;
+            });
         }
 
         if (viewData.length === 0) {
@@ -614,7 +622,21 @@ document.addEventListener('DOMContentLoaded', () => {
             currentSortMode = currentSortMode === 'recent' ? 'impact' : 'recent';
             sortBtn.innerHTML = `Sort: ${currentSortMode === 'impact' ? 'Featured' : 'Recent'} <i data-lucide="arrow-down-up" style="width:14px;height:14px; margin-left:6px;"></i>`;
             if (window.lucide) lucide.createIcons({ root: sortBtn });
-            renderProjectsGrid();
+            
+            currentLimit = window.innerWidth <= 640 ? 3 : 6;
+            
+            if (projWrap) projWrap.style.opacity = '0';
+            
+            setTimeout(() => {
+                renderProjectsGrid();
+                if (projWrap) projWrap.style.opacity = '1';
+                
+                const projectsSection = document.getElementById('projects');
+                if (projectsSection) {
+                    const offset = projectsSection.getBoundingClientRect().top + window.scrollY - 80;
+                    window.scrollTo({ top: offset, behavior: 'smooth' });
+                }
+            }, 200);
         });
     }
 
