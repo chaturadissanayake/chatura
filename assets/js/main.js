@@ -8,14 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     console.log('%cChatura Dissanayake', 'font-size:22px;font-weight:bold;color:#111;');
-    console.log('%cThis site design and code are original work by Chatura Dissanayake (chaturadissanayake.com). Copying or reusing this template without permission is not permitted.', 'font-size:13px;color:#555;');
-
-    document.addEventListener('contextmenu', e => {
-        if (e.target.closest('img')) e.preventDefault();
-    });
-    document.addEventListener('dragstart', e => {
-        if (e.target.closest('img')) e.preventDefault();
-    });
+    console.log('%cDesigned and built by Chatura Dissanayake. Say hello: consultchatura@gmail.com', 'font-size:13px;color:#555;');
 
     document.addEventListener('click', e => {
         const anchor = e.target.closest('a[href^="/#"], a[href^="#"]');
@@ -158,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    document.querySelectorAll('.media-item img').forEach(img => {
+    document.querySelectorAll('.media-item img, .thread-post-media img').forEach(img => {
         const handleLoad = () => img.classList.add('img-loaded');
         if (img.complete && img.naturalHeight !== 0) {
             handleLoad();
@@ -173,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const declineBtn = document.getElementById('decline-cookies');
 
     if (cookieBanner && !localStorage.getItem('cookieConsent')) {
-        cookieBanner.style.display = 'block';
+        setTimeout(() => { cookieBanner.style.display = 'block'; }, 2500);
     }
 
     if (acceptBtn) {

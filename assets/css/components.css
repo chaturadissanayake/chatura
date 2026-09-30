@@ -3,7 +3,7 @@
 .view-btn svg.lucide, .carousel-btn svg.lucide { margin: 0; width: 1.2em; height: 1.2em; }
 
 .most-requested-badge {
-    font-family: var(--sans); font-size: 0.625rem; font-weight: 600;
+    font-family: var(--sans); font-size: 0.6875rem; font-weight: 600;
     letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent);
     background: transparent; border: 1px solid var(--accent-dim);
     padding: 4px 10px; border-radius: var(--radius-pill);
@@ -270,7 +270,7 @@
         margin: var(--space-4) 0 var(--space-5);
         gap: var(--space-2);
     }
-    .archive-mode-text { font-size: 0.625rem; gap: 6px; }
+    .archive-mode-text { font-size: 0.6875rem; gap: 6px; }
     .archive-mode-text svg.lucide { width: 13px; height: 13px; }
     .archive-mode-text .archive-mode-text-full { display: none; }
     .archive-back-btn { padding: 6px 12px; font-size: 0.75rem; }
@@ -568,10 +568,10 @@
 .project-card:hover .card-image img,
 .lab-card:hover .card-image img,
 .insight-card:hover .card-image img,
-.viz-item:hover .card-image img { transform: scale(1.06); }
+.viz-item:hover .card-image img { transform: scale(1.03); }
 
 .card-overlay {
-    position: absolute; inset: 0; background: rgba(23,19,15,0.52);
+    position: absolute; inset: 0; background: rgba(16,21,28,0.52);
     display: flex; align-items: center; justify-content: center;
     opacity: 0; transition: opacity var(--dur-med); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 10;
     pointer-events: none;
@@ -605,7 +605,7 @@
     background: var(--white); color: var(--ink);
     display: flex; align-items: center; justify-content: center;
     opacity: 0; transform: scale(0.6) rotate(-40deg);
-    transition: opacity var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-spring);
+    transition: opacity var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-out);
     box-shadow: var(--shadow-md);
     pointer-events: none;
 }
@@ -679,7 +679,7 @@
 }
 
 .insight-meta {
-    font-family: var(--mono); font-size: 0.625rem; letter-spacing: 0.08em;
+    font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.08em;
     color: var(--ink-muted); text-transform: uppercase;
 }
 
@@ -816,7 +816,7 @@
         .card-tag-btn {
             padding: 4px 10px;
             min-height: 26px;
-            font-size: 0.625rem;
+            font-size: 0.6875rem;
             letter-spacing: 0.06em;
             flex-shrink: 0;
         }
@@ -824,7 +824,7 @@
             display: none !important;
         }
         .card-tags span, .lab-pills span {
-            font-size: 0.625rem;
+            font-size: 0.6875rem;
             flex-shrink: 0;
         }
     .about-philosophy.is-collapsed-mobile p:nth-child(n+3) {
@@ -887,7 +887,7 @@
 
 .most-requested-badge {
     display: inline-block;
-    font-family: var(--sans); font-size: 0.625rem; font-weight: 600;
+    font-family: var(--sans); font-size: 0.6875rem; font-weight: 600;
     letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent);
     background: transparent; border: 1px solid var(--accent-dim);
     padding: 4px 10px; border-radius: var(--radius-pill); margin-left: 12px; vertical-align: middle;
@@ -1238,7 +1238,7 @@
 
 .lightbox-overlay {
     position: fixed; inset: 0; 
-    background: rgba(244, 247, 249, 0.92); 
+    background: rgba(245, 247, 250, 0.92); 
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     z-index: 3000;
@@ -1327,24 +1327,24 @@
 
 .active-badge {
     background: var(--accent); color: var(--white);
-    box-shadow: 0 0 0 0 rgba(26, 68, 128, 0.5);
+    box-shadow: 0 0 0 0 rgba(47, 95, 168, 0.5);
     animation: badge-pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) 3;
 }
 
 .personal-badge {
-    background: rgba(23,19,15,0.72); color: rgba(255,255,255,0.88);
+    background: rgba(16,21,28,0.72); color: rgba(255,255,255,0.88);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
 }
 
 .client-badge {
-    background: rgba(26, 68, 128, 0.10); color: var(--accent);
-    border: 1px solid rgba(26, 68, 128, 0.25);
+    background: rgba(47, 95, 168, 0.10); color: var(--accent);
+    border: 1px solid rgba(47, 95, 168, 0.25);
 }
 
 @media (hover: hover) and (pointer: fine) {
     .project-card:hover, .lab-card:hover, .insight-card:hover, .service-card:hover {
-        border-color: rgba(26,68,128,0.14);
+        border-color: rgba(47,95,168,0.14);
     }
 }
 

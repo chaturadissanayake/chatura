@@ -27,6 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
         sectionOffsets = Array.from(sections).map(s => ({ id: s.id, top: s.offsetTop }));
     };
     window.addEventListener('resize', cacheOffsets);
+    window.addEventListener('load', cacheOffsets);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(cacheOffsets);
     cacheOffsets();
     window.SiteNav = { cacheOffsets };
 
@@ -73,40 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     onGlobalScroll();
 
-    // UX: on a laptop, Arrow/Page keys default to a ~40px line-scroll -
-    // fine for casual reading, clumsy when presenting the site section by
-    // section. Snap to the next/previous section instead, unless the
-    // person is typing somewhere or a modal has focus.
-    document.addEventListener('keydown', e => {
-        if (!['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp'].includes(e.key)) return;
 
-        const active = document.activeElement;
-        const isEditable = active && (
-            active.tagName === 'INPUT' ||
-            active.tagName === 'TEXTAREA' ||
-            active.tagName === 'SELECT' ||
-            active.isContentEditable
-        );
-        const isModalOpen = document.body.classList.contains('modal-open');
-        if (isEditable || isModalOpen) return;
-
-        e.preventDefault();
-
-        const goingDown = e.key === 'ArrowDown' || e.key === 'PageDown';
-        const scrollPos = window.scrollY + 2;
-
-        let targetTop;
-        if (goingDown) {
-            const next = sectionOffsets.find(s => s.top > scrollPos);
-            if (!next) return;
-            targetTop = next.top;
-        } else {
-            const passed = sectionOffsets.filter(s => s.top < scrollPos - 10);
-            targetTop = passed.length ? passed[passed.length - 1].top : 0;
-        }
-
-        window.scrollTo({ top: targetTop, behavior: SiteUtils.getScrollBehavior() });
-    });
 
     const mobileToggle = document.getElementById('mobile-nav-toggle');
     const mobileMenu   = document.getElementById('mobile-nav-menu');

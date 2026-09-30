@@ -452,7 +452,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const loadingIndicator = document.getElementById('loading-indicator');
         if (loadingIndicator) loadingIndicator.style.display = 'none';
 
-        projWrap.innerHTML = '<div class="system-message loading-state">Loading Projects...</div>';
+        projWrap.innerHTML = '<span class="sr-only" role="status">Loading projects</span>' + '<div class="skeleton-card" aria-hidden="true"><div class="skeleton-card-img"></div><div class="skeleton-card-line"></div><div class="skeleton-card-line short"></div></div>'.repeat(3);
 
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 8000);
@@ -536,7 +536,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             const projectsSection = document.getElementById('projects');
                             if (projectsSection) {
                                 const offset = projectsSection.getBoundingClientRect().top + window.scrollY - 80;
-                                window.scrollTo({ top: offset, behavior: 'smooth' });
+                                window.scrollTo({ top: offset, behavior: SiteUtils.getScrollBehavior() });
                                 
                                 // Return focus to filters so keyboard users don't lose their place
                                 setTimeout(() => {
@@ -634,7 +634,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const projectsSection = document.getElementById('projects');
                 if (projectsSection) {
                     const offset = projectsSection.getBoundingClientRect().top + window.scrollY - 80;
-                    window.scrollTo({ top: offset, behavior: 'smooth' });
+                    window.scrollTo({ top: offset, behavior: SiteUtils.getScrollBehavior() });
                 }
             }, 200);
         });
