@@ -90,12 +90,21 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.remove('project-modal-open');
 
         if (window.location.hash === '#project-details') {
-            history.pushState(null, '', window.location.pathname + window.location.search);
+            history.back();
         }
         if (lastFocusedElement) lastFocusedElement.focus();
     };
 
     closeProjectBtn?.addEventListener('click', closeModal);
+
+    projectModal?.addEventListener('keydown', e => {
+        if (e.key !== 'Tab' || !projectModal.classList.contains('is-open')) return;
+        const focusable = [...projectModal.querySelectorAll('a[href], button, [tabindex]:not([tabindex="-1"])')].filter(el => el.offsetParent !== null);
+        if (!focusable.length) return;
+        const first = focusable[0], last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
     document.getElementById('pm-close-secondary')?.addEventListener('click', closeModal);
     
     projectModal?.addEventListener('mousedown', e => {
@@ -130,6 +139,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (scrollArea && scrollArea.scrollTop > 0) return;
         
         startY = e.touches[0].clientY;
+        currentY = startY;
+        currentY = startY;
         isDragging = true;
         swipePanel.style.transition = 'none'; // Disable CSS animation so it tracks finger perfectly 1:1
     }, { passive: true });

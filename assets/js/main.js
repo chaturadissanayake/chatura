@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const mapTooltip = document.getElementById('map-tooltip');
 
     if (mapContainer && mapTooltip) {
-        fetch('assets/world-map.svg')
+        fetch('/assets/world-map.svg')
             .then(response => {
                 if (!response.ok) throw new Error('SVG not found');
                 return response.text();

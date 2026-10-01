@@ -4,7 +4,7 @@
     z-index: 9999; transition: transform 0.1s linear;
 }
 
-.section-fade-in {
+.js .js .section-fade-in {
     opacity: 0; transform: translateY(30px);
     transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
 }

@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo({ top: 0, behavior: SiteUtils.getScrollBehavior() });
     });
 
-    const sections  = document.querySelectorAll('section[id]');
+    const sections  = Array.from(document.querySelectorAll('section[id]')).filter(s => document.querySelector('[data-section="' + s.id + '"]'));
     const navLinks  = document.querySelectorAll('.nav-link[data-section], .mobile-link[data-section]');
     let sectionOffsets = [];
 
@@ -31,6 +31,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(cacheOffsets);
     cacheOffsets();
     window.SiteNav = { cacheOffsets };
+    if ('ResizeObserver' in window) {
+        let roTimer;
+        new ResizeObserver(() => {
+            clearTimeout(roTimer);
+            roTimer = setTimeout(cacheOffsets, 100);
+        }).observe(document.body);
+    }
 
     let isGlobalScrollTicking = false;
 

@@ -62,7 +62,7 @@
 
 .filter-btn {
     padding: 6px 14px; 
-    min-height: unset;
+    min-height: 40px;
     display: inline-flex;
     align-items: center;
     border: 1px solid transparent;
@@ -131,7 +131,7 @@
 
 .thread-post-meta .thread-post-location {
     color: var(--ink-muted);
-    opacity: 0.6;
+    font-weight: 400;
 }
 
 .thread-post-meta .thread-post-location::before {

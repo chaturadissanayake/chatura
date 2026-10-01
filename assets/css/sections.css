@@ -623,7 +623,8 @@
 
 @media (prefers-reduced-motion: no-preference) {
     .clients-roller-track {
-        animation: clientsRollX 28s linear infinite;
+        animation: clientsRollX 40s linear infinite;
+        will-change: transform;
     }
 }
 
@@ -638,6 +639,7 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    width: 224px;
     height: 64px;
     padding: 0 var(--space-8);
 }
@@ -661,7 +663,8 @@
 
 @media (prefers-reduced-motion: reduce) {
     .clients-roller-viewport {
-        overflow-x: auto;
+        -webkit-mask-image: none;
+        mask-image: none;
     }
     .clients-roller-track[aria-hidden="true"] {
         display: none;
@@ -674,12 +677,24 @@
         padding-right: var(--space-10);
     }
     .client-logo-item {
+        width: 152px;
         height: 48px;
         padding: 0 var(--space-4);
     }
     .client-logo-item img {
         max-height: 40px;
-        max-width: 120px;
+        max-width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .clients-roller-track {
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        min-width: 0;
+        gap: var(--space-4) var(--space-6);
+        padding-right: 0;
     }
 }
 
