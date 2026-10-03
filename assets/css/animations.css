@@ -4,7 +4,7 @@
     z-index: 9999; transition: transform 0.1s linear;
 }
 
-.js .js .section-fade-in {
+.section-fade-in {
     opacity: 0; transform: translateY(30px);
     transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
 }
@@ -226,3 +226,109 @@
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite linear;
 }
+
+/* Laptop tuning (1024-1920px wide). Tweak these numbers to taste. */
+@media (min-width: 1024px) and (max-width: 1920px) {
+    /* Hero: bigger words, smaller GIF (GIF column width is set in sections.css) */
+    /* Headline size follows the content width, which keeps it on 3 lines */
+    .hero-title-massive {
+        font-size: calc((min(100vw, 72rem) - 4rem) / 19.2);
+        max-width: none;
+    }
+    .hero-content { max-width: none; }
+    .hero-subtext { font-size: 1.0625rem; }
+
+    .section-title,
+    .contact-headline { font-size: clamp(1.75rem, 3.2vw, 2.5rem); }
+    .thread-hero-title { font-size: clamp(2.25rem, 4vw, 3.25rem); }
+    .section-header-row { margin-bottom: var(--space-8); }
+    .card-image, .viz-image-wrapper { aspect-ratio: 16 / 10; }
+    .viz-item { width: clamp(260px, 25vw, 320px); }
+
+    /* Small labels: 11px text becomes 10.3px at the 15px root, so lift it */
+    .card-cat,
+    .card-date,
+    .card-methodology,
+    .card-status-badge,
+    .card-tag-btn,
+    .card-tags span,
+    .exp-item .exp-period,
+    .exp-period,
+    .form-group label,
+    .hero-visual-tag,
+    .insight-category-badge,
+    .insight-meta,
+    .insight-upcoming-label,
+    .lab-pills span,
+    .lab-tag-label,
+    .lang-text,
+    .mobile-menu-footer a,
+    .modal-eyebrow,
+    .modal-methodology,
+    .modal-tags span,
+    .most-requested-badge,
+    .pm-tag,
+    .project-breadcrumb,
+    .service-row-tools span,
+    .testimonial-badge,
+    .thread-post-meta,
+    .timeline-period {
+        font-size: 0.75rem;
+    }
+}
+
+/* Large desktops (above 1920px): keep the headline on 3 lines here too */
+@media (min-width: 1921px) {
+    .hero-title-massive { font-size: 3.75rem; max-width: none; }
+    .hero-content { max-width: none; }
+}
+
+/* ==========================================================================
+   CONSISTENCY LAYER (animations.css loads last, so these win)
+   One height for buttons, one for filter chips, on every page.
+   ========================================================================== */
+:root {
+    --btn-h: 40px;
+    --chip-h: 34px;
+}
+
+.btn-primary,
+.btn-secondary,
+.form-submit,
+.show-more-btn,
+.nav-cta,
+.filter-dropdown-trigger {
+    min-height: var(--btn-h);
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.btn-primary,
+.btn-secondary,
+.form-submit,
+.show-more-btn,
+.nav-cta {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* Filter chips: the notes page now uses exactly the same chip as the projects filter */
+.filter-pill,
+.filter-btn {
+    min-height: var(--chip-h);
+    padding: 0 14px;
+    border: 1px solid transparent;
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: var(--ink-muted);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .filter-btn:hover { color: var(--ink); background: var(--surface-3); border-color: transparent; }
+}
+
+.filter-btn.is-active { background: var(--ink); color: var(--white); }

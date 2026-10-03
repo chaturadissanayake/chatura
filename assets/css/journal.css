@@ -61,14 +61,14 @@
 }
 
 .filter-btn {
-    padding: 6px 14px; 
-    min-height: 40px;
+    padding: 0 14px;
+    min-height: var(--chip-h, 34px);
     display: inline-flex;
     align-items: center;
     border: 1px solid transparent;
     border-radius: var(--radius-pill);
-    background: var(--surface-3);
-    color: var(--ink-soft);
+    background: transparent;
+    color: var(--ink-muted);
     font-family: var(--sans);
     font-size: 0.8125rem;
     font-weight: 500;

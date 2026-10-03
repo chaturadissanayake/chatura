@@ -1,6 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
     SiteUtils.initIcons();
 
+    // Logo strip: tag near-square logos so CSS can balance them against wide ones
+    document.querySelectorAll('.client-logo-item img').forEach(img => {
+        const tag = () => {
+            if (!img.naturalWidth || !img.naturalHeight) return;
+            img.parentElement.classList.toggle('is-square', img.naturalWidth / img.naturalHeight < 1.35);
+        };
+        if (img.complete) tag(); else img.addEventListener('load', tag);
+    });
+
     document.querySelectorAll('.tag[data-tag-filter]').forEach(tagEl => {
         tagEl.addEventListener('click', () => {
             sessionStorage.setItem('activeProjectFilter', tagEl.getAttribute('data-tag-filter'));

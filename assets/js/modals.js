@@ -140,7 +140,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         startY = e.touches[0].clientY;
         currentY = startY;
-        currentY = startY;
         isDragging = true;
         swipePanel.style.transition = 'none'; // Disable CSS animation so it tracks finger perfectly 1:1
     }, { passive: true });

@@ -238,6 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     let resizeTimer;
+    let lastResizeWidth = window.innerWidth;
     let projFloatTicking = false;
 
     window.addEventListener('scroll', () => {
@@ -259,7 +260,10 @@ document.addEventListener('DOMContentLoaded', () => {
         window.__cardTagResizeTimer = setTimeout(updateCardTagOverflow, 150);
         
         resizeTimer = setTimeout(() => {
-            applyProjectFilter();
+            if (window.innerWidth !== lastResizeWidth) {
+                lastResizeWidth = window.innerWidth;
+                applyProjectFilter();
+            }
             updateFloatingExpandBtn();
             if (window.SiteNav && window.SiteNav.cacheOffsets) window.SiteNav.cacheOffsets();
         }, 150);

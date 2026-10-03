@@ -56,7 +56,7 @@
 @media (min-width: 1024px) {
     .hero-container {
         display: grid;
-        grid-template-columns: 1fr minmax(260px, 380px);
+        grid-template-columns: 1fr minmax(240px, 320px);
         grid-template-rows: auto auto auto 1fr;
         column-gap: var(--space-12);
         row-gap: 0; 
@@ -83,7 +83,7 @@
 
 @media (min-width: 1441px) {
     .hero-container {
-        grid-template-columns: 1fr minmax(320px, 460px);
+        grid-template-columns: 1fr minmax(280px, 360px);
     }
 }
 
@@ -606,59 +606,87 @@
 }
 
 .clients-roller-viewport {
-    display: flex;
-    width: 100%;
+    --logo-h: 40px;
+    --logo-max-w: 140px;
+    --logo-gap: 64px;
+    --roll-duration: 28s;
+    overflow: hidden;
     -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
     mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+}
+
+/* One rail holds both copies of the logos, so they always move as a single
+   piece and can never drift apart or overlap while images are still loading. */
+.clients-roller-rail {
+    display: flex;
+    width: max-content;
 }
 
 .clients-roller-track {
     display: flex;
     align-items: center;
-    flex-shrink: 0;
-    min-width: 100%;
-    gap: var(--space-16);
-    padding-right: var(--space-16);
+    flex: 0 0 auto;
+    gap: var(--logo-gap);
+    padding-right: var(--logo-gap);
+    background: var(--surface); /* gives mix-blend-mode something to blend with */
+}
+
+@keyframes clientsRailX {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-    .clients-roller-track {
-        animation: clientsRollX 40s linear infinite;
+    .clients-roller-rail {
+        animation: clientsRailX var(--roll-duration) linear infinite;
         will-change: transform;
     }
 }
 
 @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
-    .clients-roller-section:hover .clients-roller-track {
+    .clients-roller-section:hover .clients-roller-rail {
         animation-play-state: paused;
     }
 }
 
+/* Every logo gets the same height; width follows the logo. Spacing is the
+   gap between logos, so it looks even whatever shape each logo is. */
 .client-logo-item {
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
-    width: 224px;
-    height: 64px;
-    padding: 0 var(--space-8);
+    height: calc(var(--logo-h) + 8px);
 }
 
 .client-logo-item img {
-    max-height: 56px;
     width: auto;
-    max-width: 160px;
+    height: var(--logo-h);
+    max-width: var(--logo-max-w);
     object-fit: contain;
-    opacity: 0.85;
+    mix-blend-mode: multiply; /* white JPG backgrounds disappear into the page */
+    opacity: 0.8;
     filter: grayscale(100%);
-    transform: scale(0.96);
-    transition: opacity var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-out), filter var(--dur-med) var(--ease-out);
+    transition: opacity var(--dur-med) var(--ease-out), filter var(--dur-med) var(--ease-out);
+}
+
+/* Square logos look heavier at the same height, so they get a little less */
+.client-logo-item.is-square img {
+    height: calc(var(--logo-h) * 0.8);
 }
 
 .client-logo-item:hover img {
     opacity: 1;
     filter: grayscale(0%);
-    transform: scale(1);
+}
+
+@media (max-width: 600px) {
+    .clients-roller-viewport {
+        --logo-h: 32px;
+        --logo-max-w: 110px;
+        --logo-gap: 40px;
+        --roll-duration: 24s;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -666,35 +694,18 @@
         -webkit-mask-image: none;
         mask-image: none;
     }
-    .clients-roller-track[aria-hidden="true"] {
-        display: none;
+    .clients-roller-rail {
+        width: 100%;
     }
-}
-
-@media (max-width: 600px) {
-    .clients-roller-track {
-        gap: var(--space-10);
-        padding-right: var(--space-10);
-    }
-    .client-logo-item {
-        width: 152px;
-        height: 48px;
-        padding: 0 var(--space-4);
-    }
-    .client-logo-item img {
-        max-height: 40px;
-        max-width: 100%;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
     .clients-roller-track {
         flex-wrap: wrap;
         justify-content: center;
         width: 100%;
-        min-width: 0;
-        gap: var(--space-4) var(--space-6);
         padding-right: 0;
+        row-gap: var(--space-5);
+    }
+    .clients-roller-track[aria-hidden="true"] {
+        display: none;
     }
 }
 
@@ -911,7 +922,7 @@
     .service-row-title .most-requested-badge { margin-top: 0; }
     .service-row-desc { font-size: 0.875rem; margin-bottom: var(--space-4); }
     .service-row-tools { flex-wrap: wrap; gap: var(--space-2); }
-    .service-row-tools span { font-size: 0.5625rem; padding: 4px 9px; }
+    .service-row-tools span { font-size: 0.6875rem; padding: 4px 9px; }
     .services-footer-bar { flex-direction: column; align-items: center; gap: var(--space-5); text-align: center; }
     .services-footer-bar p { white-space: nowrap; font-size: 0.6875rem; }
     .services-pdf-link--light { width: 100%; justify-content: center; }
@@ -1243,10 +1254,9 @@
     transition: border-color var(--dur-med) var(--ease-out), box-shadow var(--dur-med) var(--ease-out);
 }
 
-.testimonial-card.is-verified {
-    border-color: var(--accent-dim);
-    box-shadow: var(--shadow-sm);
-}
+.testimonial-card { box-shadow: var(--shadow-sm); }
+
+.testimonial-card.is-verified { border-color: rgba(47, 95, 168, 0.3); }
 
 .testimonial-top {
     display: flex;
@@ -1318,6 +1328,7 @@
     align-items: center;
     gap: var(--space-3);
     margin-top: auto;
+    min-height: 56px;
 }
 
 .testimonial-avatar {
