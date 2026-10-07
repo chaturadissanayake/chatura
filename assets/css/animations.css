@@ -4,12 +4,14 @@
     z-index: 9999; transition: transform 0.1s linear;
 }
 
-.section-fade-in {
+/* Only hide sections for the reveal when JavaScript is running (html.js).
+   Without JS, or if the script fails, the content simply shows. */
+.js .section-fade-in {
     opacity: 0; transform: translateY(30px);
     transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
 }
 
-.section-fade-in.is-visible { opacity: 1; transform: none; }
+.js .section-fade-in.is-visible { opacity: 1; transform: none; }
 
 @keyframes revealUp {
     to { opacity: 1; transform: translateY(0); }
@@ -332,3 +334,80 @@
 }
 
 .filter-btn.is-active { background: var(--ink); color: var(--white); }
+
+/* ==========================================================================
+   USABILITY LAYER (laptop, desktop, tablet, phone)
+   ========================================================================== */
+
+/* 1. Small labels never drop below 12px, at any root font size */
+.card-cat, .card-date, .card-methodology, .card-status-badge, .card-tag-btn, .card-tags span,
+.exp-item .exp-period, .exp-period, .form-group label, .hero-visual-tag, .insight-category-badge,
+.insight-meta, .insight-upcoming-label, .lab-pills span, .lab-tag-label, .lang-text,
+.mobile-menu-footer a, .modal-eyebrow, .modal-methodology, .modal-tags span,
+.most-requested-badge, .pm-tag, .project-breadcrumb, .service-row-tools span,
+.testimonial-badge, .thread-post-meta, .timeline-period, .proof-label, .viz-counter {
+    font-size: max(12px, 0.75rem);
+}
+
+/* 2. Hamburger menu takes over earlier. Between 861 and ~1040px the six links, language
+      switch and CTA do not fit on one row (small laptops, iPad portrait/landscape). */
+@media (max-width: 1040px) {
+    .desktop-nav, .nav-cta, .nav-cta-ghost, .lang-switcher { display: none; }
+    .hamburger-btn { display: flex; }
+}
+
+/* 3. Closed mobile menu is fully out of the tab order and the accessibility tree */
+.mobile-menu {
+    visibility: hidden;
+    transition: opacity var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-out), visibility 0s linear var(--dur-med);
+}
+.mobile-menu.is-active {
+    visibility: visible;
+    transition: opacity var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-out), visibility 0s;
+}
+
+/* 4. Touch screens: 44px targets for chips and buttons; mouse and trackpad keep the compact sizes */
+@media (pointer: coarse) {
+    :root { --btn-h: 44px; --chip-h: 44px; }
+    .lang-text, .mobile-lang-text { min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; justify-content: center; }
+    .card-tag-btn { min-height: 32px; }
+    .carousel-btn, .modal-close, .lightbox-close { min-width: 44px; min-height: 44px; }
+}
+
+/* 5. Grain texture is decoration, and blend modes are costly on phones */
+@media (max-width: 768px), (prefers-reduced-data: reduce) {
+    .grain-overlay { display: none; }
+}
+
+/* 6. Cookie banner: Accept and Decline have the same size and weight of control */
+.cookie-actions { align-items: stretch; }
+.cookie-actions .btn-primary,
+.cookie-actions .show-more-btn {
+    flex: 1 1 0;
+    justify-content: center;
+    margin-top: 0;
+    font-size: 0.875rem;
+    min-height: var(--btn-h);
+}
+.cookie-actions .show-more-btn { border: 1px solid var(--ink); color: var(--ink); }
+
+/* 7. Footer "Cookie settings" looks and behaves like its sibling links */
+.footer-col .footer-link-btn {
+    font-family: var(--sans);
+    font-size: 0.8125rem;
+    color: rgba(255,255,255,0.6);
+    text-align: left;
+    padding: 0;
+    transition: color var(--dur-fast);
+}
+.footer-col .footer-link-btn:hover { color: var(--white); }
+.footer-col .footer-link-btn:focus-visible { outline-color: var(--white); }
+
+/* 8. Wide desktop: give the page's long-form copy a comfortable line length */
+@media (min-width: 1440px) {
+    .about-philosophy p, .contact-body, .thread-hero-desc { max-width: 68ch; }
+}
+
+/* 9. Keyboard focus on cards that are clickable <article>s */
+.viz-lightbox-trigger:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.viz-carousel-track:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }

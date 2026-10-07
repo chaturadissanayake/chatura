@@ -36,8 +36,8 @@ a, button, input, textarea, select, .card-interactive { -webkit-tap-highlight-co
 
 
     --serif:   'Fraunces', Georgia, serif;
-    --sans:    'Satoshi', system-ui, sans-serif;
-    --mono:    'Satoshi', system-ui, sans-serif;
+    --sans:    'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, system-ui, sans-serif;
+    --mono:    'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, system-ui, sans-serif;
 
 
     --space-1:  0.25rem;
@@ -164,13 +164,21 @@ svg.lucide { width: 1em; height: 1em; vertical-align: -0.125em; flex-shrink: 0; 
         --space-16: 3rem;
         --nav-h: 64px;
     }
-    .hero-title-massive { font-size: clamp(2rem, 4.5vw, 3.5rem); }
-
     .project-header h1 { font-size: clamp(2rem, 4vw, 3.5rem); }
 
     .next-title { font-size: clamp(1.5rem, 3.5vw, 2.5rem); }
 
     .standard-quote { font-size: clamp(1.125rem, 2.5vw, 2rem); }
+}
+
+/* Large laptops and desktops (1440 to 1920): back to a 16px base and a wider column.
+   The hero headline in animations.css is measured in rem against 72rem, so it scales with this. */
+@media (min-width: 1440px) and (max-width: 1920px) {
+    html { font-size: 16px; }
+    :root {
+        --max-w: 1152px;
+        --nav-h: 68px;
+    }
 }
 
 @media (max-width: 768px) {

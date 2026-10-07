@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const focusableSelectors = 'a, button, [tabindex]:not([tabindex="-1"])';
 
     const openModal = card => {
+        if (!projectModal) return;
         lastFocusedElement = document.activeElement;
         const titleText = card.getAttribute('data-title') || card.querySelector('h3')?.textContent || 'Project';
         document.getElementById('pm-title').textContent = titleText;
@@ -83,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const closeModal = () => {
-        if (!projectModal.classList.contains('is-open')) return;
+        if (!projectModal || !projectModal.classList.contains('is-open')) return;
 
         projectModal.classList.remove('is-open');
         document.body.classList.remove('modal-open');
@@ -116,16 +117,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     window.addEventListener('hashchange', () => {
-        if (window.location.hash !== '#project-details' && projectModal.classList.contains('is-open')) {
+        if (window.location.hash !== '#project-details' && projectModal?.classList.contains('is-open')) {
             closeModal();
         }
     });
     
     document.addEventListener('keydown', e => {
-        if (e.key === 'Escape' && projectModal.classList.contains('is-open')) {
+        if (e.key === 'Escape' && projectModal?.classList.contains('is-open')) {
             closeModal();
         }
     });
+
+    // A shared or refreshed link ending in #project-details has no modal to show. Clean it up
+    // so the address bar doesn't keep a dead fragment (also fixes "Back" landing on it).
+    if (window.location.hash === '#project-details') {
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
 
     // --- Mobile Swipe-to-Close Physics ---
     let startY = 0;
@@ -181,6 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightboxNext   = document.getElementById('lightbox-next');
     const vizTriggers    = Array.from(document.querySelectorAll('.viz-lightbox-trigger'));
     let lightboxIdx      = 0;
+    let lightboxLockedScroll = false;
 
     const trapLightboxFocus = e => {
         if (lightboxModal.style.display !== 'flex') return;
@@ -204,6 +212,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         lightboxModal.style.display = 'flex';
         lightboxModal.addEventListener('keydown', trapLightboxFocus);
+        if (!document.body.classList.contains('modal-open')) {
+            document.body.style.setProperty('--scroll-pad', `${window.innerWidth - document.documentElement.clientWidth}px`);
+            document.body.classList.add('modal-open');
+            lightboxLockedScroll = true;
+        }
 
         document.getElementById('main-content')?.setAttribute('aria-hidden', 'true');
         document.getElementById('main-header')?.setAttribute('aria-hidden', 'true');
@@ -221,6 +234,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (lightboxModal) {
             lightboxModal.classList.remove('is-open');
             lightboxModal.removeEventListener('keydown', trapLightboxFocus);
+            if (lightboxLockedScroll) {
+                document.body.classList.remove('modal-open');
+                lightboxLockedScroll = false;
+            }
 
             let finished = false;
             const finishClose = () => {
@@ -240,12 +257,18 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     vizTriggers.forEach((item, idx) => {
+        item.setAttribute('tabindex', '0');
+        item.setAttribute('role', 'button');
+        item.setAttribute('aria-label', 'Enlarge: ' + (item.querySelector('.viz-title')?.textContent || 'visualisation'));
         item.addEventListener('click', () => openLightboxAt(idx));
+        item.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightboxAt(idx); }
+        });
     });
 
     lightboxClose?.addEventListener('click', closeLightbox);
-    lightboxPrev?.addEventListener('click', (e) => { e.stopPropagation(); openLightboxAt((lightboxIdx - 1 + vizTriggers.length) % vizTriggers.length); });
-    lightboxNext?.addEventListener('click', (e) => { e.stopPropagation(); openLightboxAt((lightboxIdx + 1) % vizTriggers.length); });
+    lightboxPrev?.addEventListener('click', (e) => { e.stopPropagation(); if (!vizTriggers.length) return; openLightboxAt((lightboxIdx - 1 + vizTriggers.length) % vizTriggers.length); });
+    lightboxNext?.addEventListener('click', (e) => { e.stopPropagation(); if (!vizTriggers.length) return; openLightboxAt((lightboxIdx + 1) % vizTriggers.length); });
 
     lightboxModal?.addEventListener('click', e => {
         if (e.target === lightboxModal) closeLightbox();

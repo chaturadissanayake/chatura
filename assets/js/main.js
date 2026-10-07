@@ -32,15 +32,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-            if (e.isIntersecting) {
-                e.target.classList.add('is-visible');
-                observer.unobserve(e.target);
-            }
-        });
-    }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
-    document.querySelectorAll('.section-fade-in').forEach(s => observer.observe(s));
+    // Scroll reveal. Content is only hidden by CSS when the "js" class is on <html>, and
+    // everything is revealed straight away if IntersectionObserver is missing or fails.
+    const fadeTargets = document.querySelectorAll('.section-fade-in');
+    const revealAll = () => fadeTargets.forEach(el => el.classList.add('is-visible'));
+    if ('IntersectionObserver' in window) {
+        try {
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('is-visible');
+                        observer.unobserve(e.target);
+                    }
+                });
+            // threshold 0 + bottom margin: a very tall section can never get "stuck" below an 8% threshold
+            }, { threshold: 0, rootMargin: '0px 0px -8% 0px' });
+            fadeTargets.forEach(s => observer.observe(s));
+        } catch (err) {
+            revealAll();
+        }
+    } else {
+        revealAll();
+    }
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const proofNums = document.querySelectorAll('.proof-num[data-count-to]');
@@ -94,6 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         aboutReadMoreBtn.addEventListener('click', () => {
             aboutContent.classList.toggle('is-collapsed-mobile');
+            aboutReadMoreBtn.setAttribute('aria-expanded', String(!aboutContent.classList.contains('is-collapsed-mobile')));
             aboutReadMoreBtn.innerHTML = aboutContent.classList.contains('is-collapsed-mobile') 
                 ? 'Read more <i data-lucide="chevron-down"></i>' 
                 : 'Show less <i data-lucide="chevron-up"></i>';
@@ -109,6 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         expReadMoreBtn.addEventListener('click', () => {
             expContent.classList.toggle('is-collapsed-mobile');
+            expReadMoreBtn.setAttribute('aria-expanded', String(!expContent.classList.contains('is-collapsed-mobile')));
             expReadMoreBtn.innerHTML = expContent.classList.contains('is-collapsed-mobile') 
                 ? 'View earlier roles <i data-lucide="chevron-down"></i>' 
                 : 'Show fewer roles <i data-lucide="chevron-up"></i>';
@@ -140,7 +155,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 clearTimeout(timeoutId);
                 if (res.ok) {
-                    contactForm.innerHTML = '<div class="system-message form-success-state"><strong>Message received.</strong><span>I\'ll follow up within 1–2 business days.</span></div>';
+                    contactForm.innerHTML = '<div class="system-message form-success-state" tabindex="-1" role="status"><strong>Message received.</strong><span>I\'ll follow up within 1–2 business days.</span></div>';
+                    contactForm.querySelector('.form-success-state')?.focus();
                 } else {
                     throw new Error('server');
                 }
@@ -170,29 +186,69 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // ---- Cookie consent -------------------------------------------------
+    // The banner appears on first visit, and can be reopened any time from the footer
+    // ("Cookie settings"), so a visitor can change their mind without clearing browser data.
+    const GA_ID = 'G-24MX1C8QK3';
     const cookieBanner = document.getElementById('cookie-banner');
     const acceptBtn = document.getElementById('accept-cookies');
     const declineBtn = document.getElementById('decline-cookies');
+    let bannerOpener = null;
 
-    if (cookieBanner && !localStorage.getItem('cookieConsent')) {
-        setTimeout(() => { cookieBanner.style.display = 'block'; }, 2500);
-    }
-
-    if (acceptBtn) {
-        acceptBtn.addEventListener('click', () => {
-            localStorage.setItem('cookieConsent', 'granted');
-            cookieBanner.style.display = 'none';
-            if (typeof window.loadGA === 'function') window.loadGA();
+    const hideBanner = () => {
+        if (!cookieBanner) return;
+        cookieBanner.style.display = 'none';
+        if (bannerOpener && document.contains(bannerOpener)) bannerOpener.focus();
+        bannerOpener = null;
+    };
+    const showBanner = (opener) => {
+        if (!cookieBanner) return;
+        bannerOpener = opener || null;
+        cookieBanner.style.display = 'block';
+        if (opener) acceptBtn?.focus();
+    };
+    const clearAnalyticsCookies = () => {
+        document.cookie.split(';').forEach(c => {
+            const name = c.split('=')[0].trim();
+            if (name === '_ga' || name.startsWith('_ga_') || name === '_gid') {
+                const past = '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+                document.cookie = name + past;
+                document.cookie = name + past + '; domain=' + location.hostname;
+                document.cookie = name + past + '; domain=.' + location.hostname.replace(/^www\./, '');
+            }
         });
+    };
+
+    if (cookieBanner && !SiteUtils.storage.get('cookieConsent')) {
+        setTimeout(() => showBanner(null), 1500);
     }
 
-    if (declineBtn) {
-        declineBtn.addEventListener('click', () => {
-            localStorage.setItem('cookieConsent', 'denied');
-            cookieBanner.style.display = 'none';
-        });
-    }
-    
+    acceptBtn?.addEventListener('click', () => {
+        SiteUtils.storage.set('cookieConsent', 'granted');
+        window['ga-disable-' + GA_ID] = false;
+        hideBanner();
+        const alreadyLoaded = document.querySelector('script[src*="googletagmanager.com/gtag"]');
+        if (!alreadyLoaded && typeof window.loadGA === 'function') window.loadGA();
+    });
+
+    declineBtn?.addEventListener('click', () => {
+        SiteUtils.storage.set('cookieConsent', 'denied');
+        window['ga-disable-' + GA_ID] = true;   // stops any already-loaded tracker from sending hits
+        clearAnalyticsCookies();
+        hideBanner();
+    });
+
+    document.querySelectorAll('[data-cookie-settings]').forEach(btn => {
+        btn.addEventListener('click', () => showBanner(btn));
+    });
+
+    document.addEventListener('keydown', e => {
+        // Escape dismisses the banner only when it was reopened on purpose and a choice already exists
+        if (e.key === 'Escape' && cookieBanner && cookieBanner.style.display === 'block' && SiteUtils.storage.get('cookieConsent')) {
+            hideBanner();
+        }
+    });
+
     const mapContainer = document.querySelector('.map-image-inner');
     const mapTooltip = document.getElementById('map-tooltip');
 

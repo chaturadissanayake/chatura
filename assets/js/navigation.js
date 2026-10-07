@@ -86,10 +86,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const mobileToggle = document.getElementById('mobile-nav-toggle');
     const mobileMenu   = document.getElementById('mobile-nav-menu');
+    const mainContent  = document.getElementById('main-content');
 
     const trapMobileFocus = e => {
         if (!mobileMenu.classList.contains('is-active')) return;
-        const focusable = [...mobileMenu.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])')];
+        // The toggle sits outside the menu overlay, so it counts as part of the trap (it is how you close it)
+        const focusable = [mobileToggle, ...mobileMenu.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])')].filter(Boolean);
         if (focusable.length === 0) return;
         const first = focusable[0], last = focusable[focusable.length - 1];
         if (e.key === 'Tab') {
@@ -98,31 +100,39 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    const toggleMobileMenu = () => {
-        const isOpen = mobileMenu.classList.toggle('is-active');
-        mobileToggle.classList.toggle('is-active', isOpen);
-        mobileToggle.setAttribute('aria-expanded', String(isOpen));
-        document.body.classList.toggle('modal-open', isOpen);
+    // One function owns every state change, so the menu, the toggle, the page behind it
+    // and the screen-reader tree can never disagree.
+    const setMobileMenu = (open, { restoreFocus = true } = {}) => {
+        if (!mobileMenu || !mobileToggle) return;
+        mobileMenu.classList.toggle('is-active', open);
+        mobileToggle.classList.toggle('is-active', open);
+        mobileToggle.setAttribute('aria-expanded', String(open));
+        mobileToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        document.body.classList.toggle('modal-open', open);
+        // Closed menu must not be reachable by keyboard or screen reader
+        mobileMenu.toggleAttribute('inert', !open);
+        mobileMenu.setAttribute('aria-hidden', String(!open));
+        if (mainContent) mainContent.toggleAttribute('inert', open);
 
-        if (isOpen) {
-            mobileMenu.addEventListener('keydown', trapMobileFocus);
+        if (open) {
+            document.addEventListener('keydown', trapMobileFocus);
             const firstLink = mobileMenu.querySelector('.mobile-link');
             if (firstLink) setTimeout(() => firstLink.focus(), 60);
         } else {
-            mobileMenu.removeEventListener('keydown', trapMobileFocus);
-            mobileToggle.focus();
+            document.removeEventListener('keydown', trapMobileFocus);
+            document.body.style.overflow = '';
+            if (restoreFocus) mobileToggle.focus();
         }
     };
 
-    if (mobileToggle) {
-        mobileToggle.addEventListener('click', toggleMobileMenu);
+    if (mobileMenu && mobileToggle) {
+        setMobileMenu(false, { restoreFocus: false });
+        mobileToggle.setAttribute('aria-label', 'Open menu');
+        mobileToggle.addEventListener('click', () => setMobileMenu(!mobileMenu.classList.contains('is-active')));
+
         document.querySelectorAll('.mobile-link, .mobile-cta').forEach(l =>
             l.addEventListener('click', (e) => {
-                mobileMenu.classList.remove('is-active');
-                mobileToggle.classList.remove('is-active');
-                mobileToggle.setAttribute('aria-expanded', 'false');
-                document.body.classList.remove('modal-open');
-                document.body.style.overflow = '';
+                setMobileMenu(false, { restoreFocus: false });
 
                 const href = l.getAttribute('href');
                 if (href && href.includes('#')) {
@@ -130,7 +140,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     const targetEl = document.getElementById(targetId);
                     if (targetEl) {
                         e.preventDefault();
-
                         setTimeout(() => {
                             targetEl.scrollIntoView({ behavior: SiteUtils.getScrollBehavior() });
                             history.pushState(null, '', href);
@@ -139,11 +148,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             })
         );
+
+        // Rotating a tablet or resizing a window past the breakpoint must not leave the page locked
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > SiteUtils.MOBILE_NAV_MAX && mobileMenu.classList.contains('is-active')) {
+                setMobileMenu(false, { restoreFocus: false });
+            }
+        });
     }
 
     document.addEventListener('keydown', e => {
         if (e.key === 'Escape' && mobileMenu?.classList.contains('is-active')) {
-            toggleMobileMenu();
+            setMobileMenu(false);
         }
     });
 
@@ -193,18 +209,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     const res = await fetch('/data/projects.json');
                     if (!res.ok) throw new Error('Failed to load projects');
 
-                    const validProjects = (await res.json()).filter(p => p.link && !p.link.startsWith('http') && p.link !== '#');
-                    const currentIndex = validProjects.findIndex(p => p.id && window.location.pathname.includes(p.id));
+                    const all = await res.json();
+                    const here = window.location.pathname.replace(/\/+$/, '');
+                    const onThisPage = p => here.split('/').includes(p.id);
+                    // Local case studies only, in the same "featured" order as the homepage.
+                    // Archived work is skipped unless you are already inside it.
+                    const validProjects = all
+                        .filter(p => p.link && !p.link.startsWith('http') && p.link !== '#' && (!p.archive || onThisPage(p)))
+                        .sort((x, y) => (parseInt(x.priority, 10) || 999) - (parseInt(y.priority, 10) || 999));
+                    const currentIndex = validProjects.findIndex(onThisPage);
 
                     if (validProjects.length > 0) {
-                        let nextProj;
-                        if (validProjects.length > 1) {
-                            const availableProjects = validProjects.filter((_, i) => i !== currentIndex);
-                            const randomIndex = Math.floor(Math.random() * availableProjects.length);
-                            nextProj = availableProjects[randomIndex];
-                        } else {
-                            nextProj = validProjects[0];
-                        }
+                        const nextProj = validProjects[(currentIndex + 1) % validProjects.length];
 
                         const href = `/${nextProj.link.replace(/^\//, '')}`;
                         const thumbSrc = nextProj.thumbnail ? `/${nextProj.thumbnail.replace(/^\//, '')}` : '';

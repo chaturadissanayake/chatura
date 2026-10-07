@@ -31,6 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
         filterGroup.addEventListener('scroll', updateFilterScrollUI, { passive: true });
         filterGroup.addEventListener('wheel', e => {
             if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+            const max = filterGroup.scrollWidth - filterGroup.clientWidth;
+            if (max <= 0) return;                                        // nothing to scroll: let the page scroll
+            const atStart = filterGroup.scrollLeft <= 0 && e.deltaY < 0;
+            const atEnd   = filterGroup.scrollLeft >= max - 1 && e.deltaY > 0;
+            if (atStart || atEnd) return;                                // hit an edge: hand scrolling back to the page
             e.preventDefault();
             filterGroup.scrollLeft += e.deltaY;
         }, { passive: false });
@@ -333,13 +338,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const escapeHTML = str => String(str).replace(/[&<>'"]/g, match => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[match]));
         
-        viewData.forEach((proj, index) => {
-            proj.title = escapeHTML(proj.title || '');
-            proj.challenge = escapeHTML(proj.challenge || '');
-            proj.role = escapeHTML(proj.role || '');
-            proj.outcome = escapeHTML(proj.outcome || '');
-            proj.dataSource = escapeHTML(proj.dataSource || '');
-            proj.stack = escapeHTML(proj.stack || '');
+        viewData.forEach((rawProj, index) => {
+            // Work on an escaped COPY. rawProjectsData stays untouched, so re-rendering is safe.
+            const proj = {
+                ...rawProj,
+                title: escapeHTML(rawProj.title || ''),
+                challenge: escapeHTML(rawProj.challenge || ''),
+                role: escapeHTML(rawProj.role || ''),
+                outcome: escapeHTML(rawProj.outcome || ''),
+                dataSource: escapeHTML(rawProj.dataSource || ''),
+                stack: escapeHTML(rawProj.stack || ''),
+                date: escapeHTML(rawProj.date || ''),
+                thumbnail: escapeHTML(rawProj.thumbnail || '')
+            };
             
             const safeTags = (proj.tags || []).map(escapeHTML);
             safeTags.forEach(tag => allTags.add(tag));
@@ -353,12 +364,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 ? `<button type="button" class="card-cat card-tag-btn" data-tag="${safeTags[0]}" aria-pressed="false" aria-label="Filter projects by ${safeTags[0]}">${safeTags[0]}</button>`
                 : '';
 
-            const safeChallenge = proj.challenge || '';
-            const descSnippet = safeChallenge.length > 120 ? safeChallenge.substring(0, 120) + '...' : safeChallenge;
+            const rawChallenge = rawProj.challenge || '';
+            const descSnippet = escapeHTML(rawChallenge.length > 120 ? rawChallenge.substring(0, 120).trimEnd() + '…' : rawChallenge);
             const loadingAttr = index === 0 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
             const safeLink = proj.link || '#';
             const isExternal = safeLink.startsWith('http');
-            const finalHref = isExternal ? safeLink : `/${safeLink.replace(/^\//, '')}`;
+            const finalHref = escapeHTML(isExternal ? safeLink : `/${safeLink.replace(/^\//, '')}`);
             const externalAttr = isExternal ? `target="_blank" rel="noopener"` : '';
 
             const cardHTML = `
@@ -624,6 +635,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (sortBtn) {
         sortBtn.addEventListener('click', () => {
             currentSortMode = currentSortMode === 'recent' ? 'impact' : 'recent';
+            sortBtn.setAttribute('aria-label', `Sort: ${currentSortMode === 'impact' ? 'Featured' : 'Recent'}. Activate to switch to ${currentSortMode === 'impact' ? 'Recent' : 'Featured'}.`);
             sortBtn.innerHTML = `Sort: ${currentSortMode === 'impact' ? 'Featured' : 'Recent'} <i data-lucide="arrow-down-up" style="width:14px;height:14px; margin-left:6px;"></i>`;
             if (window.lucide) lucide.createIcons({ root: sortBtn });
             
@@ -649,6 +661,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const setArchiveView = (nextValue) => {
         isArchiveView = nextValue;
+        archiveBtn.setAttribute('aria-pressed', String(isArchiveView));
         archiveBtn.innerHTML = `${isArchiveView ? 'Portfolio' : 'Archive'} <i data-lucide="archive" style="width:14px;height:14px; margin-left:6px;"></i>`;
         if (isArchiveView) {
             archiveBtn.style.background = 'var(--ink)';

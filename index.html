@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>document.documentElement.classList.add('js');</script>
   <title>Chatura Dissanayake · Digital Communications &amp; Information Design</title>
   <meta name="description" content="Chatura Dissanayake, Digital Communications and Information Design. I help UN agencies, governments and research institutions turn complex work into communications that reach and move people.">
   <meta name="google-site-verification" content="wrXdvsn3z1BvWHX7kkdvGAqVtiLvQwyJ1OczNxkKAtk">
@@ -22,7 +23,9 @@
   <link rel="canonical" href="https://chaturadissanayake.com/">
 
 <meta name="theme-color" content="#f4f7f9">
-  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
   <link rel="preload" as="font" href="/assets/fonts/fraunces-variable.woff2" type="font/woff2" crossorigin>
   <link rel="preload" as="style" href="/assets/css/base.css">
   <link rel="stylesheet" href="/assets/css/base.css">
@@ -31,7 +34,7 @@
   <link rel="stylesheet" href="/assets/css/sections.css">
   <link rel="stylesheet" href="/assets/css/animations.css">
 
-  <link rel="preload" as="image" href="/assets/site.gif">
+  <link rel="preload" as="image" href="/assets/site.gif" fetchpriority="high">
   <script type="module">
   import replaceElement from "/assets/icons/replaceElement.js";
   import Archive from "/assets/icons/archive.js";
@@ -114,16 +117,16 @@
 
 <header class="main-header main-header--home" id="main-header">
   <div class="nav-inner">
-    <a href="index.html#hero" class="nav-logo" aria-label="Chatura Dissanayake Home">
+    <a href="/#hero" class="nav-logo" aria-label="Chatura Dissanayake Home">
 <span class="brand-wordmark">Chatura Dissanayake</span>
     </a>
     <nav class="desktop-nav" role="navigation" aria-label="Primary">
-      <a href="index.html#projects" class="nav-link" data-section="projects">Work</a>
-      <a href="index.html#about" class="nav-link" data-section="about">About</a>
-      <a href="index.html#services" class="nav-link" data-section="services">Services</a>
-      <a href="index.html#insights" class="nav-link" data-section="insights">Writing</a>
-      <a href="index.html#visualisations" class="nav-link" data-section="visualisations">Visualisations</a>
-      <a href="notes.html" class="nav-link">Notes</a>
+      <a href="/#projects" class="nav-link" data-section="projects">Work</a>
+      <a href="/#about" class="nav-link" data-section="about">About</a>
+      <a href="/#services" class="nav-link" data-section="services">Services</a>
+      <a href="/#insights" class="nav-link" data-section="insights">Writing</a>
+      <a href="/#visualisations" class="nav-link" data-section="visualisations">Visualisations</a>
+      <a href="/notes.html" class="nav-link">Notes</a>
     </nav>
     <div class="nav-actions">
       <div class="lang-switcher" role="group" aria-label="Select language">
@@ -146,21 +149,21 @@
     <button type="button" class="mobile-lang-text" data-lang="fr" aria-pressed="false">FR</button>
   </div>
   <nav class="mobile-nav-links">
-    <a href="index.html#projects"    class="mobile-link" data-section="projects">Work</a>
-    <a href="index.html#about"     class="mobile-link" data-section="about">About</a>
-    <a href="index.html#services"    class="mobile-link" data-section="services">Services</a>
-    <a href="index.html#insights"    class="mobile-link" data-section="insights">Writing</a>
-    <a href="index.html#visualisations" class="mobile-link" data-section="visualisations">Visualisations</a>
-    <a href="notes.html" class="mobile-link">Notes</a>
-    <a href="index.html#contact"    class="mobile-link mobile-cta">Get in touch <i data-lucide="arrow-right" aria-hidden="true" style="width:18px;height:18px;margin-left:6px;"></i></a>
+    <a href="/#projects"    class="mobile-link" data-section="projects">Work</a>
+    <a href="/#about"     class="mobile-link" data-section="about">About</a>
+    <a href="/#services"    class="mobile-link" data-section="services">Services</a>
+    <a href="/#insights"    class="mobile-link" data-section="insights">Writing</a>
+    <a href="/#visualisations" class="mobile-link" data-section="visualisations">Visualisations</a>
+    <a href="/notes.html" class="mobile-link">Notes</a>
+    <a href="/#contact"    class="mobile-link mobile-cta">Get in touch <i data-lucide="arrow-right" aria-hidden="true" style="width:18px;height:18px;margin-left:6px;"></i></a>
   </nav>
   <div class="mobile-menu-footer">
     <a href="https://linkedin.com/in/chaturadissanayake" target="_blank" rel="noopener">LinkedIn</a>
     <a href="https://github.com/chaturadissanayake"   target="_blank" rel="noopener">GitHub</a>
     <a href="https://consultchatura.medium.com"     target="_blank" rel="noopener">Medium</a>
     <a href="https://rss.app/feeds/1QjFWlxkKTZLVQd7.xml" target="_blank" rel="noopener">RSS</a>
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="terms.html">Terms &amp; Conditions</a>
+    <a href="/privacy.html">Privacy Policy</a>
+    <a href="/terms.html">Terms &amp; Conditions</a>
   </div>
 </div>
 
@@ -171,7 +174,7 @@
   <div class="container hero-container">
     <div class="hero-content">
       <h1 class="hero-title-massive" id="hero-headline">
-        Turning <a href="index.html#about" class="hero-word-link">policy</a>, <a href="index.html#visualisations" class="hero-word-link">research</a>, and institutional content into <a href="index.html#projects" class="hero-word-link">communications</a> that people actually read, trust, and act.
+        Turning <a href="/#about" class="hero-word-link">policy</a>, <a href="/#visualisations" class="hero-word-link">research</a>, and institutional content into <a href="/#projects" class="hero-word-link">communications</a> that people actually read, trust, and act.
       </h1>
     </div>
     <div class="hero-supporting reveal-up" style="--d:150ms">
@@ -180,7 +183,7 @@
     
     <div class="hero-visual reveal-up" style="--d:200ms">
       <div class="hero-visual-frame">
-        <img src="assets/site.gif" alt="Screens from a recent product design flow: a member dashboard, task views, and settings pages mapped together with connecting arrows" class="hero-visual-media" loading="eager" width="1800" height="844">
+        <img src="assets/site.gif" alt="Screens from a recent product design flow: a member dashboard, task views, and settings pages mapped together with connecting arrows" class="hero-visual-media" loading="eager" fetchpriority="high" decoding="async" width="1800" height="844">
       </div>
       <a href="projects/influential/influential.html" class="hero-visual-caption">
         <span>Influential, mapped screen to screen</span>
@@ -220,8 +223,8 @@
         <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; width: 100%;">
           <h2 class="section-title" style="margin: 0; line-height: 1;">Projects</h2>
           <div class="view-controls" style="display: flex; gap: 8px;">
-            <button id="sort-toggle-btn" class="show-more-btn" style="margin: 0; font-size: 0.75rem !important;">Sort: Featured <i data-lucide="arrow-down-up" style="width:14px;height:14px; margin-left:6px;"></i></button>
-            <button id="archive-toggle-btn" class="show-more-btn" style="margin: 0; font-size: 0.75rem !important;">Archive <i data-lucide="archive" style="width:14px;height:14px; margin-left:6px;"></i></button>
+            <button type="button" id="sort-toggle-btn" class="show-more-btn" style="margin: 0; font-size: 0.75rem !important;">Sort: Featured <i data-lucide="arrow-down-up" style="width:14px;height:14px; margin-left:6px;"></i></button>
+            <button type="button" id="archive-toggle-btn" aria-pressed="false" class="show-more-btn" style="margin: 0; font-size: 0.75rem !important;">Archive <i data-lucide="archive" style="width:14px;height:14px; margin-left:6px;"></i></button>
           </div>
         </div>
       </div>
@@ -295,34 +298,34 @@
   <div class="clients-roller-viewport">
    <div class="clients-roller-rail">
     <div class="clients-roller-track">
-      <div class="client-logo-item"><img src="assets/clients/echtsocial.jpg" alt="EchtSocial" loading="eager" width="160" height="56"></div>
-      <div class="client-logo-item"><img src="assets/clients/ethicseye.jpg" alt="EthicsEye" loading="eager" width="160" height="56"></div>
-      <div class="client-logo-item"><img src="assets/clients/factchecklk.jpg" alt="FactCheck.lk" loading="eager" width="160" height="56"></div>
-      <div class="client-logo-item"><img src="assets/clients/ideasmarketing.jpg" alt="Ideas Marketing Agency" loading="eager" width="160" height="56"></div>
-      <div class="client-logo-item"><img src="assets/clients/lirneasia.svg" alt="LIRNEasia" loading="eager" width="160" height="56"></div>
-      <div class="client-logo-item"><img src="assets/clients/livablecommunitiesinitiative.webp" alt="Livable Communities Initiative" loading="eager" width="160" height="56"></div>
-      <div class="client-logo-item"><img src="assets/clients/manthrilk.jpg" alt="Manthri.lk" loading="eager" width="160" height="56"></div>
-      <div class="client-logo-item"><img src="assets/clients/publicfinancelk.svg" alt="PublicFinance.lk" loading="eager" width="160" height="56"></div>
-      <div class="client-logo-item"><img src="assets/clients/srilankagovernment.webp" alt="Government of Sri Lanka" loading="eager" width="160" height="56"></div>
-      <div class="client-logo-item"><img src="assets/clients/undp.svg" alt="UNDP" loading="eager" width="160" height="56"></div>
-      <div class="client-logo-item"><img src="assets/clients/unsrilanka.svg" alt="United Nations Sri Lanka" loading="eager" width="160" height="56"></div>
-      <div class="client-logo-item"><img src="assets/clients/unvsrilanka.svg" alt="UN Volunteers Sri Lanka" loading="eager" width="160" height="56"></div>
-      <div class="client-logo-item"><img src="assets/clients/veriteresearch.webp" alt="Verité Research" loading="eager" width="160" height="56"></div>
+      <div class="client-logo-item"><img src="assets/clients/echtsocial.jpg" alt="EchtSocial" loading="lazy" decoding="async" width="160" height="56"></div>
+      <div class="client-logo-item"><img src="assets/clients/ethicseye.jpg" alt="EthicsEye" loading="lazy" decoding="async" width="160" height="56"></div>
+      <div class="client-logo-item"><img src="assets/clients/factchecklk.jpg" alt="FactCheck.lk" loading="lazy" decoding="async" width="160" height="56"></div>
+      <div class="client-logo-item"><img src="assets/clients/ideasmarketing.jpg" alt="Ideas Marketing Agency" loading="lazy" decoding="async" width="160" height="56"></div>
+      <div class="client-logo-item"><img src="assets/clients/lirneasia.svg" alt="LIRNEasia" loading="lazy" decoding="async" width="160" height="56"></div>
+      <div class="client-logo-item"><img src="assets/clients/livablecommunitiesinitiative.webp" alt="Livable Communities Initiative" loading="lazy" decoding="async" width="160" height="56"></div>
+      <div class="client-logo-item"><img src="assets/clients/manthrilk.jpg" alt="Manthri.lk" loading="lazy" decoding="async" width="160" height="56"></div>
+      <div class="client-logo-item"><img src="assets/clients/publicfinancelk.svg" alt="PublicFinance.lk" loading="lazy" decoding="async" width="160" height="56"></div>
+      <div class="client-logo-item"><img src="assets/clients/srilankagovernment.webp" alt="Government of Sri Lanka" loading="lazy" decoding="async" width="160" height="56"></div>
+      <div class="client-logo-item"><img src="assets/clients/undp.svg" alt="UNDP" loading="lazy" decoding="async" width="160" height="56"></div>
+      <div class="client-logo-item"><img src="assets/clients/unsrilanka.svg" alt="United Nations Sri Lanka" loading="lazy" decoding="async" width="160" height="56"></div>
+      <div class="client-logo-item"><img src="assets/clients/unvsrilanka.svg" alt="UN Volunteers Sri Lanka" loading="lazy" decoding="async" width="160" height="56"></div>
+      <div class="client-logo-item"><img src="assets/clients/veriteresearch.webp" alt="Verité Research" loading="lazy" decoding="async" width="160" height="56"></div>
     </div>
     <div class="clients-roller-track" aria-hidden="true">
-      <div class="client-logo-item"><img src="assets/clients/echtsocial.jpg" alt="" loading="eager" width="160" height="56"></div>
-      <div class="client-logo-item"><img src="assets/clients/ethicseye.jpg" alt="" loading="eager" width="160" height="56"></div>
-      <div class="client-logo-item"><img src="assets/clients/factchecklk.jpg" alt="" loading="eager" width="160" height="56"></div>
-      <div class="client-logo-item"><img src="assets/clients/ideasmarketing.jpg" alt="" loading="eager" width="160" height="56"></div>
-      <div class="client-logo-item"><img src="assets/clients/lirneasia.svg" alt="" loading="eager" width="160" height="56"></div>
-      <div class="client-logo-item"><img src="assets/clients/livablecommunitiesinitiative.webp" alt="" loading="eager" width="160" height="56"></div>
-      <div class="client-logo-item"><img src="assets/clients/manthrilk.jpg" alt="" loading="eager" width="160" height="56"></div>
-      <div class="client-logo-item"><img src="assets/clients/publicfinancelk.svg" alt="" loading="eager" width="160" height="56"></div>
-      <div class="client-logo-item"><img src="assets/clients/srilankagovernment.webp" alt="" loading="eager" width="160" height="56"></div>
-      <div class="client-logo-item"><img src="assets/clients/undp.svg" alt="" loading="eager" width="160" height="56"></div>
-      <div class="client-logo-item"><img src="assets/clients/unsrilanka.svg" alt="" loading="eager" width="160" height="56"></div>
-      <div class="client-logo-item"><img src="assets/clients/unvsrilanka.svg" alt="" loading="eager" width="160" height="56"></div>
-      <div class="client-logo-item"><img src="assets/clients/veriteresearch.webp" alt="" loading="eager" width="160" height="56"></div>
+      <div class="client-logo-item"><img src="assets/clients/echtsocial.jpg" alt="" loading="lazy" decoding="async" width="160" height="56"></div>
+      <div class="client-logo-item"><img src="assets/clients/ethicseye.jpg" alt="" loading="lazy" decoding="async" width="160" height="56"></div>
+      <div class="client-logo-item"><img src="assets/clients/factchecklk.jpg" alt="" loading="lazy" decoding="async" width="160" height="56"></div>
+      <div class="client-logo-item"><img src="assets/clients/ideasmarketing.jpg" alt="" loading="lazy" decoding="async" width="160" height="56"></div>
+      <div class="client-logo-item"><img src="assets/clients/lirneasia.svg" alt="" loading="lazy" decoding="async" width="160" height="56"></div>
+      <div class="client-logo-item"><img src="assets/clients/livablecommunitiesinitiative.webp" alt="" loading="lazy" decoding="async" width="160" height="56"></div>
+      <div class="client-logo-item"><img src="assets/clients/manthrilk.jpg" alt="" loading="lazy" decoding="async" width="160" height="56"></div>
+      <div class="client-logo-item"><img src="assets/clients/publicfinancelk.svg" alt="" loading="lazy" decoding="async" width="160" height="56"></div>
+      <div class="client-logo-item"><img src="assets/clients/srilankagovernment.webp" alt="" loading="lazy" decoding="async" width="160" height="56"></div>
+      <div class="client-logo-item"><img src="assets/clients/undp.svg" alt="" loading="lazy" decoding="async" width="160" height="56"></div>
+      <div class="client-logo-item"><img src="assets/clients/unsrilanka.svg" alt="" loading="lazy" decoding="async" width="160" height="56"></div>
+      <div class="client-logo-item"><img src="assets/clients/unvsrilanka.svg" alt="" loading="lazy" decoding="async" width="160" height="56"></div>
+      <div class="client-logo-item"><img src="assets/clients/veriteresearch.webp" alt="" loading="lazy" decoding="async" width="160" height="56"></div>
     </div>
    </div>
   </div>
@@ -341,12 +344,12 @@
       <div class="about-right">
         <div class="about-philosophy">
           <h3>How I Work</h3>
-          <p>I am a communications officer who works at the intersection of technology, data analytics, and information design. Outside of client work, I'm probably deep into video games, out on a run, or making something just because I felt like it (a few of those live on my <a href="notes.html" class="inline-link">notes</a> page). I learn by doing, and that curiosity drives my professional work too.</p>
+          <p>I am a communications officer who works at the intersection of technology, data analytics, and information design. Outside of client work, I'm probably deep into video games, out on a run, or making something just because I felt like it (a few of those live on my <a href="/notes.html" class="inline-link">notes</a> page). I learn by doing, and that curiosity drives my professional work too.</p>
           <p>Good communication isn't just about making things look nice it's about ensuring the right message lands with the right person. Sometimes that's a report. Sometimes it's an interactive data story for a public audience that has never read a policy brief. The work changes, but the core question stays the same who needs to understand this, and what do they actually need to see? Most people think being informed means keeping up with what's broken the war, the crisis, the headline of the day. That's real, but it isn't the whole picture, and it rarely tells you how anything actually works. Understanding how a policy affects you, how a budget gets spent, or how a system is supposed to function takes a different kind of communication, one built to explain rather than alarm. That's the gap I work in.</p>
           <p>Organisations frequently invest significant resources in thorough research and detailed analysis, yet they often stumble at the final step communication. When this aspect is treated as an afterthought, the findings get misunderstood, ignored, or never reach the people meant to act on them. That's where I step in, turning finished analysis into something the <a href="projects/mood-of-the-nation/mood-of-the-nation.html" class="inline-link">intended audience will actually read, understand and use</a>. I've worked with the <a href="https://srilanka.un.org/en/about/about-the-resident-coordinator-office" target="_blank" rel="noopener" class="inline-link">UN Resident Coordinator's Office</a>, the <a href="https://npd.treasury.gov.lk/" target="_blank" rel="noopener" class="inline-link">Department of National Planning</a>, <a href="https://www.veriteresearch.org/" target="_blank" rel="noopener" class="inline-link">Verité Research</a>, and a few other research organisations and clients worldwide on different communications efforts.</p>
           <p>It started in 2020, a week when I produced campaign content for United Nations Volunteers Sri Lanka during COVID-19 as part of the <a href="https://www.behance.net/gallery/138936917/Youth-Community-Leadership-Initiative-%28YCLI%29?platform=direct" target="_blank" rel="noopener" class="inline-link">TogetherAtHome campaign</a>, before I'd have called any of this a career. There's a <a href="https://youtu.be/HPuG0y1gj1M?si=3bQMxQH6W_9GHpVw" target="_blank" rel="noopener" class="inline-link">short recap video</a> from that week, if you're curious about where it all started.</p>
         </div>
-        <button id="about-read-more-btn" class="btn-tertiary read-more-toggle" style="margin-bottom: 32px;">Read more <i data-lucide="chevron-down"></i></button>
+        <button type="button" id="about-read-more-btn" aria-expanded="false" class="btn-tertiary read-more-toggle" style="margin-bottom: 32px;">Read more <i data-lucide="chevron-down"></i></button>
 
         <div class="about-capabilities">
           <div class="cap-block">
@@ -409,7 +412,7 @@
               </div>
             </div>            
           </div>
-          <button id="exp-read-more-btn" class="btn-tertiary read-more-toggle" style="margin: 12px 0 24px 0;">View earlier roles <i data-lucide="chevron-down"></i></button>
+          <button type="button" id="exp-read-more-btn" aria-expanded="false" class="btn-tertiary read-more-toggle" style="margin: 12px 0 24px 0;">View earlier roles <i data-lucide="chevron-down"></i></button>
         </div>
 
         <p class="exp-archive-note">More campaign and print work in this <a href="https://drive.google.com/drive/folders/1ZqJW_fn2OPetaUTigps9YKQ2KnOipvdy?usp=sharing" target="_blank" rel="noopener" class="inline-link">project archive ↗</a>, plus <a href="https://canva.link/pbvhuvdoirpg9ql" target="_blank" rel="noopener" class="inline-link">social and video editing work ↗</a>.</p>
@@ -539,7 +542,8 @@
       </article>
 
       <article class="insight-card card-interactive">
-        <a href="" class="card-hitbox" aria-label="Read Ceylon Harvest Co. Article"></a>
+        <!-- TODO: replace with the full Medium article URL for this piece -->
+        <a href="https://consultchatura.medium.com" target="_blank" rel="noopener" class="card-hitbox" aria-label="Read Ceylon Harvest Co. article on Medium"></a>
         <div class="card-image">
           <img src="assets/insights/InsightBranding_Thumb.webp" alt="Ceylon Harvest Co. Hero Brand Identity" loading="lazy" width="800" height="600" onload="this.classList.add('img-loaded'); this.parentElement.classList.add('shimmer-complete');" onerror="this.style.display='none'; this.parentElement.classList.add('shimmer-complete', 'image-failed'); this.parentElement.insertAdjacentHTML('afterbegin', '<div class=\'fallback-img\'>Asset Unavailable</div>');">
           <div class="card-overlay">
@@ -571,7 +575,7 @@
       </div>
     </div>
     <div class="viz-carousel-viewport">
-      <div class="viz-carousel-track mobile-carousel-grid" aria-live="polite">
+      <div class="viz-carousel-track mobile-carousel-grid" tabindex="0" role="region" aria-label="Visualisations carousel. Use the arrow keys to scroll.">
         
         <!-- 1. Fertility -->
         <article class="viz-item viz-lightbox-trigger card-interactive">
@@ -826,12 +830,12 @@
     <div class="footer-grid">
       <div class="footer-col">
         <p class="footer-title">Navigate</p>
-        <a href="index.html#projects">Work</a>
-        <a href="index.html#about">About</a>
-        <a href="index.html#services">Services</a>
-        <a href="index.html#insights">Writing</a>
-        <a href="index.html#visualisations">Visualisations</a>
-        <a href="notes.html">Notes</a>
+        <a href="/#projects">Work</a>
+        <a href="/#about">About</a>
+        <a href="/#services">Services</a>
+        <a href="/#insights">Writing</a>
+        <a href="/#visualisations">Visualisations</a>
+        <a href="/notes.html">Notes</a>
       </div>
       <div class="footer-col">
         <p class="footer-title">Connect</p>
@@ -844,8 +848,9 @@
         <p class="footer-title">Resources &amp; Legal</p>
         <a href="assets/documents/Services_Guide.pdf" target="_blank" rel="noopener">Services Guide</a>
         <a href="assets/documents/Chatura_Dissanayake_CV_Communications.pdf" target="_blank" rel="noopener" download>Download CV</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms &amp; Conditions</a>
+                <button type="button" class="footer-link-btn" data-cookie-settings>Cookie settings</button>
       </div>
     </div>
     <div class="footer-bottom-container">
@@ -915,14 +920,14 @@
   <button type="button" class="lightbox-nav-btn lightbox-next" id="lightbox-next" aria-label="Next image"><i data-lucide="chevron-right" aria-hidden="true"></i></button>
 </div>
 
-<div id="cookie-banner" class="cookie-banner" style="display: none;" role="dialog" aria-live="polite" aria-label="Cookie consent">
-  <div class="cookie-content">
-    <p>I use Google Analytics to analyse how visitors interact with this site, ensuring you have the best experience while using our website. <a href="privacy.html" target="_blank" rel="noopener">Cookie Policy</a>.</p>
-    <div class="cookie-actions">
-      <button id="accept-cookies" class="btn-primary" style="padding: 8px 18px; font-size: 0.8125rem;">Accept</button>
-      <button id="decline-cookies" class="show-more-btn" style="padding: 8px 18px; font-size: 0.8125rem; margin-top: 0;">Decline</button>
+<div id="cookie-banner" class="cookie-banner" style="display: none;" role="dialog" aria-modal="false" aria-live="polite" aria-label="Cookie consent">
+    <div class="cookie-content">
+        <p>I use Google Analytics to understand how people use this site, so I can improve it. It only loads if you accept. <a href="/privacy.html">Cookie policy</a>.</p>
+        <div class="cookie-actions">
+            <button type="button" id="accept-cookies" class="btn-primary">Accept</button>
+            <button type="button" id="decline-cookies" class="show-more-btn">Decline</button>
+        </div>
     </div>
-  </div>
 </div>
 
 <div id="map-tooltip" class="map-tooltip" aria-hidden="true"></div>
