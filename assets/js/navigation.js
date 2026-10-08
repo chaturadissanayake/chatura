@@ -163,6 +163,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Case studies are laid out for large screens. On a phone, say so once per visit (dismissible).
+    (() => {
+        const isCaseStudy = !!document.getElementById('mainLayout');
+        if (!isCaseStudy || !window.matchMedia('(max-width: 768px)').matches) return;
+        const KEY = 'desktopHintDismissed';
+        try { if (sessionStorage.getItem(KEY)) return; } catch (e) { /* storage blocked: show it anyway */ }
+
+        const host = document.querySelector('.site-wrapper') || document.getElementById('main-content');
+        if (!host) return;
+
+        const hint = document.createElement('div');
+        hint.className = 'desktop-hint';
+        hint.setAttribute('role', 'note');
+        hint.innerHTML =
+            '<p>For the full experience, view this case study on a desktop or larger screen. Some details are hard to see on a phone.</p>' +
+            '<button type="button" aria-label="Dismiss this message">&times;</button>';
+        hint.querySelector('button').addEventListener('click', () => {
+            hint.remove();
+            try { sessionStorage.setItem(KEY, '1'); } catch (e) { /* ignore */ }
+        });
+        host.insertBefore(hint, host.firstChild);
+    })();
+
     const sidebarWrap = document.getElementById('sidebarWrap');
 
     if (sidebarWrap) {

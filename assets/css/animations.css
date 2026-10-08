@@ -290,37 +290,63 @@
    One height for buttons, one for filter chips, on every page.
    ========================================================================== */
 :root {
-    --btn-h: 40px;
-    --chip-h: 34px;
+    /* Two control sizes, used everywhere:
+       standard (buttons, nav CTA, dropdown, profile links) and compact (filter chips, toggles). */
+    --btn-h: 36px;
+    --chip-h: 28px;
+    --btn-pad-x: 18px;
 }
 
-.btn-primary,
-.btn-secondary,
-.form-submit,
-.show-more-btn,
-.nav-cta,
-.filter-dropdown-trigger {
+/* STANDARD BUTTONS: same height, same horizontal padding, same text, same corner, same border weight */
+.btn-primary, .btn-secondary, .form-submit, .show-more-btn, .modal-cta-btn,
+.modal-cta-btn-primary, .nav-cta, .nav-cta-ghost, .archive-back-btn,
+.about-link-pill, .about-link-pill-offduty, .filter-dropdown-trigger {
+    box-sizing: border-box;
     min-height: var(--btn-h);
     padding-top: 0;
     padding-bottom: 0;
+    padding-left: var(--btn-pad-x);
+    padding-right: var(--btn-pad-x);
+    font-family: var(--sans);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    border-radius: var(--radius);
 }
+/* Solid and outlined buttons use the same 1px border, so a solid button is not visibly larger than an outlined one */
+.btn-primary, .form-submit, .modal-cta-btn-primary, .nav-cta, .nav-cta-ghost { border-width: 1px; }
+.archive-back-btn { border-width: 1px !important; }
+.filter-dropdown-trigger { padding-left: 14px; padding-right: 14px; }
 
-.btn-primary,
-.btn-secondary,
-.form-submit,
-.show-more-btn,
-.nav-cta {
-    padding-left: 20px;
-    padding-right: 20px;
+/* Icons inside buttons are one size */
+.btn-primary svg.lucide, .btn-secondary svg.lucide, .show-more-btn svg.lucide, .form-submit svg.lucide,
+.modal-cta-btn svg.lucide, .modal-cta-btn-primary svg.lucide, .nav-cta svg.lucide,
+.about-link-pill svg.lucide, .archive-back-btn svg.lucide { width: 14px !important; height: 14px !important; }
+
+/* COMPACT CONTROLS: filter chips and the "About the project" toggle share one height */
+.about-btn { min-height: var(--chip-h); padding: 0 12px; border-radius: var(--radius); }
+
+/* Touch screens keep a comfortable tap area without making anything look bigger */
+.btn-primary, .btn-secondary, .form-submit, .show-more-btn, .modal-cta-btn, .modal-cta-btn-primary,
+.nav-cta, .archive-back-btn, .about-link-pill, .filter-btn, .filter-pill, .about-btn { position: relative; }
+@media (pointer: coarse) {
+    .btn-primary::after, .btn-secondary::after, .form-submit::after, .show-more-btn::after,
+    .modal-cta-btn::after, .modal-cta-btn-primary::after, .nav-cta::after, .archive-back-btn::after,
+    .about-link-pill::after, .filter-btn::after, .filter-pill::after, .about-btn::after {
+        content: '';
+        position: absolute;
+        inset: -6px -2px;
+    }
 }
 
 /* Filter chips: the notes page now uses exactly the same chip as the projects filter */
 .filter-pill,
 .filter-btn {
     min-height: var(--chip-h);
-    padding: 0 14px;
+    padding: 0 12px;
     border: 1px solid transparent;
-    border-radius: var(--radius-pill);
+    border-radius: var(--radius);
     background: transparent;
     color: var(--ink-muted);
     font-size: 0.8125rem;
@@ -368,9 +394,7 @@
 
 /* 4. Touch screens: 44px targets for chips and buttons; mouse and trackpad keep the compact sizes */
 @media (pointer: coarse) {
-    :root { --btn-h: 44px; --chip-h: 44px; }
     .lang-text, .mobile-lang-text { min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; justify-content: center; }
-    .card-tag-btn { min-height: 32px; }
     .carousel-btn, .modal-close, .lightbox-close { min-width: 44px; min-height: 44px; }
 }
 
@@ -386,7 +410,6 @@
     flex: 1 1 0;
     justify-content: center;
     margin-top: 0;
-    font-size: 0.875rem;
     min-height: var(--btn-h);
 }
 .cookie-actions .show-more-btn { border: 1px solid var(--ink); color: var(--ink); }
@@ -411,3 +434,158 @@
 /* 9. Keyboard focus on cards that are clickable <article>s */
 .viz-lightbox-trigger:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 .viz-carousel-track:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+
+/* ==========================================================================
+   POLISH LAYER
+   ========================================================================== */
+
+/* 1. Compact controls: filter chips, card tags and Show more / Show less take much less height.
+      Visual size is small; the tappable area stays generous through an invisible extension. */
+
+
+.card-cat.card-tag-btn,
+.card-tags .card-tag-btn { min-height: 24px; line-height: 1; }
+.card-tags .card-tag-btn { padding: 0 9px; }
+.card-tags .card-tag-btn::after {
+    content: '';
+    position: absolute;
+    inset: -6px -3px;
+}
+.card-tags { padding-top: var(--space-3); padding-bottom: 6px; }
+
+/* 2. Experience: plain and quiet. No dots, no movement, no colour change on hover. */
+.exp-list .exp-item {
+    --exp-col: 168px;
+    gap: var(--space-6);
+    padding: var(--space-4) 0;
+    align-items: baseline;
+}
+.exp-list .exp-item::before { display: none; }
+.exp-list .exp-item:hover { transform: none; }
+
+/* Dates: sentence case, one size, figures of equal width. The "from" and "to" parts sit in
+   fixed columns, so the dash lines up from row to row instead of floating at a different place each time. */
+.exp-list .exp-item .exp-period {
+    display: inline-grid;
+    grid-template-columns: 4.9em 1.1em auto;
+    justify-content: start;
+    align-items: baseline;
+    font-family: var(--sans);
+    font-size: 0.8125rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--ink-muted);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+.exp-dash { text-align: center; }
+.exp-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.exp-list .exp-detail strong { font-size: 0.9375rem; font-weight: 500; color: var(--ink); }
+.exp-list .exp-detail span,
+.exp-list .exp-detail .exp-org-link { font-size: 0.8125rem; color: var(--ink-muted); }
+
+/* Organisation links read as text; underline only on hover, no arrow */
+.exp-list .exp-detail .exp-org-link { text-decoration: none; }
+.exp-list .exp-detail .exp-org-link::after { display: none; }
+@media (hover: hover) and (pointer: fine) {
+    .exp-list .exp-detail .exp-org-link:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+}
+
+/* 3. Case study notice shown on phones (see navigation.js) */
+.desktop-hint {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    margin: 0 0 var(--space-5);
+    padding: var(--space-3) var(--space-2) var(--space-3) var(--space-4);
+    background: var(--accent-dim);
+    border-left: 2px solid var(--accent);
+    color: var(--ink-soft);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+}
+.desktop-hint p { flex: 1; margin: 0; padding-top: 2px; }
+.desktop-hint button {
+    flex-shrink: 0;
+    width: 44px; height: 44px;
+    margin: -10px -4px -10px 0;
+    display: grid; place-items: center;
+    font-size: 1.5rem; line-height: 1;
+    color: var(--ink-muted);
+}
+.desktop-hint button:hover { color: var(--ink); }
+
+/* 4. Footer. Links keep their normal row spacing; touch screens get a larger invisible tap area
+      instead of taller rows (the old padding made the mobile footer very long). */
+.footer-col a, .footer-col .footer-link-btn { position: relative; }
+@media (pointer: coarse) {
+    .footer-col a::before, .footer-col .footer-link-btn::before {
+        content: '';
+        position: absolute;
+        inset: -7px 0;
+    }
+}
+/* A downloaded file is not an external page, so no arrow */
+.footer-col a[href$=".pdf"][download]::after { display: none; }
+
+/* Three footer columns in a two-column grid left the third one stranded. It now spans the full width as a tidy row. */
+@media (max-width: 1024px) {
+    .footer-col:last-child {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: var(--space-2) var(--space-6);
+        padding-top: var(--space-4);
+        border-top: 1px solid rgba(255, 255, 255, 0.09);
+    }
+    .footer-col:last-child .footer-title { flex-basis: 100%; margin-bottom: 0; }
+}
+
+/* ---------------- Phones ---------------- */
+@media (max-width: 640px) {
+
+    /* iOS Safari zooms the whole page when a field under 16px gets focus */
+    .form-group input, .form-group textarea { font-size: 16px; }
+
+    /* Experience on a phone: date on top, role and organisation below, all in the same quiet style */
+    .exp-list .exp-item { gap: 2px; padding: var(--space-3) 0; }
+    .exp-list .exp-item .exp-period {
+        grid-template-columns: auto auto auto;
+        justify-content: start;
+        column-gap: 0.3em;
+        color: var(--ink-muted);
+        font-size: 0.8125rem;
+        margin-bottom: 2px;
+    }
+    .exp-list .exp-item .exp-dash { width: auto; }
+    .exp-list.is-collapsed-mobile { max-height: 330px; }
+
+    /* Show more / Show less sit in the page (not floating over the cards), same height, real space around them */
+    .floating-action-wrapper,
+    .floating-action-wrapper.is-docked,
+    .floating-action-wrapper.is-visible {
+        position: static !important;
+        bottom: auto;
+        width: 100%;
+        padding: 0;
+        opacity: 1;
+        transform: none;
+    }
+    .expand-action-wrapper {
+        margin: var(--space-8) 0 var(--space-10);
+        gap: var(--space-3);
+        flex-wrap: wrap;
+    }
+    .expand-action-wrapper button {
+        flex: 1 1 0;
+        max-width: 160px;
+        min-height: 36px;
+        justify-content: center;
+        box-shadow: none !important;
+        background: var(--white) !important;
+    }
+}

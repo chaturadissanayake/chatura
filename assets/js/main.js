@@ -48,6 +48,22 @@ document.addEventListener('DOMContentLoaded', () => {
             // threshold 0 + bottom margin: a very tall section can never get "stuck" below an 8% threshold
             }, { threshold: 0, rootMargin: '0px 0px -8% 0px' });
             fadeTargets.forEach(s => observer.observe(s));
+
+            // Safety net: anything already on screen but still hidden (fast jumps to an anchor, restored
+            // scroll position, a very short section at the very end of a page) is revealed shortly after.
+            let settleTimer;
+            const settle = () => {
+                clearTimeout(settleTimer);
+                settleTimer = setTimeout(() => {
+                    fadeTargets.forEach(el => {
+                        if (el.classList.contains('is-visible')) return;
+                        const r = el.getBoundingClientRect();
+                        if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('is-visible');
+                    });
+                }, 400);
+            };
+            window.addEventListener('scroll', settle, { passive: true });
+            window.addEventListener('load', settle);
         } catch (err) {
             revealAll();
         }
