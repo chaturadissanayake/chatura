@@ -115,36 +115,26 @@ document.addEventListener('DOMContentLoaded', () => {
         proofNums.forEach(el => proofObserver.observe(el));
     }
 
+    // About: on phones the biography is trimmed to a short paragraph until "Read more".
+    // Follows the screen size live (rotating a phone, resizing a window), so the button
+    // can never be left on screen when there is nothing to expand.
     const aboutContent = document.querySelector('.about-philosophy');
     const aboutReadMoreBtn = document.getElementById('about-read-more-btn');
     if (aboutContent && aboutReadMoreBtn) {
-        if (window.innerWidth <= 640) {
-            aboutContent.classList.add('is-collapsed-mobile');
-        }
-        aboutReadMoreBtn.addEventListener('click', () => {
-            aboutContent.classList.toggle('is-collapsed-mobile');
-            aboutReadMoreBtn.setAttribute('aria-expanded', String(!aboutContent.classList.contains('is-collapsed-mobile')));
-            aboutReadMoreBtn.innerHTML = aboutContent.classList.contains('is-collapsed-mobile') 
-                ? 'Read more <i data-lucide="chevron-down"></i>' 
-                : 'Show less <i data-lucide="chevron-up"></i>';
+        const phoneMq = window.matchMedia('(max-width: 640px)');
+        let aboutOpen = false;
+        const paintAbout = () => {
+            const trimmed = phoneMq.matches && !aboutOpen;
+            aboutContent.classList.toggle('is-collapsed-mobile', trimmed);
+            aboutReadMoreBtn.setAttribute('aria-expanded', String(!trimmed));
+            aboutReadMoreBtn.innerHTML = trimmed
+                ? 'Read more <i data-lucide="chevron-down" aria-hidden="true"></i>'
+                : 'Show less <i data-lucide="chevron-up" aria-hidden="true"></i>';
             if (window.lucide) lucide.createIcons({ root: aboutReadMoreBtn });
-        });
-    }
-
-    const expContent = document.querySelector('.exp-list');
-    const expReadMoreBtn = document.getElementById('exp-read-more-btn');
-    if (expContent && expReadMoreBtn) {
-        if (window.innerWidth <= 640) {
-            expContent.classList.add('is-collapsed-mobile');
-        }
-        expReadMoreBtn.addEventListener('click', () => {
-            expContent.classList.toggle('is-collapsed-mobile');
-            expReadMoreBtn.setAttribute('aria-expanded', String(!expContent.classList.contains('is-collapsed-mobile')));
-            expReadMoreBtn.innerHTML = expContent.classList.contains('is-collapsed-mobile') 
-                ? 'View earlier roles <i data-lucide="chevron-down"></i>' 
-                : 'Show fewer roles <i data-lucide="chevron-up"></i>';
-            if (window.lucide) lucide.createIcons({ root: expReadMoreBtn });
-        });
+        };
+        aboutReadMoreBtn.addEventListener('click', () => { aboutOpen = !aboutOpen; paintAbout(); });
+        if (phoneMq.addEventListener) phoneMq.addEventListener('change', paintAbout); else phoneMq.addListener(paintAbout);
+        paintAbout();
     }
 
     const contactForm   = document.getElementById('contact-form');
@@ -324,3 +314,234 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     });
+
+// ---- Download gate + quote prefill --------------------------------------
+// The Services Guide and CV open only after an access code or an email address.
+// The code is checked in the browser against a SHA-256 hash (below). This is a
+// polite gate, not a lock: the PDFs themselves are still public files on the server.
+(function () {
+    const FORM_URL = 'https://formspree.io/f/myyqzqjb';
+    // SHA-256 of the access code. To change the code, run this in the browser console
+    // and paste the result here:
+    //   crypto.subtle.digest('SHA-256', new TextEncoder().encode('your-new-code'))
+    //     .then(b => console.log([...new Uint8Array(b)].map(x => x.toString(16).padStart(2, '0')).join('')))
+    const CODE_HASH = 'd26410fe051774b2ddeda372666ba047e76735b733639f0710934aba4be170e2';
+    const FILES = {
+        'Services_Guide.pdf': 'Services Guide',
+        'Chatura_Dissanayake_CV_Communications.pdf': 'CV'
+    };
+    const KEY = 'docUnlocked';
+    const canHash = !!(window.crypto && crypto.subtle);
+
+    const store = {
+        get() { try { return sessionStorage.getItem(KEY); } catch (e) { return null; } },
+        set() { try { sessionStorage.setItem(KEY, '1'); } catch (e) { /* ignore */ } }
+    };
+
+    const sha256 = async text => {
+        const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+        return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
+    };
+
+    const startDownload = (url, label) => {
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = '';
+        a.rel = 'noopener';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+    };
+
+    let modal, lastFocus, current = null;
+
+    const build = () => {
+        modal = document.createElement('div');
+        modal.className = 'gate-modal';
+        modal.setAttribute('role', 'dialog');
+        modal.setAttribute('aria-modal', 'true');
+        modal.setAttribute('aria-labelledby', 'gate-title');
+        modal.innerHTML = `
+            <div class="gate-panel">
+                <button type="button" class="gate-close" aria-label="Close">&times;</button>
+                <h2 class="gate-title" id="gate-title">Download</h2>
+                <p class="gate-desc">Enter the access code I shared with you, or leave your email address and the download starts straight away.</p>
+                <div class="gate-tabs" role="tablist">
+                    <button type="button" class="gate-tab" role="tab" data-tab="email" aria-selected="true">Use email</button>
+                    ${canHash ? '<button type="button" class="gate-tab" role="tab" data-tab="code" aria-selected="false">I have a code</button>' : ''}
+                </div>
+                <form class="gate-form" data-panel="email" novalidate>
+                    <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
+                    <input class="gate-input" type="email" name="email" placeholder="your@email.com" autocomplete="email" aria-label="Email address" required>
+                    <button type="submit" class="btn-primary gate-submit">Send and download</button>
+                </form>
+                <form class="gate-form" data-panel="code" hidden novalidate>
+                    <input class="gate-input" type="password" inputmode="numeric" name="code" placeholder="Access code" autocomplete="off" aria-label="Access code" required>
+                    <button type="submit" class="btn-primary gate-submit">Unlock and download</button>
+                </form>
+                <p class="gate-status" role="status" aria-live="polite"></p>
+                <p class="gate-note">Your email is used only to know who is reading these documents. See the <a href="/privacy.html" class="inline-link">privacy policy</a>.</p>
+            </div>`;
+        document.body.appendChild(modal);
+
+        modal.addEventListener('mousedown', e => { if (e.target === modal) close(); });
+        modal.querySelector('.gate-close').addEventListener('click', close);
+        modal.querySelectorAll('.gate-tab').forEach(t => t.addEventListener('click', () => setTab(t.dataset.tab)));
+        modal.querySelector('[data-panel="email"]').addEventListener('submit', onEmail);
+        modal.querySelector('[data-panel="code"]').addEventListener('submit', onCode);
+        modal.addEventListener('keydown', e => {
+            if (e.key === 'Escape') { close(); return; }
+            if (e.key !== 'Tab') return;
+            const f = [...modal.querySelectorAll('button, input:not([type="hidden"]), a[href]')].filter(el => el.offsetParent !== null && el.tabIndex !== -1);
+            if (!f.length) return;
+            const first = f[0], last = f[f.length - 1];
+            if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+            else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        });
+    };
+
+    const status = (msg, isError) => {
+        const el = modal.querySelector('.gate-status');
+        el.textContent = msg || '';
+        el.classList.toggle('is-error', !!isError);
+    };
+
+    const setTab = name => {
+        modal.querySelectorAll('.gate-tab').forEach(t => t.setAttribute('aria-selected', String(t.dataset.tab === name)));
+        modal.querySelectorAll('.gate-form').forEach(f => { f.hidden = f.dataset.panel !== name; });
+        status('');
+        modal.querySelector(`[data-panel="${name}"] .gate-input`)?.focus();
+    };
+
+    const open = (url, label) => {
+        if (!modal) build();
+        current = { url, label };
+        lastFocus = document.activeElement;
+        modal.querySelector('.gate-title').textContent = 'Download the ' + label;
+        modal.querySelectorAll('form').forEach(f => f.reset());
+        setTab('email');
+        status('');
+        document.body.classList.add('gate-open');
+        modal.classList.add('is-open');
+        lockScroll();
+        setTimeout(() => modal.querySelector('[data-panel="email"] .gate-input')?.focus({ preventScroll: true }), 30);
+    };
+
+    // Keep the page still behind the popup WITHOUT changing overflow or padding on <body>.
+    // (That used to shift the layout, reset the sticky portrait in About and made the page flicker.)
+    const SCROLL_KEYS = [' ', 'PageUp', 'PageDown', 'Home', 'End', 'ArrowUp', 'ArrowDown'];
+    const stopScroll = e => { if (e.cancelable) e.preventDefault(); };
+    const stopKeys = e => {
+        if (SCROLL_KEYS.indexOf(e.key) === -1) return;
+        const t = e.target;
+        if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+        e.preventDefault();
+    };
+    const lockScroll = () => {
+        window.addEventListener('wheel', stopScroll, { passive: false });
+        window.addEventListener('touchmove', stopScroll, { passive: false });
+        window.addEventListener('keydown', stopKeys);
+    };
+    const unlockScroll = () => {
+        window.removeEventListener('wheel', stopScroll);
+        window.removeEventListener('touchmove', stopScroll);
+        window.removeEventListener('keydown', stopKeys);
+    };
+
+    function close() {
+        if (!modal) return;
+        modal.classList.remove('is-open');
+        document.body.classList.remove('gate-open');
+        unlockScroll();
+        if (lastFocus && document.contains(lastFocus)) lastFocus.focus({ preventScroll: true });
+    }
+
+    const finish = () => {
+        store.set();
+        const { url, label } = current;
+        close();
+        startDownload(url, label);
+    };
+
+    async function onEmail(e) {
+        e.preventDefault();
+        const form = e.currentTarget;
+        const input = form.elements.email;
+        const btn = form.querySelector('button[type="submit"]');
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(input.value.trim())) {
+            status('Please enter a valid email address.', true);
+            input.focus();
+            return;
+        }
+        btn.disabled = true;
+        status('Sending…');
+        const data = new FormData(form);
+        data.append('_subject', 'Document download: ' + current.label);
+        data.append('message', 'Requested the ' + current.label + ' from ' + location.pathname);
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 10000);
+        try {
+            const res = await fetch(FORM_URL, { method: 'POST', body: data, headers: { 'Accept': 'application/json' }, signal: controller.signal });
+            clearTimeout(timer);
+            if (!res.ok) throw new Error('server');
+            finish();
+        } catch (err) {
+            clearTimeout(timer);
+            status('That did not go through. Try again, or use an access code.', true);
+        } finally {
+            btn.disabled = false;
+        }
+    }
+
+    async function onCode(e) {
+        e.preventDefault();
+        const form = e.currentTarget;
+        const value = form.elements.code.value.trim();
+        if (!value) { status('Enter the access code.', true); return; }
+        try {
+            if ((await sha256(value)) === CODE_HASH) { finish(); return; }
+        } catch (err) { /* fall through to the error below */ }
+        status('That code is not right.', true);
+        form.elements.code.select();
+    }
+
+    document.addEventListener('click', e => {
+        const link = e.target.closest('a[href]');
+        if (!link) return;
+        let name;
+        try { name = decodeURIComponent(new URL(link.href, location.href).pathname.split('/').pop()); } catch (err) { return; }
+        if (!Object.prototype.hasOwnProperty.call(FILES, name)) return;
+        e.preventDefault();
+        if (store.get()) { startDownload(link.href, FILES[name]); return; }
+        open(link.href, FILES[name]);
+    });
+
+    // "Request a quote" jumps to the contact form with the service already in the message
+    document.addEventListener('click', e => {
+        const q = e.target.closest('.service-quote-link[data-service]');
+        if (!q) return;
+        const msg = document.getElementById('contact-message');
+        if (msg && !msg.value.trim()) {
+            const svc = new DOMParser().parseFromString(q.dataset.service, 'text/html').documentElement.textContent;
+            msg.value = 'I would like a quote for: ' + svc + '.\n\n';
+        }
+    });
+})();
+
+// ---- Insights: swipe dots on phones (same pattern as the visualisations) -----
+(function () {
+    document.addEventListener('DOMContentLoaded', () => {
+        const track = document.getElementById('insights-container');
+        const dots = Array.from(document.querySelectorAll('#insights-swipe-hint span'));
+        if (!track || !dots.length) return;
+        const update = () => {
+            const max = track.scrollWidth - track.clientWidth;
+            const p = max > 0 ? track.scrollLeft / max : 0;
+            const idx = Math.min(dots.length - 1, Math.round(p * (dots.length - 1)));
+            dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+        };
+        track.addEventListener('scroll', update, { passive: true });
+        window.addEventListener('resize', update);
+        update();
+    });
+})();

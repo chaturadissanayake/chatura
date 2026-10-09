@@ -1103,7 +1103,7 @@
     background: var(--surface-3); box-shadow: none;
 }
 
-.about-philosophy { margin-bottom: var(--space-10); }
+.about-philosophy { margin-bottom: var(--about-gap, var(--space-8)); }
 
 .about-philosophy h3 {
     font-family: var(--serif); font-size: 1.25rem; font-weight: 400;
@@ -1126,35 +1126,6 @@
         line-height: 1.5;
         margin-bottom: var(--space-4);
     }
-}
-
-.about-capabilities {
-    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-8) var(--space-6);
-    margin-bottom: var(--space-8); border-top: 1px solid var(--surface-3);
-    padding-top: var(--space-6);
-}
-
-.cap-block {
-    font-size: 0.8125rem; color: var(--ink-muted); line-height: 1.5;
-    background: transparent !important; border: none !important;
-    padding: 0 !important; border-radius: 0 !important;
-    box-shadow: none !important; transition: none;
-    min-width: 0; word-break: normal; overflow-wrap: break-word;
-}
-
-.cap-block:hover { transform: none; box-shadow: none; border-color: transparent; }
-
-.cap-block:last-child { grid-column: unset; }
-
-.cap-block .cap-title {
-    font-family: var(--mono);
-    font-size: 0.8125rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--ink);
-    margin-bottom: var(--space-3);
-    line-height: 1.4;
 }
 
 .about-links { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
@@ -1523,8 +1494,6 @@
     .mobile-timeline-optimized::before { left: 13.5px !important; }
 
     .form-row { grid-template-columns: 1fr; }
-    .about-capabilities { grid-template-columns: 1fr; }
-    .cap-block:last-child { grid-column: unset; }
     .lab-grid { grid-template-columns: 1fr; gap: var(--space-6); }
     .insights-grid { grid-template-columns: 1fr; gap: var(--space-6); }
     .section-eyebrow { margin-bottom: var(--space-2); }
@@ -1574,64 +1543,6 @@
     background-color: var(--accent);
 }
 
-.about-experience {
-    margin-bottom: var(--space-6);
-    border-top: 1px solid var(--surface-3);
-    padding-top: var(--space-8);
-}
-
-.about-experience h3 {
-    font-family: var(--serif); font-size: 1.25rem; font-weight: 400;
-    letter-spacing: -0.01em; color: var(--ink); margin-bottom: var(--space-5);
-    line-height: 1.2;
-}
-
-.exp-list { display: flex; flex-direction: column; gap: 0; }
-
-.exp-item {
-    --exp-col: 160px;
-    display: grid; grid-template-columns: var(--exp-col) 1fr; align-items: baseline;
-    gap: var(--space-4); padding: var(--space-4) 0; /* UX: Tighter desktop spacing */
-    border-bottom: 1px solid var(--surface-3);
-    transition: background var(--dur-fast), transform var(--dur-med) var(--ease-out);
-    position: relative; /* UX: dot now anchors to the row itself, not to .exp-detail's coincidental gap alignment */
-}
-
-.exp-item::before {
-    content: '';
-    position: absolute;
-    left: calc(var(--exp-col) + (var(--space-4) / 2) - 3px); /* UX: centered in the actual column gap on every row, not a guessed offset */
-    top: calc(var(--space-4) + 6px);
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--surface-3);
-    transition: background var(--dur-fast) var(--ease-out);
-}
-
-.exp-item:hover::before {
-    background: var(--accent);
-}
-
-.exp-detail {
-    display: flex; flex-direction: column; gap: 4px;
-    position: relative;
-}
-
-@media (hover: hover) and (pointer: fine) {
-    .exp-item:hover {
-        transform: translateX(6px);
-    }
-}
-
-.exp-item:last-child { border-bottom: none; }
-
-.exp-period {
-    font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--ink-muted);
-    white-space: nowrap; flex-shrink: 0;
-}
-
 .about-right {
     display: flex;
     flex-direction: column;
@@ -1650,92 +1561,6 @@
         order: 1;
         margin-top: var(--space-6);
         margin-bottom: 0;
-    }
-}
-
-.exp-detail { display: flex; flex-direction: column; gap: 2px; }
-
-.exp-detail strong {
-    font-size: 0.875rem; font-weight: 500; color: var(--ink); line-height: 1.3;
-}
-
-.exp-detail span, .exp-detail .exp-org-link {
-    font-size: 0.8125rem; color: var(--ink-muted); line-height: 1.4;
-}
-
-.exp-detail .exp-org-link {
-    text-decoration: underline;
-    text-decoration-color: var(--surface-3);
-    text-underline-offset: 3px;
-    transition: color var(--dur-fast), text-decoration-color var(--dur-fast);
-    display: inline-flex;
-    align-items: center;
-    width: fit-content;
-}
-
-.exp-detail .exp-org-link:hover {
-    color: var(--accent);
-    text-decoration-color: var(--accent);
-}
-
-.exp-detail .exp-org-link::after {
-    content: '↗';
-    font-family: var(--mono);
-    font-size: 0.7em;
-    margin-left: 4px;
-    opacity: 0;
-    transform: translate(-2px, 2px);
-    transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
-}
-
-.exp-detail .exp-org-link:hover::after {
-    opacity: 1;
-    transform: translate(0, 0);
-}
-
-@media (max-width: 860px) {
-    .about-capabilities {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: var(--space-6);
-    }
-}
-
-@media (max-width: 640px) {
-    .about-capabilities {
-        grid-template-columns: 1fr;
-        gap: var(--space-8);
-    }
-    /* UX: Vertical list with Medium-style fade out for Experience */
-    .exp-list {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-4);
-        position: relative;
-        overflow: hidden;
-        transition: max-height 0.4s ease, mask-image 0.4s ease, -webkit-mask-image 0.4s ease;
-    }
-    .exp-list.is-collapsed-mobile {
-        max-height: 240px; /* UX: Scaled specifically to show only the top 3 items on mobile */
-        mask-image: linear-gradient(to bottom, black 50%, transparent 95%);
-        -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 95%);
-    }
-    .exp-item {
-        display: flex;
-        flex-direction: column;
-        gap: 2px; /* UX: Tighter gap matching capabilities section */
-        padding: var(--space-3) 0; /* UX: Tighter vertical padding */
-        border-bottom: 1px solid var(--surface-3);
-    }
-    .exp-item:last-child { border-bottom: none; }
-    .exp-item::before { display: none; }
-    .exp-period { padding-top: 0; font-size: 0.75rem; color: var(--accent); margin-bottom: 0; white-space: normal; }
-    .exp-detail strong { font-size: 0.875rem; white-space: normal; overflow-wrap: break-word; }
-    .exp-detail span, .exp-detail .exp-org-link { font-size: 0.8125rem; white-space: normal; overflow-wrap: break-word; }
-}
-
-@media (max-width: 400px) {
-    .exp-item {
-        gap: 2px;
     }
 }
 
@@ -1999,16 +1824,6 @@ span.hero-word-link:hover { text-decoration-color: var(--surface-3); }
     .hero-title-massive { text-wrap: balance; }
 }
 
-/* Services: five rows, the last two behind a button on desktop and tablet.
-   On phones every card is in the swipe row, so the button is hidden there. */
-.services-more-row { display: flex; justify-content: center; margin-top: var(--space-8); }
-.services-more-row .show-more-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
-@media (min-width: 641px) {
-    .services-list:not(.is-expanded) .service-row--extra { display: none; }
-}
-@media (max-width: 640px) {
-    .services-more-row { display: none; }
-}
 /* Testimonials: no card, no decorative quote mark. Person first, then the words. */
 .testimonials-grid { column-gap: var(--space-16); row-gap: var(--space-12); }
 .testimonial-card,
@@ -2043,68 +1858,6 @@ span.hero-word-link:hover { text-decoration-color: var(--surface-3); }
     .about-link-pill { border-radius: 999px; }
 }
 
-/* Experience: quieter, so it reads as a supporting list rather than a section of its own. */
-.about-experience h3 { font-size: 1rem; margin-bottom: var(--space-3); color: var(--ink-soft); }
-@media (min-width: 641px) {
-    .exp-item { padding: var(--space-2) 0; border-bottom: 0; }
-    .exp-item::before { display: none; }
-    .exp-item:hover { transform: none; }
-    .exp-period {
-        font-family: var(--sans);
-        font-size: 0.8125rem;
-        letter-spacing: 0;
-        text-transform: none;
-        color: var(--ink-muted);
-    }
-    .exp-detail strong { color: var(--ink-soft); }
-}
-
-/* Capabilities: desktop and laptop show all six in two columns.
-   Phones get a tap-to-open list: all six titles visible, first one open. */
-.about-capabilities { gap: var(--space-6); }
-@media (max-width: 640px) {
-    .about-capabilities { gap: 0; padding-top: 0; }
-    .about-capabilities .cap-block {
-        border-top: 1px solid var(--surface-3) !important;
-        padding: 0 !important;
-    }
-    .about-capabilities .cap-block:first-child { border-top: 0 !important; }
-    .about-capabilities .cap-title {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: var(--space-4);
-        min-height: 52px;
-        margin: 0;
-        cursor: pointer;
-        -webkit-user-select: none;
-        user-select: none;
-    }
-    .about-capabilities .cap-title::after {
-        content: '';
-        flex-shrink: 0;
-        width: 7px;
-        height: 7px;
-        border-right: 1.5px solid var(--ink-muted);
-        border-bottom: 1.5px solid var(--ink-muted);
-        transform: rotate(45deg) translate(-2px, -2px);
-        transition: transform var(--dur-med) var(--ease-out);
-    }
-    .about-capabilities .cap-block.is-open .cap-title::after {
-        transform: rotate(-135deg) translate(-2px, -2px);
-    }
-    .about-capabilities .cap-body {
-        display: none;
-        padding: 0 0 var(--space-5);
-        font-size: 0.875rem;
-        line-height: 1.6;
-    }
-    .about-capabilities .cap-block.is-open .cap-body { display: block; }
-}
-
-/* Numbered capability titles */
-.cap-num { color: var(--ink-muted); margin-right: 0.35em; }
-
 /* Outline buttons: hover draws a stroke instead of filling the whole button.
    Solid (primary) buttons keep their own hover. */
 .btn-secondary:hover,
@@ -2112,15 +1865,15 @@ span.hero-word-link:hover { text-decoration-color: var(--surface-3); }
 .modal-cta-btn:not(.modal-cta-btn-primary):hover,
 .about-link-pill:hover {
     background: transparent;
-    border-color: var(--ink);
+    border-color: rgba(16, 21, 28, 0.3);
     color: var(--ink);
-    box-shadow: inset 0 0 0 1px var(--ink);
+    box-shadow: none;
 }
 .carousel-btn:hover {
-    background: var(--white);
-    border-color: var(--ink);
+    background: transparent;
+    border-color: rgba(16, 21, 28, 0.3);
     color: var(--ink);
-    box-shadow: inset 0 0 0 1px var(--ink);
+    box-shadow: none;
 }
 
 /* Testimonial photos sit over the initials, which show if a photo is missing */
@@ -2131,4 +1884,261 @@ span.hero-word-link:hover { text-decoration-color: var(--surface-3); }
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+
+/* ==========================================================================
+   ABOUT: sub-headings, capabilities, experience
+   One definition each. (Earlier versions were patched in several places and the
+   patches fought each other; everything for these three lives here now.)
+
+   Type scale inside the About column, largest to smallest:
+     section title   (h2, serif)               Background
+     sub-heading     (h3, serif 1.125rem)      How I Work / Capabilities / Experience
+     item title      (sans 0.9375rem)          capability names, job titles
+     item detail     (sans 0.8125rem, muted)   capability lists, organisations, dates
+   ========================================================================== */
+.about-subhead,
+.about-philosophy h3 {
+    font-family: var(--serif);
+    font-size: 1.125rem;
+    font-weight: 400;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin: 0 0 var(--space-4);
+}
+
+/* Capabilities and Experience are sibling blocks: same rule above, same space above and below,
+   same sub-heading. (How I Work is the lead block and has no rule above it.) */
+.about-right { --about-gap: var(--space-8); }
+.about-block {
+    margin: 0 0 var(--about-gap);
+    padding-top: var(--about-gap);
+    border-top: 1px solid var(--surface-3);
+}
+.about-capabilities {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-6) var(--space-8);
+}
+.cap-block {
+    min-width: 0;
+    overflow-wrap: break-word;
+}
+.cap-title {
+    font-family: var(--sans);
+    font-size: 0.9375rem;
+    font-weight: 400;
+    line-height: 1.35;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--ink);
+    margin: 0 0 var(--space-2);
+}
+.cap-body {
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: var(--ink-muted);
+}
+
+/* Experience: date column on the left, role and organisation on the right */
+.exp-list { display: flex; flex-direction: column; }
+.exp-item {
+    --exp-col: 168px;
+    display: grid;
+    grid-template-columns: var(--exp-col) minmax(0, 1fr);
+    column-gap: var(--space-6);
+    align-items: baseline;
+    padding: var(--space-4) 0;
+    border: 0;
+}
+.exp-period {
+    display: inline-grid;
+    grid-template-columns: 4.9em 1.1em auto; /* "from", dash and "to" sit in fixed columns so the dashes line up */
+    justify-content: start;
+    align-items: baseline;
+    font-family: var(--sans);
+    font-size: 0.8125rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--ink-muted);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+.exp-dash { text-align: center; }
+.exp-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.exp-detail { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.exp-detail strong { font-size: 0.9375rem; font-weight: 500; line-height: 1.3; color: var(--ink); }
+.exp-detail span,
+.exp-detail .exp-org-link { font-size: 0.8125rem; line-height: 1.4; color: var(--ink-muted); }
+.exp-detail .exp-org-link { width: fit-content; text-decoration: none; }
+@media (hover: hover) and (pointer: fine) {
+    .exp-detail .exp-org-link:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+}
+
+/* "Read more" is a phone-only control (the biography is trimmed on phones only) */
+@media (min-width: 641px) {
+    #about-read-more-btn { display: none; }
+}
+
+/* Phones */
+@media (max-width: 640px) {
+    .about-right { --about-gap: var(--space-6); }
+    .about-philosophy { margin-bottom: var(--space-2); }
+    #about-read-more-btn { align-self: flex-start; margin: 0 0 var(--about-gap) calc(-1 * var(--space-3)); }
+    .about-philosophy.is-collapsed-mobile p:nth-child(2) { margin-bottom: 0; }
+
+    /* The sub-heading would only repeat the section title, so it is dropped here */
+    .about-philosophy h3 { display: none; }
+
+    /* Capabilities become a tap-to-open list: all four titles visible, the first one open */
+    .about-capabilities { grid-template-columns: 1fr; gap: 0; }
+    .cap-block + .cap-block { border-top: 1px solid var(--surface-3); }
+    .cap-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-4);
+        min-height: 48px;
+        margin: 0;
+        cursor: pointer;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+    .cap-title::after {
+        content: '';
+        flex-shrink: 0;
+        width: 7px;
+        height: 7px;
+        border-right: 1.5px solid var(--ink-muted);
+        border-bottom: 1.5px solid var(--ink-muted);
+        transform: rotate(45deg) translate(-2px, -2px);
+        transition: transform var(--dur-med) var(--ease-out);
+    }
+    .cap-block.is-open .cap-title::after { transform: rotate(-135deg) translate(-2px, -2px); }
+    .cap-title { font-size: 0.875rem; font-weight: 500; line-height: 1.4; min-height: 46px; }
+    .cap-title::after { width: 6px; height: 6px; }
+    .cap-body { display: none; padding: 0 0 var(--space-5); font-size: 0.8125rem; line-height: 1.65; }
+    .cap-block.is-open .cap-body { display: block; }
+
+    /* Experience is on the CV and LinkedIn; on a phone it only adds length */
+    .about-experience { display: none; }
+}
+
+/* ==========================================================================
+   SERVICES: tab list on tablets and desktops, swipe row on phones.
+   The JS in index.html adds .is-tabbed. Without it, all five services
+   simply stay visible as a normal list.
+   ========================================================================== */
+.service-tabs { display: none; }
+
+@media (min-width: 641px) {
+    .services-layout.is-tabbed {
+        display: grid;
+        grid-template-columns: minmax(240px, 340px) minmax(0, 1fr);
+        column-gap: clamp(2rem, 5vw, 4.5rem);
+        align-items: start;
+    }
+    .services-layout.is-tabbed .service-tabs {
+        display: flex;
+        flex-direction: column;
+        position: sticky;
+        top: calc(var(--nav-h, 64px) + var(--space-8));
+        border-top: 1px solid var(--surface-3);
+    }
+    .service-tab {
+        display: grid;
+        grid-template-columns: 2.5rem minmax(0, 1fr);
+        column-gap: 0;
+        row-gap: 2px;
+        align-items: baseline;
+        width: 100%;
+        padding: var(--space-4) var(--space-3) var(--space-4) 0;
+        text-align: left;
+        border-bottom: 1px solid var(--surface-3);
+        color: var(--ink-muted);
+        transition: color var(--dur-fast) var(--ease-out);
+    }
+    .service-tab-num {
+        grid-row: 1 / span 2;
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        letter-spacing: 0.04em;
+        color: var(--ink-muted);
+    }
+    .service-tab-name { display: inline-grid; font-size: 0.9375rem; line-height: 1.35; color: inherit; }
+    /* invisible bold copy sets the width, so choosing a tab (which turns it bold) never re-wraps the label */
+    .service-tab-name::after {
+        content: attr(data-text);
+        font-weight: 500;
+        height: 0;
+        overflow: hidden;
+        visibility: hidden;
+        pointer-events: none;
+    }
+    .service-tab-price { grid-column: 2; font-size: 0.75rem; line-height: 1.4; color: var(--ink-muted); }
+    .service-tab[aria-selected="true"] { color: var(--ink); }
+    .service-tab[aria-selected="true"] .service-tab-name { font-weight: 500; }
+    .service-tab[aria-selected="true"] .service-tab-num { color: var(--ink); }
+    @media (hover: hover) and (pointer: fine) {
+        .service-tab:hover { color: var(--ink); }
+    }
+    .service-tab:focus-visible { outline: 2px solid rgba(47, 95, 168, 0.5); outline-offset: -2px; }
+
+    /* One panel at a time. The number circle is redundant next to the tab, so it goes. */
+    .services-layout.is-tabbed .services-list { border-top: 0; display: block; }
+    .services-layout.is-tabbed .service-row {
+        display: none;
+        grid-template-columns: 1fr;
+        padding: 0;
+        border: 0;
+    }
+    .services-layout.is-tabbed .service-row.is-active { display: grid; }
+    .services-layout.is-tabbed .service-row-num { display: none; }
+    .services-layout.is-tabbed .service-row-title { margin-top: -0.2em; }
+    .services-layout.is-tabbed .service-row-desc,
+    .services-layout.is-tabbed .service-row-foot { max-width: 560px; }
+
+    @media (prefers-reduced-motion: no-preference) {
+        .services-layout.is-tabbed .service-row.is-active { animation: servicePanelIn 220ms var(--ease-out); }
+    }
+}
+@keyframes servicePanelIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: none; }
+}
+/* ==========================================================================
+   DEVICE NOTE: slim dark bar at the top of case studies, phones only.
+   One line of text, small close button, no icon.
+   ========================================================================== */
+.device-note { display: none; }
+@media (max-width: 640px) {
+    .device-note {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        margin: 0 0 var(--space-5);
+        padding: 12px 44px;
+        min-height: 44px;
+        background: var(--ink);
+        color: var(--white);
+        border-radius: var(--radius);
+        text-align: center;
+    }
+    .device-note[hidden] { display: none; }
+    .device-note-text { margin: 0; font-size: 0.8125rem; font-weight: 500; line-height: 1.4; color: inherit; }
+    .device-note-close {
+        position: absolute;
+        top: 50%; right: 4px;
+        transform: translateY(-50%);
+        display: inline-flex; align-items: center; justify-content: center;
+        width: 36px; height: 36px;
+        color: rgba(255, 255, 255, 0.7);
+        border-radius: 999px;
+    }
+    .device-note-close svg { width: 14px; height: 14px; }
+    .device-note-close:active { color: var(--white); }
 }
