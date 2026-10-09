@@ -1988,3 +1988,119 @@
         margin-bottom: 0 !important;
     }
 }
+
+/* ============================================
+   ADDITIONS (appended last, nothing above was edited)
+   ============================================ */
+
+/* Hero words are plain underlined text, not links */
+span.hero-word-link:hover { text-decoration-color: var(--surface-3); }
+@media (min-width: 1921px) {
+    .hero-title-massive { text-wrap: balance; }
+}
+
+/* Services: five rows, the last two behind a button on desktop and tablet.
+   On phones every card is in the swipe row, so the button is hidden there. */
+.services-more-row { display: flex; justify-content: center; margin-top: var(--space-8); }
+.services-more-row .show-more-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+@media (min-width: 641px) {
+    .services-list:not(.is-expanded) .service-row--extra { display: none; }
+}
+@media (max-width: 640px) {
+    .services-more-row { display: none; }
+}
+/* Testimonials: no card, no decorative quote mark. Person first, then the words. */
+.testimonials-grid { column-gap: var(--space-16); row-gap: var(--space-12); }
+.testimonial-card,
+.testimonial-card.is-verified {
+    background: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    height: auto;
+}
+.testimonial-quote::before { content: none; display: none; }
+.testimonial-footer { order: 1; margin: 0 0 var(--space-4); }
+.testimonial-quote  { order: 2; flex-grow: 0; margin: 0 0 var(--space-3); }
+.testimonial-link   { order: 3; border-top: 0; padding-top: 0; margin-top: var(--space-3); min-height: 32px; }
+.testimonial-quote p { font-style: normal; }
+@media (max-width: 860px) {
+    .testimonials-grid { row-gap: var(--space-10); }
+}
+
+/* Featured clients marquee: spacing above the label only.
+   The strip itself is the original: contained to the page width with faded ends. */
+.clients-head { padding-top: var(--space-24); }
+@media (max-width: 600px) {
+    .clients-head { padding-top: var(--space-16); }
+}
+
+/* Phones: fully rounded buttons, filter pills, tags and badges.
+   They all read the --radius-pill token, so desktop and laptop are untouched. */
+@media (max-width: 640px) {
+    :root { --radius-pill: 999px; }
+    .about-link-pill { border-radius: 999px; }
+}
+
+/* Experience: quieter, so it reads as a supporting list rather than a section of its own. */
+.about-experience h3 { font-size: 1rem; margin-bottom: var(--space-3); color: var(--ink-soft); }
+@media (min-width: 641px) {
+    .exp-item { padding: var(--space-2) 0; border-bottom: 0; }
+    .exp-item::before { display: none; }
+    .exp-item:hover { transform: none; }
+    .exp-period {
+        font-family: var(--sans);
+        font-size: 0.8125rem;
+        letter-spacing: 0;
+        text-transform: none;
+        color: var(--ink-muted);
+    }
+    .exp-detail strong { color: var(--ink-soft); }
+}
+
+/* Capabilities: desktop and laptop show all six in two columns.
+   Phones get a tap-to-open list: all six titles visible, first one open. */
+.about-capabilities { gap: var(--space-6); }
+@media (max-width: 640px) {
+    .about-capabilities { gap: 0; padding-top: 0; }
+    .about-capabilities .cap-block {
+        border-top: 1px solid var(--surface-3) !important;
+        padding: 0 !important;
+    }
+    .about-capabilities .cap-block:first-child { border-top: 0 !important; }
+    .about-capabilities .cap-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-4);
+        min-height: 52px;
+        margin: 0;
+        cursor: pointer;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+    .about-capabilities .cap-title::after {
+        content: '';
+        flex-shrink: 0;
+        width: 7px;
+        height: 7px;
+        border-right: 1.5px solid var(--ink-muted);
+        border-bottom: 1.5px solid var(--ink-muted);
+        transform: rotate(45deg) translate(-2px, -2px);
+        transition: transform var(--dur-med) var(--ease-out);
+    }
+    .about-capabilities .cap-block.is-open .cap-title::after {
+        transform: rotate(-135deg) translate(-2px, -2px);
+    }
+    .about-capabilities .cap-body {
+        display: none;
+        padding: 0 0 var(--space-5);
+        font-size: 0.875rem;
+        line-height: 1.6;
+    }
+    .about-capabilities .cap-block.is-open .cap-body { display: block; }
+}
+
+/* Numbered capability titles */
+.cap-num { color: var(--ink-muted); margin-right: 0.35em; }
