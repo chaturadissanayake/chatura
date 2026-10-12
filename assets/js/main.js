@@ -115,26 +115,34 @@ document.addEventListener('DOMContentLoaded', () => {
         proofNums.forEach(el => proofObserver.observe(el));
     }
 
-    // About: on phones the biography is trimmed to a short paragraph until "Read more".
-    // Follows the screen size live (rotating a phone, resizing a window), so the button
-    // can never be left on screen when there is nothing to expand.
     const aboutContent = document.querySelector('.about-philosophy');
     const aboutReadMoreBtn = document.getElementById('about-read-more-btn');
     if (aboutContent && aboutReadMoreBtn) {
-        const phoneMq = window.matchMedia('(max-width: 640px)');
-        let aboutOpen = false;
-        const paintAbout = () => {
-            const trimmed = phoneMq.matches && !aboutOpen;
-            aboutContent.classList.toggle('is-collapsed-mobile', trimmed);
-            aboutReadMoreBtn.setAttribute('aria-expanded', String(!trimmed));
-            aboutReadMoreBtn.innerHTML = trimmed
-                ? 'Read more <i data-lucide="chevron-down" aria-hidden="true"></i>'
-                : 'Show less <i data-lucide="chevron-up" aria-hidden="true"></i>';
+        if (window.innerWidth <= 640) {
+            aboutContent.classList.add('is-collapsed-mobile');
+        }
+        aboutReadMoreBtn.addEventListener('click', () => {
+            aboutContent.classList.toggle('is-collapsed-mobile');
+            aboutReadMoreBtn.setAttribute('aria-expanded', String(!aboutContent.classList.contains('is-collapsed-mobile')));
+            aboutReadMoreBtn.innerHTML = aboutContent.classList.contains('is-collapsed-mobile') 
+                ? 'Read more <i data-lucide="chevron-down"></i>' 
+                : 'Show less <i data-lucide="chevron-up"></i>';
             if (window.lucide) lucide.createIcons({ root: aboutReadMoreBtn });
-        };
-        aboutReadMoreBtn.addEventListener('click', () => { aboutOpen = !aboutOpen; paintAbout(); });
-        if (phoneMq.addEventListener) phoneMq.addEventListener('change', paintAbout); else phoneMq.addListener(paintAbout);
-        paintAbout();
+        });
+    }
+
+    const expContent = document.querySelector('.exp-list');
+    const expReadMoreBtn = document.getElementById('exp-read-more-btn');
+    if (expContent && expReadMoreBtn) {
+        if (expContent.children.length > 3) {
+            expContent.classList.add('is-collapsed');
+            expReadMoreBtn.addEventListener('click', () => {
+                expContent.classList.remove('is-collapsed');
+                expReadMoreBtn.style.display = 'none';
+            });
+        } else {
+            expReadMoreBtn.style.display = 'none';
+        }
     }
 
     const contactForm   = document.getElementById('contact-form');
@@ -421,39 +429,17 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.querySelectorAll('form').forEach(f => f.reset());
         setTab('email');
         status('');
-        document.body.classList.add('gate-open');
+        document.body.style.setProperty('--scroll-pad', (window.innerWidth - document.documentElement.clientWidth) + 'px');
+        document.body.classList.add('modal-open');
         modal.classList.add('is-open');
-        lockScroll();
         setTimeout(() => modal.querySelector('[data-panel="email"] .gate-input')?.focus({ preventScroll: true }), 30);
-    };
-
-    // Keep the page still behind the popup WITHOUT changing overflow or padding on <body>.
-    // (That used to shift the layout, reset the sticky portrait in About and made the page flicker.)
-    const SCROLL_KEYS = [' ', 'PageUp', 'PageDown', 'Home', 'End', 'ArrowUp', 'ArrowDown'];
-    const stopScroll = e => { if (e.cancelable) e.preventDefault(); };
-    const stopKeys = e => {
-        if (SCROLL_KEYS.indexOf(e.key) === -1) return;
-        const t = e.target;
-        if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
-        e.preventDefault();
-    };
-    const lockScroll = () => {
-        window.addEventListener('wheel', stopScroll, { passive: false });
-        window.addEventListener('touchmove', stopScroll, { passive: false });
-        window.addEventListener('keydown', stopKeys);
-    };
-    const unlockScroll = () => {
-        window.removeEventListener('wheel', stopScroll);
-        window.removeEventListener('touchmove', stopScroll);
-        window.removeEventListener('keydown', stopKeys);
     };
 
     function close() {
         if (!modal) return;
         modal.classList.remove('is-open');
-        document.body.classList.remove('gate-open');
-        unlockScroll();
-        if (lastFocus && document.contains(lastFocus)) lastFocus.focus({ preventScroll: true });
+        document.body.classList.remove('modal-open');
+        if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
     }
 
     const finish = () => {

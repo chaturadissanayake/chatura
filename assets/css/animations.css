@@ -254,6 +254,8 @@
     .card-status-badge,
     .card-tag-btn,
     .card-tags span,
+    .exp-item .exp-period,
+    .exp-period,
     .form-group label,
     .hero-visual-tag,
     .insight-category-badge,
@@ -365,7 +367,7 @@
 
 /* 1. Small labels never drop below 12px, at any root font size */
 .card-cat, .card-date, .card-methodology, .card-status-badge, .card-tag-btn, .card-tags span,
-.form-group label, .hero-visual-tag, .insight-category-badge,
+.exp-item .exp-period, .exp-period, .form-group label, .hero-visual-tag, .insight-category-badge,
 .insight-meta, .insight-upcoming-label, .lab-pills span, .lab-tag-label, .lang-text,
 .mobile-menu-footer a, .modal-eyebrow, .modal-methodology, .modal-tags span,
 .most-requested-badge, .pm-tag, .project-breadcrumb, .service-row-tools span,
@@ -452,6 +454,46 @@
 }
 .card-tags { padding-top: var(--space-3); padding-bottom: 6px; }
 
+/* 2. Experience: plain and quiet. No dots, no movement, no colour change on hover. */
+.exp-list .exp-item {
+    --exp-col: 168px;
+    gap: var(--space-6);
+    padding: var(--space-4) 0;
+    align-items: baseline;
+}
+.exp-list .exp-item::before { display: none; }
+.exp-list .exp-item:hover { transform: none; }
+
+/* Dates: sentence case, one size, figures of equal width. The "from" and "to" parts sit in
+   fixed columns, so the dash lines up from row to row instead of floating at a different place each time. */
+.exp-list .exp-item .exp-period {
+    display: inline-grid;
+    grid-template-columns: 4.9em 1.1em auto;
+    justify-content: start;
+    align-items: baseline;
+    font-family: var(--sans);
+    font-size: 0.8125rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--ink-muted);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+.exp-dash { text-align: center; }
+.exp-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.exp-list .exp-detail strong { font-size: 0.9375rem; font-weight: 500; color: var(--ink); }
+.exp-list .exp-detail span,
+.exp-list .exp-detail .exp-org-link { font-size: 0.8125rem; color: var(--ink-muted); }
+
+/* Organisation links read as text; underline only on hover, no arrow */
+.exp-list .exp-detail .exp-org-link { text-decoration: none; }
+.exp-list .exp-detail .exp-org-link::after { display: none; }
+@media (hover: hover) and (pointer: fine) {
+    .exp-list .exp-detail .exp-org-link:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+}
+
 /* 3. Case study notice shown on phones (see navigation.js) */
 .desktop-hint {
     display: flex;
@@ -509,6 +551,19 @@
     /* iOS Safari zooms the whole page when a field under 16px gets focus */
     .form-group input, .form-group textarea { font-size: 16px; }
 
+    /* Experience on a phone: date on top, role and organisation below, all in the same quiet style */
+    .exp-list .exp-item { gap: 2px; padding: var(--space-3) 0; }
+    .exp-list .exp-item .exp-period {
+        grid-template-columns: auto auto auto;
+        justify-content: start;
+        column-gap: 0.3em;
+        color: var(--ink-muted);
+        font-size: 0.8125rem;
+        margin-bottom: 2px;
+    }
+    .exp-list .exp-item .exp-dash { width: auto; }
+    .exp-list.is-collapsed-mobile { max-height: 330px; }
+
     /* Show more / Show less sit in the page (not floating over the cards), same height, real space around them */
     .floating-action-wrapper,
     .floating-action-wrapper.is-docked,
@@ -521,10 +576,17 @@
         transform: none;
     }
     .expand-action-wrapper {
-        margin: var(--space-6) 0 var(--space-8);
+        margin: var(--space-8) 0 var(--space-10);
         gap: var(--space-3);
         flex-wrap: wrap;
+    }
+    .expand-action-wrapper button {
+        flex: 1 1 0;
+        max-width: 160px;
+        min-height: 36px;
         justify-content: center;
+        box-shadow: none !important;
+        background: var(--white) !important;
     }
 }
 
@@ -541,13 +603,45 @@ a, button, [role="button"], .cap-title, .service-row, .project-card, .insight-ca
 :focus:not(:focus-visible) { outline: none; }
 .cap-title:focus-visible { outline: 2px solid rgba(47, 95, 168, 0.35); outline-offset: 4px; border-radius: var(--radius); }
 
-/* Phones: biography trimmed, controls fully rounded.
-   (Capabilities and experience live in sections.css.) */
+/* Capabilities: compact, with a hairline above each block so they read as four separate things.
+   Title is a clear step above the body text and matches the "Experience" heading size. */
+.about-capabilities .cap-title { font-family: var(--sans); font-size: 1rem; font-weight: 500; line-height: 1.35; color: var(--ink); margin-bottom: var(--space-2); }
+.about-capabilities .cap-title-text { display: inline; }
+.about-capabilities .cap-body { font-size: 0.8125rem; line-height: 1.55; color: var(--ink-muted); }
+@media (min-width: 641px) {
+    .about-capabilities { border-top: 0; padding-top: 0; gap: var(--space-6) var(--space-8); }
+    .about-capabilities .cap-block { border-top: 1px solid var(--surface-3) !important; padding-top: var(--space-3) !important; }
+}
+
+/* Experience: quiet and short. Date line, role, organisation. No dash, no columns.
+   Three most recent roles show; the rest sit behind a text link. */
+.about-experience { margin-top: var(--space-8); }
+.about-experience h3 { font-family: var(--sans); font-size: 1rem; font-weight: 500; color: var(--ink); margin-bottom: var(--space-3); }
+.about-experience .exp-list { display: flex; flex-direction: column; gap: 0; }
+.about-experience .exp-list .exp-item {
+    display: flex; flex-direction: column; gap: 2px;
+    padding: var(--space-3) 0; border: 0;
+}
+.about-experience .exp-list .exp-item .exp-period {
+    display: block; font-size: 0.75rem; line-height: 1.4; color: var(--ink-muted);
+    white-space: normal; margin: 0;
+}
+.exp-to-word { white-space: pre; }
+.about-experience .exp-list.is-collapsed .exp-item:nth-child(n+4) { display: none; }
+.about-experience #exp-read-more-btn { display: inline-flex !important; width: auto !important; margin: var(--space-2) 0 var(--space-6) !important; }
+
+/* Phones */
 @media (max-width: 640px) {
-    /* Background: one short paragraph until "Read more" */
+    .about-capabilities .cap-title { -webkit-user-select: none; user-select: none; }
+
+    /* Background: one short paragraph until "Read more"; the sub-heading repeats the section title */
+    .about-philosophy h3 { display: none; }
     .about-philosophy.is-collapsed-mobile p:nth-child(2) {
-        display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 5; line-clamp: 5; overflow: hidden;
+        display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 5; overflow: hidden;
     }
+
+    /* Experience is on the CV and LinkedIn. It only adds length here. Desktop keeps it. */
+    .about-experience { display: none; }
 
     /* Fully rounded controls, filter chips included */
     .btn-primary, .btn-secondary, .form-submit, .show-more-btn, .modal-cta-btn, .modal-cta-btn-primary,
@@ -557,46 +651,11 @@ a, button, [role="button"], .cap-title, .service-row, .project-card, .insight-ca
         border-radius: 999px;
     }
     .card-cat.card-tag-btn { border-radius: 0; }
-
-    /* Sort / Archive next to the Projects title: compact, not full-size buttons */
-    .view-controls .show-more-btn { min-height: 32px; padding-left: 14px; padding-right: 14px; }
 }
 
-/* TEXT BUTTONS ("Read more", "View all work"): one small, quiet size on every screen.
-   The tappable area on touch screens stays generous through the invisible ::after below. */
-.btn-tertiary,
-.expand-action-wrapper .btn-tertiary,
-.read-more-toggle {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    width: auto;
-    min-height: 32px;
-    padding: 0 var(--space-3);
-    font-family: var(--sans);
-    font-size: 0.8125rem;
-    font-weight: 500;
-    line-height: 1;
-    letter-spacing: 0.01em;
-    color: var(--ink-soft);
-    background: none;
-    border: 0;
-    box-shadow: none;
-    transition: color var(--dur-fast) var(--ease-out);
-}
-.btn-tertiary svg.lucide,
-.read-more-toggle svg.lucide { width: 14px !important; height: 14px !important; margin: 0 !important; transition: transform var(--dur-med) var(--ease-out); }
-@media (hover: hover) and (pointer: fine) {
-    .btn-tertiary:hover, .read-more-toggle:hover { color: var(--ink); }
-}
-@media (pointer: coarse) {
-    .btn-tertiary::after, .read-more-toggle::after { content: ''; position: absolute; inset: -8px -4px; }
-}
-
-/* Show less: no longer force-hidden, so the page can collapse the list again (the script shows/hides it) */
-#collapse-projects-btn { min-height: 32px; }
+/* Show more / show less: a text link, and once opened it is not needed again */
+#collapse-projects-btn { display: none !important; }
+.services-more-row .btn-tertiary svg { transition: transform var(--dur-med) var(--ease-out); }
 
 /* Services: price and quote link, pinned to the bottom of every row so all cards line up */
 .service-row-body { display: flex; flex-direction: column; }
@@ -616,28 +675,10 @@ a, button, [role="button"], .cap-title, .service-row, .project-card, .insight-ca
     .service-row-foot { flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: var(--space-3); max-width: none; }
 }
 
-/* Featured clients: a thin rule above and below the strip, same width as the page content.
-   The label sits above the top rule. */
-.clients-roller-section {
-    box-sizing: border-box;
-    width: calc(100% - 2 * var(--space-8));
-    max-width: var(--max-w);
-    margin: 0 auto;
-    border-top: 1px solid var(--surface-3);
-    border-bottom: 1px solid var(--surface-3);
-}
-@media (max-width: 640px) {
-    .clients-roller-section {
-        width: calc(100% - 2 * var(--space-5));
-        padding-left: 0;
-        padding-right: 0;
-    }
-}
+/* Featured clients: the strip sits on the page without rules above and below it */
+.clients-roller-section { border-top: 0; border-bottom: 0; }
 
-/* Download gate. It has its own body class (gate-open): the case-study modal's "modal-open" class
-   hides the navigation, which the small download popup should not do. */
-/* No scroll-lock CSS on purpose: setting overflow/padding on <body> shifted the layout and broke the sticky
-   portrait in About. The page is held still by main.js instead (wheel / touch / keys are blocked while the popup is open). */
+/* Download gate */
 .gate-modal { position: fixed; inset: 0; z-index: 10000; display: none; align-items: center; justify-content: center; padding: var(--space-5); background: rgba(16, 21, 28, 0.45); }
 .gate-modal.is-open { display: flex; }
 .gate-panel { position: relative; width: 100%; max-width: 440px; background: var(--surface-2); border: 1px solid var(--surface-3); border-radius: var(--radius-lg); box-shadow: var(--shadow-xl); padding: var(--space-8); }
@@ -665,44 +706,3 @@ a, button, [role="button"], .cap-title, .service-row, .project-card, .insight-ca
 body { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
 input, textarea, [contenteditable="true"] { -webkit-user-select: text; user-select: text; -webkit-touch-callout: default; }
 img, svg, video { -webkit-user-drag: none; -webkit-touch-callout: none; }
-/* Copying: the email address and form text can be selected and copied */
-.contact-email, .contact-email * { -webkit-user-select: text; user-select: text; }
-
-/* Services price: keep amounts and units on one line */
-.service-price-amount { white-space: nowrap; }
-
-/* Show more / Show less: the same quiet text button as "View all work" everywhere.
-   No pill, no border, no shadow, wherever the script places them. */
-.floating-action-wrapper,
-.floating-action-wrapper button,
-.expand-action-wrapper button,
-#collapse-projects-btn,
-#expand-projects-btn {
-    background: none !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-}
-.floating-action-wrapper button,
-.expand-action-wrapper button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    min-height: 32px;
-    padding: 0 var(--space-3);
-    font-family: var(--sans);
-    font-size: 0.8125rem;
-    font-weight: 500;
-    line-height: 1;
-    letter-spacing: 0.01em;
-    color: var(--ink-soft);
-}
-.floating-action-wrapper button svg.lucide,
-.expand-action-wrapper button svg.lucide { width: 14px !important; height: 14px !important; margin: 0 !important; }
-@media (hover: hover) and (pointer: fine) {
-    .floating-action-wrapper button:hover,
-    .expand-action-wrapper button:hover { color: var(--ink); }
-}
-.floating-action-wrapper button::after,
-.expand-action-wrapper button::after { display: none; }
