@@ -514,6 +514,23 @@
 
 <main id="main-content" tabindex="-1" style="outline: none;">
     <div class="site-wrapper">   
+<div class="device-note" id="device-note" role="note" hidden>
+<p class="device-note-text">This case study is best explored on a larger screen.</p>
+<button type="button" class="device-note-close" aria-label="Dismiss this message"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+</div>
+<script>
+(function () {
+  var n = document.getElementById('device-note');
+  if (!n) return;
+  var seen = false;
+  try { seen = sessionStorage.getItem('deviceNoteDismissed') === '1'; } catch (e) {}
+  if (!seen) n.hidden = false;
+  n.querySelector('.device-note-close').addEventListener('click', function () {
+    n.hidden = true;
+    try { sessionStorage.setItem('deviceNoteDismissed', '1'); } catch (e) {}
+  });
+})();
+</script>
 
         <header class="project-header">
             <h1>Mood of the Nation</h1>
