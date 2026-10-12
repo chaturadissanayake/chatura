@@ -1,6 +1,51 @@
 document.addEventListener('DOMContentLoaded', () => {
     SiteUtils.initIcons();
 
+    // ---- Availability -----------------------------------------------------
+    // ONE switch for the whole site (it appears in the Contact section).
+    // Set open to true when you can take work again. nextFrom is optional (e.g. 'November');
+    // left blank it says "next month".
+    const AVAILABILITY = {
+        open: false,
+        nextFrom: ''
+    };
+    const when = AVAILABILITY.nextFrom ? 'in ' + AVAILABILITY.nextFrom : 'next month';
+    const availText = AVAILABILITY.open
+        ? "I'm taking on new projects right now."
+        : new Date().toLocaleString('en-US', { month: 'long' }) + ' is full for me, so new work starts ' + when + '.';
+    document.querySelectorAll('[data-availability]').forEach(el => {
+        el.classList.toggle('is-open', AVAILABILITY.open);
+        const t = el.querySelector('.availability-text');
+        if (t) t.textContent = availText;
+    });
+
+    // Footer year updates itself
+    document.querySelectorAll('[data-year]').forEach(el => { el.textContent = new Date().getFullYear(); });
+
+    // Never leave one word alone on the last line: join the last two words of short text blocks.
+    // (CSS text-wrap: pretty does the same, but not every browser supports it yet.)
+    document.querySelectorAll('.contact-body, .section-header-desc, .services-intro-text, .service-row-desc, .service-includes, .insight-body p, .viz-desc, .testimonial-quote p, .hero-subtext, .availability-text, .about-philosophy p').forEach(el => {
+        if (el.childNodes.length !== 1 || el.firstChild.nodeType !== 3) return;
+        const text = el.textContent.trim();
+        if (text.length > 30) el.textContent = text.replace(/\s+(\S+)$/, '\u00A0$1');
+    });
+
+    // Client strip: stop the marquee while it is off screen, so it is not repainting during scrolling
+    const roller = document.querySelector('.clients-roller-section');
+    if (roller && 'IntersectionObserver' in window) {
+        new IntersectionObserver(es => roller.classList.toggle('is-offscreen', !es[0].isIntersecting), { rootMargin: '100px' }).observe(roller);
+    }
+
+    // Logo strip: show it only once the logos are in (or after 3 seconds, whichever comes first)
+    const rail = document.querySelector('.clients-roller-rail');
+    if (rail) {
+        const logos = Array.from(rail.querySelectorAll('img'));
+        const reveal = () => rail.classList.add('is-loaded');
+        const ready = logos.map(img => img.decode ? img.decode().catch(() => {}) : Promise.resolve());
+        Promise.all(ready).then(reveal);
+        setTimeout(reveal, 3000);
+    }
+
     // Logo strip: tag near-square logos so CSS can balance them against wide ones
     document.querySelectorAll('.client-logo-item img').forEach(img => {
         const tag = () => {
@@ -12,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.tag[data-tag-filter]').forEach(tagEl => {
         tagEl.addEventListener('click', () => {
-            sessionStorage.setItem('activeProjectFilter', tagEl.getAttribute('data-tag-filter'));
+            try { sessionStorage.setItem('activeProjectFilter', tagEl.getAttribute('data-tag-filter')); } catch (err) { /* storage blocked */ }
         });
     });
 
@@ -105,6 +150,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     if (proofNums.length) {
+        // The markup holds the real numbers (for no-JS and reduced motion); the count-up starts from 0
+        if (!prefersReducedMotion) proofNums.forEach(el => { el.textContent = '0'; });
         const proofObserver = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -260,7 +307,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const mapContainer = document.querySelector('.map-image-inner');
     const mapTooltip = document.getElementById('map-tooltip');
 
-    if (mapContainer && mapTooltip) {
+    // The map section is hidden at 860px and below, so don't download the map there
+    if (mapContainer && mapTooltip && !window.matchMedia('(max-width: 860px)').matches) {
         fetch('/assets/world-map.svg')
             .then(response => {
                 if (!response.ok) throw new Error('SVG not found');
@@ -507,9 +555,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const q = e.target.closest('.service-quote-link[data-service]');
         if (!q) return;
         const msg = document.getElementById('contact-message');
-        if (msg && !msg.value.trim()) {
+        if (!msg) return;
+        if (!msg.dataset.bound) {
+            msg.addEventListener('input', () => { msg.dataset.prefilled = '0'; });
+            msg.dataset.bound = '1';
+        }
+        // Fill an empty box, or replace an earlier automatic fill, but never overwrite what the visitor typed
+        if (!msg.value.trim() || msg.dataset.prefilled === '1') {
             const svc = new DOMParser().parseFromString(q.dataset.service, 'text/html').documentElement.textContent;
-            msg.value = 'I would like a quote for: ' + svc + '.\n\n';
+            const tier = q.dataset.tier ? ' (' + q.dataset.tier + ' package)' : '';
+            msg.value = 'I would like a quote for: ' + svc + tier + '.\n\n';
+            msg.dataset.prefilled = '1';
         }
     });
 })();

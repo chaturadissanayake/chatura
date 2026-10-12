@@ -14,7 +14,16 @@ document.addEventListener('DOMContentLoaded', () => {
     let rawProjectsData = [];
     let currentSortMode = 'impact'; 
     let isArchiveView = false;
-    let currentLimit = window.innerWidth <= 640 ? 3 : 6;
+    // Phones show 3 at a time, tablets and desktops 6 at a time. "Show more" adds one more batch of the same size.
+    const isPhone = () => window.innerWidth <= 640;
+    const batchSize = () => (isPhone() ? 3 : 6);
+    let currentLimit = batchSize();
+
+    // sessionStorage can throw when storage is blocked; never let that stop the projects from loading
+    const safeSession = {
+        get(k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } },
+        set(k, v) { try { sessionStorage.setItem(k, v); } catch (e) { /* ignore */ } }
+    };
 
     const updateFilterScrollUI = () => {
         if (!filterGroup || !filterGroupWrapper) return;
@@ -127,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const projectsSection = document.getElementById('projects');
         if (!expandBtn || !actionWrapper || !projectsSection) return;
 
-        const baseLimit = window.innerWidth <= 640 ? 3 : 6;
+        const baseLimit = batchSize();
         const shouldFloat = currentLimit > baseLimit && expandBtn.style.display !== 'none';
 
         if (!shouldFloat) {
@@ -158,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const applyProjectFilter = ({ animate = false } = {}) => {
         let count = 0; 
         let visibleCount = 0;
-        const baseLimit = window.innerWidth <= 640 ? 3 : 6;
+        const baseLimit = batchSize();
                 
         const expandBtn = document.getElementById('expand-projects-btn');
         const actionWrapper = expandBtn ? expandBtn.parentElement : null;
@@ -215,20 +224,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const collapseBtn = document.getElementById('collapse-projects-btn');
             if (count > baseLimit) {
                 actionWrapper.style.display = 'flex';
-                
+                expandBtn.style.display = 'inline-flex';
+
                 if (count > currentLimit) {
-                    expandBtn.style.display = 'inline-flex';
-                    const stepLimit = window.innerWidth <= 640 ? 6 : 12;
-                    const nextBatch = Math.min(stepLimit, count - currentLimit);
                     expandBtn.innerHTML = `<span class="btn-label">Show more</span><i data-lucide="chevron-down" aria-hidden="true" style="width:16px;height:16px;margin-left:6px;"></i>`;
                     expandBtn.setAttribute('aria-expanded', 'false');
                 } else {
-                    expandBtn.style.display = 'none';
+                    // Everything is showing: the same button becomes "Show less" so people can get back to the top of the list
+                    expandBtn.innerHTML = `<span class="btn-label">Show less</span><i data-lucide="chevron-up" aria-hidden="true" style="width:16px;height:16px;margin-left:6px;"></i>`;
+                    expandBtn.setAttribute('aria-expanded', 'true');
                 }
 
-                if (collapseBtn) {
-                    collapseBtn.style.display = currentLimit > baseLimit ? 'inline-flex' : 'none';
-                }
+                if (collapseBtn) collapseBtn.style.display = 'none';
 
                 if (window.lucide) lucide.createIcons({ root: actionWrapper });
             } else {
@@ -266,7 +273,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         resizeTimer = setTimeout(() => {
             if (window.innerWidth !== lastResizeWidth) {
+                const crossed = (lastResizeWidth <= 640) !== (window.innerWidth <= 640);
                 lastResizeWidth = window.innerWidth;
+                if (crossed) currentLimit = batchSize();
                 applyProjectFilter();
             }
             updateFloatingExpandBtn();
@@ -276,9 +285,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const setActiveFilter = (value, { scrollToProjects = false } = {}) => {
         currentFilter = value;
-        sessionStorage.setItem('activeProjectFilter', currentFilter);
+        safeSession.set('activeProjectFilter', currentFilter);
         
-        currentLimit = window.innerWidth <= 640 ? 3 : 6;
+        currentLimit = batchSize();
 
         document.querySelectorAll('.filter-pill').forEach(b => {
             const isActive = b.getAttribute('data-filter') === value;
@@ -426,7 +435,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!allTags.has(currentFilter) && currentFilter !== 'all') {
             currentFilter = 'all';
-            sessionStorage.setItem('activeProjectFilter', 'all');
+            safeSession.set('activeProjectFilter', 'all');
         }
 
         const filterOptions = [{ value: 'all', label: 'All Work' }];
@@ -478,7 +487,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             rawProjectsData = await res.json();
 
-            const storedFilter = sessionStorage.getItem('activeProjectFilter');
+            const storedFilter = safeSession.get('activeProjectFilter');
             if (storedFilter) currentFilter = storedFilter;
 
             renderProjectsGrid();
@@ -529,7 +538,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (collapseBtn) collapseBtn.blur();
                     if (expandBtn) expandBtn.blur();
 
-                    const baseLimit = window.innerWidth <= 640 ? 3 : 6;
+                    const baseLimit = batchSize();
                     const visibleCards = Array.from(allProjCards).filter(card => {
                         const tags = (card.getAttribute('data-tags') || '').split(',').map(t => t.trim()).filter(Boolean);
                         return currentFilter === 'all' || tags.includes(currentFilter);
@@ -577,7 +586,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (expandBusy) return;
                     expandBtn.blur();
 
-                    const stepLimit = window.innerWidth <= 640 ? 6 : 12;
+                    const stepLimit = batchSize();
                     const visibleCards = Array.from(allProjCards).filter(card => {
                         const tags = (card.getAttribute('data-tags') || '').split(',').map(t => t.trim()).filter(Boolean);
                         return currentFilter === 'all' || tags.includes(currentFilter);
@@ -639,7 +648,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sortBtn.innerHTML = `Sort: ${currentSortMode === 'impact' ? 'Featured' : 'Recent'} <i data-lucide="arrow-down-up" style="width:14px;height:14px; margin-left:6px;"></i>`;
             if (window.lucide) lucide.createIcons({ root: sortBtn });
             
-            currentLimit = window.innerWidth <= 640 ? 3 : 6;
+            currentLimit = batchSize();
             
             if (projWrap) projWrap.style.opacity = '0';
             

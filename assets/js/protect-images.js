@@ -5,7 +5,7 @@
    with a screenshot or the developer tools. */
 (function () {
     var isField = function (t) {
-        return !!(t && t.closest && t.closest('input, textarea, [contenteditable="true"]'));
+        return !!(t && t.closest && t.closest('input, textarea, [contenteditable="true"], .contact-email, .legal-content'));
     };
     var isMedia = function (t) {
         return !!(t && t.closest && t.closest('img, picture, video, canvas, svg'));

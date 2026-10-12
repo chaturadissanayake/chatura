@@ -7,7 +7,7 @@
 /* Only hide sections for the reveal when JavaScript is running (html.js).
    Without JS, or if the script fails, the content simply shows. */
 .js .section-fade-in {
-    opacity: 0; transform: translateY(30px);
+    opacity: 0; transform: translateY(16px);
     transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
 }
 
@@ -648,9 +648,11 @@ a, button, [role="button"], .cap-title, .service-row, .project-card, .insight-ca
 .reveal-all .section-fade-in { opacity: 1 !important; transform: none !important; }
 #collapse-projects-btn { display: none !important; }
 
-/* Services: price and quote link, pinned to the bottom of every row so all cards line up */
+/* Services: one price per service, then a short line on what it includes, pinned to the bottom of every
+   panel/card so all of them line up. */
 .service-row-body { display: flex; flex-direction: column; }
-.service-deliverables { margin-bottom: var(--space-6); }
+.service-deliverables { margin-bottom: var(--space-4); }
+.service-includes { max-width: 520px; margin: 0 0 var(--space-5); font-size: 0.8125rem; line-height: 1.5; color: var(--ink-soft); }
 .service-row-foot {
     margin-top: auto; padding-top: var(--space-5); border-top: 1px solid var(--surface-3);
     display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap;
@@ -658,11 +660,13 @@ a, button, [role="button"], .cap-title, .service-row, .project-card, .insight-ca
 }
 .service-price { margin: 0; display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; color: var(--ink-muted); font-size: 0.8125rem; line-height: 1.4; }
 .service-price-amount { font-family: var(--serif); font-size: 1.25rem; line-height: 1.2; letter-spacing: -0.01em; color: var(--ink); }
-.service-quote-link { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8125rem; font-weight: 500; line-height: 1.4; color: var(--ink-soft); transition: color var(--dur-fast) var(--ease-out); }
+.service-quote-link { position: relative; display: inline-flex; align-items: center; gap: 6px; min-height: 32px; font-size: 0.8125rem; font-weight: 500; line-height: 1.4; color: var(--ink-soft); transition: color var(--dur-fast) var(--ease-out); }
 .service-quote-link svg.lucide { width: 15px !important; height: 15px !important; margin: 0 !important; stroke-width: 1.75; }
 @media (hover: hover) and (pointer: fine) { .service-quote-link:hover { color: var(--accent); } }
+@media (pointer: coarse) { .service-quote-link::after { content: ''; position: absolute; inset: -6px -4px; } }
 @media (max-width: 640px) {
     .service-row-body { flex: 1 1 auto; }
+    .service-includes { font-size: 0.75rem; }
     .service-row-foot { flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: var(--space-3); max-width: none; }
 }
 
@@ -719,3 +723,57 @@ body.gate-open { overflow: hidden; }
 body { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
 input, textarea, [contenteditable="true"] { -webkit-user-select: text; user-select: text; -webkit-touch-callout: default; }
 img, svg, video { -webkit-user-drag: none; -webkit-touch-callout: none; }
+
+/* ==========================================================================
+   SCROLL SMOOTHNESS, AVAILABILITY
+   ========================================================================== */
+
+/* Horizontal carousels must not also scroll vertically: a swipe that starts on one could otherwise
+   catch the page scroll ("stuck" feeling), and the browser's back-swipe could fire at the end of the row. */
+.viz-carousel-track { overflow-y: hidden; overscroll-behavior-x: contain; }
+@media (max-width: 640px) {
+    .mobile-carousel-grid, .services-list { overflow-y: hidden; overscroll-behavior-x: contain; }
+}
+
+/* The logo strip fades in once its logos have loaded (main.js adds .is-loaded), so logos never pop in one by one
+   or push each other around. A timer in main.js guarantees it appears even if a logo fails. */
+.js .clients-roller-rail { opacity: 0; transition: opacity 400ms var(--ease-out); }
+.js .clients-roller-rail.is-loaded { opacity: 1; }
+
+/* The client strip stops moving while it is off screen (main.js adds .is-offscreen) */
+.clients-roller-section.is-offscreen .clients-roller-rail { animation-play-state: paused; will-change: auto; }
+
+/* Text selection is off site-wide (content protection), but the email address and the legal pages have to be copyable */
+.contact-email, .contact-email span, .legal-content, .legal-content * { -webkit-user-select: text; user-select: text; }
+
+/* ==========================================================================
+   TYPOGRAPHY: line breaks, numerals
+   ========================================================================== */
+/* Headings share their words evenly across lines; paragraphs avoid a lone last word */
+h2, h3, .section-title, .contact-headline, .service-row-title, .viz-title, .card-title { text-wrap: balance; }
+p, li, blockquote p, .section-header-desc, .card-desc { text-wrap: pretty; }
+/* Serif numbers sit on the baseline and have equal widths (no dropped 4s, no jumping counters) */
+.service-price-amount, .service-tab-price, .proof-num { font-variant-numeric: lining-nums tabular-nums; }
+
+/* ==========================================================================
+   PHONES: leave out what is not needed. Everything below still shows on tablets, laptops and desktops.
+   ========================================================================== */
+@media (max-width: 640px) {
+    .clients-map-section { display: none; }                 /* the world map is too small to read on a phone */
+    .exp-archive-note { display: none; }                    /* archive links live on the CV and LinkedIn */
+    /* GitHub / LinkedIn links and chart descriptions stay visible on phones: without them the cards looked empty */
+    .viz-desc { -webkit-line-clamp: 3; line-clamp: 3; }     /* a little more room, so descriptions are not cut short on narrow cards */
+    .about-links { gap: var(--space-2); }
+}
+
+/* Visualisations: room around the cards for the hover lift and shadow.
+   The carousel box clips anything outside it, which cut the top, bottom and left of a hovered card.
+   The box now has padding on every side, pulled back with negative margins so the cards stay where they were. */
+.viz-carousel-viewport {
+    --viz-bleed: 16px;
+    margin: calc(var(--space-4) - 12px) calc(-1 * var(--viz-bleed)) -8px;
+}
+.viz-carousel-track {
+    padding: 12px var(--viz-bleed) max(var(--space-8), 48px);
+    scroll-padding-inline: var(--viz-bleed);
+}

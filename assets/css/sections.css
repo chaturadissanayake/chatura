@@ -283,7 +283,7 @@
 
 .proof-num {
     font-family: var(--serif);
-    font-size: 1.125rem;
+    font-size: clamp(1.375rem, 2vw, 1.625rem);
     color: var(--ink);
     line-height: 1;
     font-variant-numeric: tabular-nums;
@@ -889,21 +889,20 @@
         margin-right: calc(-1 * var(--space-5));
         padding-left: var(--space-5);
         padding-right: var(--space-5);
+        scroll-padding-left: var(--space-5);
+        align-items: stretch;
         border-top: none;
     }
     .services-list::-webkit-scrollbar { display: none; }
 
-    /* UX: Edge fade signals more cards exist offscreen (visibility of system status) */
-    .services-list {
-        mask-image: linear-gradient(to right, black calc(100% - 32px), transparent 100%);
-        -webkit-mask-image: linear-gradient(to right, black calc(100% - 32px), transparent 100%);
-    }
+    /* The next card already peeks in at the edge, so no masked fade is needed (a mask on a scrolling box repaints every frame). */
 
     .service-row {
         display: flex;
         flex-direction: column;
-        flex: 0 0 88%;
-        scroll-snap-align: center;
+        flex: 0 0 86%;
+        max-width: 340px;
+        scroll-snap-align: start;
         gap: var(--space-4);
         padding: var(--space-5) !important;
         border-bottom: none;
@@ -914,6 +913,7 @@
     }
     .service-row-num { width: 32px; height: 32px; font-size: 0.75rem; }
     .service-row-title {
+        margin-bottom: var(--space-3);
         font-size: 1.25rem;
         flex-direction: column;
         align-items: flex-start;
@@ -1424,6 +1424,11 @@
     transform: scale(1.2);
 }
 
+/* The copyright is one line of running text. Never let a flex/grid parent split it into pieces
+   (that is what glued "2026" to the name and reversed the order). */
+.footer-copyright { display: block; }
+.footer-copyright-text { display: inline; white-space: normal; }
+
 @media (max-width: 1024px) {
     .about-grid { grid-template-columns: 1fr; gap: var(--space-10); }
     .about-left { display: grid; grid-template-columns: 240px 1fr; gap: var(--space-6); align-items: start; }
@@ -1511,8 +1516,9 @@
     .footer-col .footer-title { margin-bottom: var(--space-2); }
     .footer-bottom-bar { flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: var(--space-4); }
     .footer-copyright {
-        display: flex; flex-direction: column-reverse; justify-content: center;
-        gap: var(--space-2); font-size: 0.75rem; text-align: center;
+        display: block; width: 100%;
+        font-size: 0.75rem; line-height: 1.6; text-align: center;
+        text-wrap: balance; overflow-wrap: anywhere;
     }
     .footer-brand-name { font-size: 1.125rem; font-weight: 500; color: var(--white); display: block; margin: 0; }
     .footer-social-row { flex-direction: row; flex-wrap: wrap; justify-content: center; width: 100%; margin-top: var(--space-2); }
@@ -2075,22 +2081,29 @@ span.hero-word-link:hover { text-decoration-color: var(--surface-3); }
     .service-tab:focus-visible { outline: 2px solid rgba(47, 95, 168, 0.5); outline-offset: -2px; }
 
     /* One panel at a time. The number circle is redundant next to the tab, so it goes. */
-    .services-layout.is-tabbed .services-list { border-top: 0; display: block; }
+    /* All panels sit in the same grid cell, so the box is always as tall as the tallest one.
+       Switching tabs fades one out and the next in, and nothing below ever jumps. */
+    .services-layout.is-tabbed .services-list { border-top: 0; display: grid; }
     .services-layout.is-tabbed .service-row {
-        display: none;
+        grid-area: 1 / 1;
+        display: grid;
         grid-template-columns: 1fr;
         padding: 0;
         border: 0;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 180ms var(--ease-out), visibility 0s linear 180ms;
     }
-    .services-layout.is-tabbed .service-row.is-active { display: grid; }
+    .services-layout.is-tabbed .service-row.is-active {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transition-delay: 0s;
+    }
     .services-layout.is-tabbed .service-row-num { display: none; }
     .services-layout.is-tabbed .service-row-title { margin-top: -0.2em; }
-    .services-layout.is-tabbed .service-row-desc,
-    .services-layout.is-tabbed .service-row-foot { max-width: 560px; }
-
-    @media (prefers-reduced-motion: no-preference) {
-        .services-layout.is-tabbed .service-row.is-active { animation: servicePanelIn 220ms var(--ease-out); }
-    }
+    .services-layout.is-tabbed .service-row-desc { max-width: 560px; }
 }
 @keyframes servicePanelIn {
     from { opacity: 0; transform: translateY(6px); }

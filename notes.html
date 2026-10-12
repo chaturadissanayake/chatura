@@ -47,9 +47,7 @@
             gtag('js', new Date());
             gtag('config', 'G-24MX1C8QK3');
         }
-        if (localStorage.getItem('cookieConsent') === 'granted') {
-            loadGA();
-        }
+        try { if (localStorage.getItem('cookieConsent') === 'granted') loadGA(); } catch (e) { /* storage blocked */ }
     </script>
 </head>
 <body>
@@ -150,10 +148,10 @@
                 <span class="thread-post-location">Olithanna</span>
             </div>
             <figure class="thread-post-media">
-                <img decoding="async" src="/assets/off-duty/pic_olithanna1.webp" alt="A river with large boulders and clear water surrounded by trees" onload="this.classList.add('img-loaded')">
+                <img loading="lazy" decoding="async" src="/assets/off-duty/pic_olithanna1.webp" alt="A river with large boulders and clear water surrounded by trees" onload="this.classList.add('img-loaded')">
             </figure>
             <figure class="thread-post-media">
-                <img decoding="async" src="/assets/off-duty/pic_olithanna2.webp" alt="A river with large boulders and clear water surrounded by trees" onload="this.classList.add('img-loaded')">
+                <img loading="lazy" decoding="async" src="/assets/off-duty/pic_olithanna2.webp" alt="A river with large boulders and clear water surrounded by trees" onload="this.classList.add('img-loaded')">
             </figure>
             <p class="thread-post-caption">Serenity.</p>
         </article>
@@ -168,7 +166,7 @@
                 <span>Aug 2026</span>
             </div>
             <figure class="thread-post-media">
-                <img decoding="async" src="/assets/off-duty/pic_schedule1.webp" alt="In-game character mid-jump above a rainy landscape" onload="this.classList.add('img-loaded')">
+                <img loading="lazy" decoding="async" src="/assets/off-duty/pic_schedule1.webp" alt="In-game character mid-jump above a rainy landscape" onload="this.classList.add('img-loaded')">
             </figure>
             <p class="thread-post-caption">Tyler, bless you!</p>
         </article>
@@ -183,7 +181,7 @@
                 <span>Aug 2026</span>
             </div>
             <figure class="thread-post-media">
-                <img decoding="async" src="/assets/off-duty/pic_2018.webp" alt="Black and white photo of Chatura standing on rocks in a river, 2018" onload="this.classList.add('img-loaded')">
+                <img loading="lazy" decoding="async" src="/assets/off-duty/pic_2018.webp" alt="Black and white photo of Chatura standing on rocks in a river, 2018" onload="this.classList.add('img-loaded')">
             </figure>
             <p class="thread-post-caption">Good kids, always in school. Good old days. 2018.</p>
         </article>
@@ -192,7 +190,7 @@
                 <span>Aug 2026</span>
             </div>
             <figure class="thread-post-media">
-                <img decoding="async" src="/assets/off-duty/pic_plaguetale.jpeg" alt="Plague Tale" onload="this.classList.add('img-loaded')">
+                <img loading="lazy" decoding="async" src="/assets/off-duty/pic_plaguetale.jpeg" alt="Plague Tale" onload="this.classList.add('img-loaded')">
             </figure>
             <p class="thread-post-caption">Plague Tale. The most underrated game I've played, no contest. Quietly brutal in a way that stuck with me longer than I expected.</p>
         </article>
@@ -208,7 +206,7 @@
                 <span>June 2025</span>
             </div>
             <figure class="thread-post-media">
-                <img decoding="async" src="/assets/off-duty/pic_tree.webp" alt="Photo of a tree. TODO: describe what is in the photo">
+                <img loading="lazy" decoding="async" src="/assets/off-duty/pic_tree.webp" alt="A tree, photographed in June 2025">
             </figure>
             <p class="thread-post-caption">Steady as this tree... no noise, no rush.</p>
         </article>
@@ -218,9 +216,9 @@
                 <span>May 2023</span>
             </div>
             <figure class="thread-post-media">
-                <img decoding="async" src="/assets/off-duty/pic_diebold.webp" alt="Photo from May 2023. TODO: describe what is in the photo">
+                <img loading="lazy" decoding="async" src="/assets/off-duty/pic_diebold.webp" alt="A photo from May 2023">
             </figure>
-            <p class="thread-post-caption">Don t forget! no one else sees the world the way you do, so no one else can tell the stories you have to tell.</p>
+            <p class="thread-post-caption">Don't forget! no one else sees the world the way you do, so no one else can tell the stories you have to tell.</p>
         </article>
                        
         <article class="thread-post" data-category="photos">
@@ -228,7 +226,7 @@
                 <span>November 2020</span>
             </div>
             <figure class="thread-post-media">
-                <img decoding="async" src="/assets/off-duty/grewapart.jpg" alt="Photo from November 2020. TODO: describe what is in the photo">
+                <img loading="lazy" decoding="async" src="/assets/off-duty/grewapart.jpg" alt="A photo from November 2020">
             </figure>
             <p class="thread-post-caption">Grew apart from lot of people, we just don't relate anymore.</p>
         </article>
@@ -268,7 +266,7 @@
             <div class="footer-divider"></div>
             <div class="footer-bottom-bar">
                 <div class="footer-copyright">
-                    © 2022–2026 Chatura Dissanayake. All rights reserved.
+                    <span class="footer-copyright-text">© 2022–<span data-year>2026</span>&nbsp;Chatura Dissanayake. All rights reserved.</span>
                 </div>
             </div>
         </div>
