@@ -308,26 +308,29 @@
           <p>Organisations frequently invest significant resources in thorough research and detailed analysis, yet they often stumble at the final step: communication. When this becomes an afterthought, people misunderstand the findings, ignore them, or they never reach the people meant to act on them. That's where I step in, turning finished analysis into something the <a href="projects/mood-of-the-nation/mood-of-the-nation.html" class="inline-link">intended audience will actually read, understand and use</a>. I've worked with the <a href="https://srilanka.un.org/en/about/about-the-resident-coordinator-office" target="_blank" rel="noopener" class="inline-link">UN Resident Coordinator's Office</a>, the <a href="https://npd.treasury.gov.lk/" target="_blank" rel="noopener" class="inline-link">Department of National Planning</a>, <a href="https://www.veriteresearch.org/" target="_blank" rel="noopener" class="inline-link">Verité Research</a>, and several other research organisations and clients worldwide on communications efforts.</p>
           <p>It started in 2020, when I produced campaign content for United Nations Volunteers Sri Lanka during COVID-19 as part of the <a href="https://www.behance.net/gallery/138936917/Youth-Community-Leadership-Initiative-%28YCLI%29?platform=direct" target="_blank" rel="noopener" class="inline-link">TogetherAtHome campaign</a>, before I'd call any of this a career. There's a <a href="https://youtu.be/HPuG0y1gj1M?si=3bQMxQH6W_9GHpVw" target="_blank" rel="noopener" class="inline-link">short recap video</a> from that week, if you're curious about where it all started.</p>
         </div>
-        <button type="button" id="about-read-more-btn" aria-expanded="false" class="btn-tertiary read-more-toggle" style="margin-bottom: 32px;">Read more <i data-lucide="chevron-down"></i></button>
+        <button type="button" id="about-read-more-btn" aria-expanded="false" class="btn-tertiary read-more-toggle">Read more <i data-lucide="chevron-down" aria-hidden="true"></i></button>
 
+        <div class="about-block">
+        <h3 class="about-subhead">Capabilities</h3>
         <div class="about-capabilities" id="cap-list">
           <div class="cap-block">
             <p class="cap-title"><span class="cap-title-text">Strategic Communications</span></p>
-            <div class="cap-body">Communications planning · Campaign development · Audience and stakeholder engagement · Media outreach and press releases · Editorial planning and media monitoring · Advocacy and public engagement</div>
+            <div class="cap-body">Communications planning · Campaign development · Stakeholder engagement · Media outreach · Editorial planning · Advocacy</div>
           </div>
           <div class="cap-block">
             <p class="cap-title"><span class="cap-title-text">Information Design &amp; Data Storytelling</span></p>
-            <div class="cap-body">Data analysis and visualisation · Interactive data stories · Charts, maps and explainers · Research communication · Human-centred storytelling · Making complex information accessible</div>
+            <div class="cap-body">Data analysis and visualisation · Interactive data stories · Charts, maps and explainers · Research communication</div>
           </div>
           <div class="cap-block">
             <p class="cap-title"><span class="cap-title-text">Publications &amp; Visual Communication</span></p>
-            <div class="cap-body">Annual reports, policy briefs and research publications · Editorial design and typesetting · Brand identities and guidelines · Campaign visuals · Donor and partner visibility materials · Video and multimedia content</div>
+            <div class="cap-body">Annual reports and policy briefs · Editorial design · Brand identities and guidelines · Campaign visuals · Video content</div>
           </div>
           <div class="cap-block">
             <p class="cap-title"><span class="cap-title-text">Digital Engagement &amp; Experiences</span></p>
-            <div class="cap-body">Social media management and analytics · Website and newsletter management · Content strategy and performance tracking · Digital campaigns · User research and usability testing · Wireframes, prototypes and digital tools</div>
+            <div class="cap-body">Social media and analytics · Website and newsletter management · Digital campaigns · User research · Wireframes and prototypes</div>
           </div>
         </div>
+        </div><!-- /.about-block -->
         <script>
           /* Phones: capabilities become a tap-to-open list (first one open). Desktop shows everything. */
           (function () {
@@ -350,8 +353,13 @@
               });
             }
             function toggle(b) {
-              var open = b.classList.toggle('is-open');
-              b.querySelector('.cap-title').setAttribute('aria-expanded', open ? 'true' : 'false');
+              /* Accordion: opening one closes the others; tapping the open one closes it */
+              var willOpen = !b.classList.contains('is-open');
+              blocks.forEach(function (o) {
+                var on = (o === b) && willOpen;
+                o.classList.toggle('is-open', on);
+                o.querySelector('.cap-title').setAttribute('aria-expanded', on ? 'true' : 'false');
+              });
             }
             blocks.forEach(function (b, i) {
               if (i === 0) b.classList.add('is-open');
@@ -366,53 +374,52 @@
           })();
         </script>
 
-<div class="about-experience">
-          <h3>Experience</h3>
+<div class="about-experience about-block">
+          <h3 class="about-subhead">Experience</h3>
           <div class="exp-list">
             <div class="exp-item exp-item--current">
-              <span class="exp-period"><span class="exp-from">Sep 2026</span><span class="exp-to-word"> to </span><span class="exp-to">Present</span></span>
+              <span class="exp-period"><span class="exp-from">Sep 2026</span><span class="exp-dash" aria-hidden="true">—</span><span class="exp-sr"> to </span><span class="exp-to">Present</span></span>
               <div class="exp-detail">
                 <strong>Communications Officer</strong>
                 <a href="https://www.tisrilanka.org/" target="_blank" rel="noopener" class="exp-org-link">Transparency International Sri Lanka, Colombo</a>
               </div>
             </div>
             <div class="exp-item">
-              <span class="exp-period"><span class="exp-from">Mar 2025</span><span class="exp-to-word"> to </span><span class="exp-to">Aug 2026</span></span>
+              <span class="exp-period"><span class="exp-from">Mar 2025</span><span class="exp-dash" aria-hidden="true">—</span><span class="exp-sr"> to </span><span class="exp-to">Aug 2026</span></span>
               <div class="exp-detail">
                 <strong>Communications &amp; Design Consultant</strong>
                 <span>UN, Government &amp; NGO clients, Colombo (Remote)</span>
               </div>
             </div>
             <div class="exp-item">
-              <span class="exp-period"><span class="exp-from">Sep 2024</span><span class="exp-to-word"> to </span><span class="exp-to">Mar 2025</span></span>
+              <span class="exp-period"><span class="exp-from">Sep 2024</span><span class="exp-dash" aria-hidden="true">—</span><span class="exp-sr"> to </span><span class="exp-to">Mar 2025</span></span>
               <div class="exp-detail">
                 <strong>UX &amp; Communications Designer</strong>
                 <a href="https://www.ideasmarketing.com.au/" target="_blank" rel="noopener" class="exp-org-link">Ideas Marketing Agency, Sydney (Remote)</a>
               </div>
             </div>
             <div class="exp-item">
-              <span class="exp-period"><span class="exp-from">Jun 2024</span><span class="exp-to-word"> to </span><span class="exp-to">Sep 2024</span></span>
+              <span class="exp-period"><span class="exp-from">Jun 2024</span><span class="exp-dash" aria-hidden="true">—</span><span class="exp-sr"> to </span><span class="exp-to">Sep 2024</span></span>
               <div class="exp-detail">
                 <strong>Senior Communications Designer</strong>
                 <a href="https://www.veriteresearch.org/" target="_blank" rel="noopener" class="exp-org-link">Verité Research, Colombo</a>
               </div>
             </div>
             <div class="exp-item">
-              <span class="exp-period"><span class="exp-from">Sep 2022</span><span class="exp-to-word"> to </span><span class="exp-to">May 2024</span></span>
+              <span class="exp-period"><span class="exp-from">Sep 2022</span><span class="exp-dash" aria-hidden="true">—</span><span class="exp-sr"> to </span><span class="exp-to">May 2024</span></span>
               <div class="exp-detail">
                 <strong>Junior Communications Designer</strong>
                 <a href="https://www.veriteresearch.org/" target="_blank" rel="noopener" class="exp-org-link">Verité Research, Colombo</a>
               </div>
             </div>
             <div class="exp-item">
-              <span class="exp-period"><span class="exp-from">Jan 2021</span><span class="exp-to-word"> to </span><span class="exp-to">Dec 2021</span></span>
+              <span class="exp-period"><span class="exp-from">Jan 2021</span><span class="exp-dash" aria-hidden="true">—</span><span class="exp-sr"> to </span><span class="exp-to">Dec 2021</span></span>
               <div class="exp-detail">
                 <strong>Publication &amp; Social Media Coordinator</strong>
                 <a href="https://ris.lk/" target="_blank" rel="noopener" class="exp-org-link">Royal International School, Kegalle</a>
               </div>
             </div>            
           </div>
-          <button type="button" id="exp-read-more-btn" aria-expanded="false" class="btn-tertiary read-more-toggle" style="margin: 12px 0 24px 0;">View earlier roles <i data-lucide="chevron-down"></i></button>
         </div>
 
         <p class="exp-archive-note">More campaign and print work in this <a href="https://drive.google.com/drive/folders/1ZqJW_fn2OPetaUTigps9YKQ2KnOipvdy?usp=sharing" target="_blank" rel="noopener" class="inline-link">project archive ↗</a>, plus <a href="https://canva.link/pbvhuvdoirpg9ql" target="_blank" rel="noopener" class="inline-link">social and video editing work ↗</a>.</p>
@@ -435,7 +442,7 @@
 </section>
 
 <section class="services-section section-fade-in" id="services">
-  <div class="container-narrow">
+  <div class="container">
 
     <div class="services-top">
       <div class="services-header-content">
@@ -447,6 +454,9 @@
         </a>
       </div>
     </div>
+
+    <div class="services-layout" id="services-layout">
+      <div class="service-tabs" id="service-tabs" aria-label="Services"></div>
 
     <div class="services-list" id="services-list">
 
@@ -504,7 +514,7 @@
         </div>
       </div>
 
-      <div class="service-row service-row--extra">
+      <div class="service-row">
         <div class="service-row-num">04</div>
         <div class="service-row-body">
           <h3 class="service-row-title">Social Media &amp; Press Communications</h3>
@@ -522,7 +532,7 @@
         </div>
       </div>
 
-      <div class="service-row service-row--extra">
+      <div class="service-row">
         <div class="service-row-num">05</div>
         <div class="service-row-body">
           <h3 class="service-row-title">Websites &amp; Digital Content</h3>
@@ -540,24 +550,121 @@
         </div>
       </div>
 
-    </div>
-
-    <div class="services-more-row">
-      <button type="button" class="btn-tertiary" id="services-more-btn" aria-expanded="false" aria-controls="services-list">
-        <span class="services-more-label">Show more services</span> <i data-lucide="chevron-down" aria-hidden="true" style="width:14px;height:14px;margin-left:6px;"></i>
-      </button>
-    </div>
+    </div><!-- /.services-list -->
+    </div><!-- /.services-layout -->
 
     <script>
+      /* Services: on tablets and desktops the five services become a tab list (pick one, read one),
+         so nobody scrolls past five long cards. Phones keep the swipe row, where every card is reachable.
+         Without JavaScript all five stay visible as a normal list. */
       (function () {
-        var btn = document.getElementById('services-more-btn');
-        var list = document.getElementById('services-list');
-        if (!btn || !list) return;
-        btn.addEventListener('click', function () {
-          var open = list.classList.toggle('is-expanded');
-          btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-          if (open) { btn.parentNode.style.display = 'none'; var firstExtra = list.querySelector('.service-row--extra .service-row-title'); if (firstExtra) { firstExtra.setAttribute('tabindex', '-1'); firstExtra.focus({ preventScroll: true }); } }
+        var layout = document.getElementById('services-layout');
+        if (!layout) return;
+        var panels = Array.prototype.slice.call(layout.querySelectorAll('.service-row'));
+        var tabList = document.getElementById('service-tabs');
+        var mq = window.matchMedia('(min-width: 641px)');
+        if (!panels.length || !tabList) return;
+
+        /* The tabs are built from the service cards below, so a new service is added in one place only:
+           copy a .service-row, change its number, title and price. */
+        function text(row, sel) { var el = row.querySelector(sel); return el ? el.textContent.trim() : ''; }
+        function span(cls, value) { var s = document.createElement('span'); s.className = cls; s.textContent = value; return s; }
+        var tabs = panels.map(function (row, i) {
+          var n = i + 1;
+          row.id = row.id || 'svc-panel-' + n;
+          var t = document.createElement('button');
+          t.type = 'button';
+          t.className = 'service-tab';
+          t.id = 'svc-tab-' + n;
+          t.setAttribute('aria-controls', row.id);
+          t.appendChild(span('service-tab-num', text(row, '.service-row-num') || ('0' + n).slice(-2)));
+          t.appendChild(span('service-tab-name', text(row, '.service-row-title')));
+          var price = [text(row, '.service-price-from'), text(row, '.service-price-amount')].join(' ').trim();
+          if (price) t.appendChild(span('service-tab-price', price));
+          tabList.appendChild(t);
+          return t;
         });
+
+        function select(i, focus) {
+          tabs.forEach(function (t, j) {
+            var on = j === i;
+            t.setAttribute('aria-selected', on ? 'true' : 'false');
+            t.tabIndex = on ? 0 : -1;
+            panels[j].classList.toggle('is-active', on);
+          });
+          if (focus) tabs[i].focus();
+        }
+        function current() {
+          for (var i = 0; i < tabs.length; i++) if (tabs[i].getAttribute('aria-selected') === 'true') return i;
+          return 0;
+        }
+        function setup() {
+          if (mq.matches) {
+            tabList.setAttribute('role', 'tablist');
+            tabList.setAttribute('aria-orientation', 'vertical');
+            tabs.forEach(function (t, j) {
+              t.setAttribute('role', 'tab');
+              panels[j].setAttribute('role', 'tabpanel');
+              panels[j].setAttribute('aria-labelledby', t.id);
+            });
+            select(current(), false);
+          } else {
+            tabList.removeAttribute('role');
+            tabList.removeAttribute('aria-orientation');
+            tabs.forEach(function (t, j) {
+              t.removeAttribute('role');
+              t.removeAttribute('aria-selected');
+              t.removeAttribute('tabindex');
+              panels[j].removeAttribute('role');
+              panels[j].removeAttribute('aria-labelledby');
+              panels[j].classList.remove('is-active');
+            });
+          }
+        }
+
+        tabs.forEach(function (t, i) {
+          t.addEventListener('click', function () { if (mq.matches) select(i, false); });
+          t.addEventListener('keydown', function (e) {
+            if (!mq.matches) return;
+            var k = e.key, next = null;
+            if (k === 'ArrowDown' || k === 'ArrowRight') next = (i + 1) % tabs.length;
+            else if (k === 'ArrowUp' || k === 'ArrowLeft') next = (i - 1 + tabs.length) % tabs.length;
+            else if (k === 'Home') next = 0;
+            else if (k === 'End') next = tabs.length - 1;
+            if (next !== null) { e.preventDefault(); select(next, true); }
+          });
+        });
+
+        /* Auto-advance: on tablets and desktops the panel moves on every few seconds while the section is on
+           screen, so people see all five services without doing anything. It stops for good the moment someone
+           presses anything in the section, pauses while the pointer rests on it or a field has focus, and
+           does not run at all for people who have asked their device to reduce motion. */
+        var AUTO_MS = 7000;
+        var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        var timer = null, stopped = false, paused = false, inView = false;
+        function canRun() { return mq.matches && inView && !paused && !stopped && !reduceMotion.matches && !document.hidden; }
+        function schedule() {
+          clearTimeout(timer);
+          if (!canRun()) return;
+          timer = setTimeout(function () { select((current() + 1) % tabs.length, false); schedule(); }, AUTO_MS);
+        }
+        function stopAuto() { stopped = true; clearTimeout(timer); }
+
+        layout.addEventListener('pointerdown', stopAuto);
+        tabs.forEach(function (t) { t.addEventListener('keydown', function (e) { if (e.key.indexOf('Arrow') === 0 || e.key === 'Home' || e.key === 'End') stopAuto(); }); });
+        layout.addEventListener('mouseenter', function () { paused = true; clearTimeout(timer); });
+        layout.addEventListener('mouseleave', function () { paused = false; schedule(); });
+        layout.addEventListener('focusin', function () { paused = true; clearTimeout(timer); });
+        layout.addEventListener('focusout', function () { paused = false; schedule(); });
+        document.addEventListener('visibilitychange', schedule);
+        if (mq.addEventListener) { mq.addEventListener('change', schedule); reduceMotion.addEventListener('change', schedule); }
+        if ('IntersectionObserver' in window) {
+          new IntersectionObserver(function (entries) { inView = entries[0].isIntersecting; schedule(); }, { threshold: 0.4 }).observe(layout);
+        }
+
+        layout.classList.add('is-tabbed');
+        setup();
+        if (mq.addEventListener) mq.addEventListener('change', setup); else mq.addListener(setup);
       })();
     </script>
 
@@ -590,20 +697,15 @@
         </div>
       </article>
 
-      <article class="insight-card card-interactive">
-        <!-- TODO: replace with the full Medium article URL for this piece -->
-        <a href="https://consultchatura.medium.com" target="_blank" rel="noopener" class="card-hitbox" aria-label="Read Ceylon Harvest Co. article on Medium"></a>
+      <article class="insight-card">
         <div class="card-image">
           <img src="assets/insights/InsightBranding_Thumb.webp" alt="Ceylon Harvest Co. Hero Brand Identity" loading="lazy" width="800" height="600" onload="this.classList.add('img-loaded'); this.parentElement.classList.add('shimmer-complete');" onerror="this.style.display='none'; this.parentElement.classList.add('shimmer-complete', 'image-failed'); this.parentElement.insertAdjacentHTML('afterbegin', '<div class=\'fallback-img\'>Asset Unavailable</div>');">
-          <div class="card-overlay">
-            <span class="card-open-label">Read on Medium<i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
-          </div>
         </div>
         <div class="insight-body">
           <div class="insight-meta">ARTICLE · 10 MIN READ</div>
           <h3>Understanding Every Story Behind Product Branding</h3>
           <p>Building a premium Sri Lankan export identity. The client needed a brand that felt ancient, classic, and rooted in heritage, entirely avoiding generic tourism tropes.</p>
-          <span class="insight-read-link">Read on Medium<i data-lucide="arrow-right" aria-hidden="true" class="inline-icon"></i></span>
+          <span class="insight-read-link insight-soon">Article coming soon</span>
         </div>
       </article>
 
@@ -909,6 +1011,8 @@
   <i data-lucide="arrow-up" aria-hidden="true"></i>
 </button>
 
+</main>
+
 <footer class="site-footer">
   <div class="container">
     <div class="footer-grid">
@@ -947,8 +1051,6 @@
     </div>
   </div>
 </footer>
-
-</main>
 
 <div id="project-detail-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="pm-title">
   <div class="modal-panel">
@@ -1019,6 +1121,10 @@
 <script src="assets/js/protect-images.js" defer></script>
 <script src="assets/js/utilities.js" defer></script>
 <script src="assets/js/main.js" defer></script>
+<script>
+/* Safety net: if main.js has not finished its start-up after 5 seconds, show every section anyway. */
+setTimeout(function () { if (!window.__siteReady) document.documentElement.classList.add('reveal-all'); }, 5000);
+</script>
 <script src="assets/js/navigation.js" defer></script>
 <script src="assets/js/projects.js" defer></script>
 <script src="assets/js/modals.js" defer></script>

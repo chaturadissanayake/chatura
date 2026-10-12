@@ -804,15 +804,13 @@
 }
 
 .read-more-toggle {
-    display: none !important;
+    display: none;
 }
 
 @media (max-width: 640px) {
-            .read-more-toggle {
-                display: flex !important;
-                width: max-content !important;
-                margin: 24px auto 32px auto !important;
-            }
+        .read-more-toggle {
+            display: inline-flex;
+        }
         .card-tag-btn {
             padding: 4px 10px;
             min-height: 26px;

@@ -71,6 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
         revealAll();
     }
 
+    window.__siteReady = true; // read by the safety net at the bottom of index.html
+
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const proofNums = document.querySelectorAll('.proof-num[data-count-to]');
 
@@ -115,34 +117,26 @@ document.addEventListener('DOMContentLoaded', () => {
         proofNums.forEach(el => proofObserver.observe(el));
     }
 
+    // About: on phones the biography is trimmed to a short paragraph until "Read more".
+    // Follows the screen size live (rotating a phone, resizing a window), so the button
+    // can never be left on screen when there is nothing to expand.
     const aboutContent = document.querySelector('.about-philosophy');
     const aboutReadMoreBtn = document.getElementById('about-read-more-btn');
     if (aboutContent && aboutReadMoreBtn) {
-        if (window.innerWidth <= 640) {
-            aboutContent.classList.add('is-collapsed-mobile');
-        }
-        aboutReadMoreBtn.addEventListener('click', () => {
-            aboutContent.classList.toggle('is-collapsed-mobile');
-            aboutReadMoreBtn.setAttribute('aria-expanded', String(!aboutContent.classList.contains('is-collapsed-mobile')));
-            aboutReadMoreBtn.innerHTML = aboutContent.classList.contains('is-collapsed-mobile') 
-                ? 'Read more <i data-lucide="chevron-down"></i>' 
-                : 'Show less <i data-lucide="chevron-up"></i>';
+        const phoneMq = window.matchMedia('(max-width: 640px)');
+        let aboutOpen = false;
+        const paintAbout = () => {
+            const trimmed = phoneMq.matches && !aboutOpen;
+            aboutContent.classList.toggle('is-collapsed-mobile', trimmed);
+            aboutReadMoreBtn.setAttribute('aria-expanded', String(!trimmed));
+            aboutReadMoreBtn.innerHTML = trimmed
+                ? 'Read more <i data-lucide="chevron-down" aria-hidden="true"></i>'
+                : 'Show less <i data-lucide="chevron-up" aria-hidden="true"></i>';
             if (window.lucide) lucide.createIcons({ root: aboutReadMoreBtn });
-        });
-    }
-
-    const expContent = document.querySelector('.exp-list');
-    const expReadMoreBtn = document.getElementById('exp-read-more-btn');
-    if (expContent && expReadMoreBtn) {
-        if (expContent.children.length > 3) {
-            expContent.classList.add('is-collapsed');
-            expReadMoreBtn.addEventListener('click', () => {
-                expContent.classList.remove('is-collapsed');
-                expReadMoreBtn.style.display = 'none';
-            });
-        } else {
-            expReadMoreBtn.style.display = 'none';
-        }
+        };
+        aboutReadMoreBtn.addEventListener('click', () => { aboutOpen = !aboutOpen; paintAbout(); });
+        if (phoneMq.addEventListener) phoneMq.addEventListener('change', paintAbout); else phoneMq.addListener(paintAbout);
+        paintAbout();
     }
 
     const contactForm   = document.getElementById('contact-form');
@@ -356,6 +350,10 @@ document.addEventListener('DOMContentLoaded', () => {
         a.href = url;
         a.download = '';
         a.rel = 'noopener';
+        // The page-wide click handler below intercepts every link to these files. Without this flag it would
+        // catch this temporary link too, start another download, and loop until the browser gave up.
+        a.setAttribute('data-gate-bypass', '');
+        a.hidden = true;
         document.body.appendChild(a);
         a.click();
         a.remove();
@@ -370,7 +368,7 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.setAttribute('aria-modal', 'true');
         modal.setAttribute('aria-labelledby', 'gate-title');
         modal.innerHTML = `
-            <div class="gate-panel">
+            <div class="gate-panel" tabindex="-1">
                 <button type="button" class="gate-close" aria-label="Close">&times;</button>
                 <h2 class="gate-title" id="gate-title">Download</h2>
                 <p class="gate-desc">Enter the access code I shared with you, or leave your email address and the download starts straight away.</p>
@@ -418,7 +416,7 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.querySelectorAll('.gate-tab').forEach(t => t.setAttribute('aria-selected', String(t.dataset.tab === name)));
         modal.querySelectorAll('.gate-form').forEach(f => { f.hidden = f.dataset.panel !== name; });
         status('');
-        modal.querySelector(`[data-panel="${name}"] .gate-input`)?.focus();
+        if (modal.classList.contains('is-open')) modal.querySelector(`[data-panel="${name}"] .gate-input`)?.focus({ preventScroll: true });
     };
 
     const open = (url, label) => {
@@ -429,17 +427,19 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.querySelectorAll('form').forEach(f => f.reset());
         setTab('email');
         status('');
-        document.body.style.setProperty('--scroll-pad', (window.innerWidth - document.documentElement.clientWidth) + 'px');
-        document.body.classList.add('modal-open');
+        document.body.classList.add('gate-open');
         modal.classList.add('is-open');
-        setTimeout(() => modal.querySelector('[data-panel="email"] .gate-input')?.focus({ preventScroll: true }), 30);
+        // Desktop: put the cursor in the field. Touch screens: don't, because the on-screen keyboard
+        // would pop up at once, push the sheet around and cover the explanation above the field.
+        const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+        setTimeout(() => (fine ? modal.querySelector('[data-panel="email"] .gate-input') : modal.querySelector('.gate-panel'))?.focus({ preventScroll: true }), 30);
     };
 
     function close() {
         if (!modal) return;
         modal.classList.remove('is-open');
-        document.body.classList.remove('modal-open');
-        if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
+        document.body.classList.remove('gate-open');
+        if (lastFocus && document.contains(lastFocus)) lastFocus.focus({ preventScroll: true });
     }
 
     const finish = () => {
@@ -493,7 +493,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.addEventListener('click', e => {
         const link = e.target.closest('a[href]');
-        if (!link) return;
+        if (!link || link.hasAttribute('data-gate-bypass')) return;
         let name;
         try { name = decodeURIComponent(new URL(link.href, location.href).pathname.split('/').pop()); } catch (err) { return; }
         if (!Object.prototype.hasOwnProperty.call(FILES, name)) return;
