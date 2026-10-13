@@ -1785,9 +1785,10 @@
     margin-bottom: var(--space-3);
 }
 
-/* Ensure Next Project image sits perfectly flush with the footer on mobile */
+/* Next Project on phones and small tablets looks the same as on desktop: the picture runs down and is
+   tucked under the footer, with no gap between them. The case study pages set their own sizes in each
+   file, so these !important values keep every page identical. */
 @media (max-width: 768px) {
-    /* Target the section, its inner containers, and the hyperlink wrapper */
     .next-project-section,
     .next-project-section .container,
     .next-project-section .container-narrow,
@@ -1795,29 +1796,14 @@
         padding-bottom: 0 !important;
         margin-bottom: 0 !important;
     }
-    
-    /* Target the image wrapper */
     .next-image-single {
-        margin-bottom: 0 !important;
+        height: 140px !important;
+        margin-bottom: calc(-1 * var(--space-24, 4rem)) !important;
         padding-bottom: 0 !important;
-        border-bottom-left-radius: 0 !important;
-        border-bottom-right-radius: 0 !important;
+        border-radius: var(--radius) var(--radius) 0 0 !important;
     }
-    
-    /* Target the physical image */
-    .next-image-single img {
-        display: block !important;
-        margin-bottom: 0 !important;
-        padding-bottom: 0 !important;
-        border-bottom-left-radius: 0 !important;
-        border-bottom-right-radius: 0 !important;
-    }
-
-    /* Target the main wrapper (removes global mobile scroll padding specifically for project pages) */
-    main:has(.next-project-section) {
-        padding-bottom: 0 !important;
-        margin-bottom: 0 !important;
-    }
+    .next-image-single img { display: block !important; margin: 0 !important; padding: 0 !important; }
+    main:has(.next-project-section) { padding-bottom: 0 !important; margin-bottom: 0 !important; }
 }
 
 /* ============================================

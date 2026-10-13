@@ -1702,11 +1702,6 @@
 }
 
 @media (max-width: 640px) {
-    /* Fix the mobile overlap by neutralizing the negative margin ONLY on mobile */
-    .next-image-single {
-        margin-bottom: 0 !important;
-    }
-
     /* Strip bottom padding from main wrappers so content hits the footer */
     main, .site-wrapper {
         padding-bottom: 0 !important;

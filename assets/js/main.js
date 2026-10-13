@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Never leave one word alone on the last line: join the last two words of short text blocks.
     // (CSS text-wrap: pretty does the same, but not every browser supports it yet.)
-    document.querySelectorAll('.contact-body, .section-header-desc, .services-intro-text, .service-row-desc, .service-includes, .insight-body p, .viz-desc, .testimonial-quote p, .hero-subtext, .availability-text, .about-philosophy p').forEach(el => {
+    document.querySelectorAll('.contact-body, .section-header-desc, .services-intro-text, .service-row-desc, .service-includes, .insight-body p, .viz-desc, .hero-subtext, .availability-text, .about-philosophy p').forEach(el => {
         if (el.childNodes.length !== 1 || el.firstChild.nodeType !== 3) return;
         const text = el.textContent.trim();
         if (text.length > 30) el.textContent = text.replace(/\s+(\S+)$/, '\u00A0$1');

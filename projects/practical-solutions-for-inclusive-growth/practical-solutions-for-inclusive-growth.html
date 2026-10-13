@@ -455,9 +455,7 @@
         gtag('config', 'G-24MX1C8QK3');
     }
 
-    if (localStorage.getItem('cookieConsent') === 'granted') {
-        loadGA();
-    }
+    try { if (localStorage.getItem('cookieConsent') === 'granted') loadGA(); } catch (e) { /* storage blocked */ }
 </script>
 
 <header class="main-header scrolled" id="main-header">
@@ -701,7 +699,7 @@
             <div class="footer-divider"></div>
             <div class="footer-bottom-bar">
                 <div class="footer-copyright">
-                    © 2022–2026 Chatura Dissanayake. All rights reserved.
+                    <span class="footer-copyright-text">© 2022–<span data-year>2026</span>&nbsp;Chatura Dissanayake. All rights reserved.</span>
                 </div>
             </div>
         </div>

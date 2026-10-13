@@ -268,7 +268,8 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 16px); }
 
 .main-header { height: var(--nav-h); display: flex; align-items: center; }
 
-.site-footer { background: var(--ink); padding: var(--space-16) 0 var(--space-12); color: var(--white); }
+.site-footer { position: relative; z-index: 2; /* sits above the Next Project picture, so the picture is cut cleanly at the footer's top edge */
+    background: var(--ink); padding: var(--space-16) 0 var(--space-12); color: var(--white); }
 
 .footer-grid {
     display: grid; grid-template-columns: repeat(3, 1fr);
