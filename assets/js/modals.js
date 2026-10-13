@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('pm-role').textContent      = card.getAttribute('data-role')      || '—';
         document.getElementById('pm-outcome').textContent   = card.getAttribute('data-outcome')   || '—';
 
-        window.location.hash = 'project-details';
+        // pushState adds the history entry without jumping to an anchor or firing hashchange
+        if (window.location.hash !== '#project-details') history.pushState({ projectModal: true }, '', '#project-details');
 
         const link   = document.getElementById('pm-link');
         const href   = card.getAttribute('data-link');

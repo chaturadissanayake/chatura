@@ -205,6 +205,13 @@ body[style*="overflow: hidden"] .site-wrapper {
     overflow: hidden !important;
 }
 
+/* While any popup is open the page behind it must not move. html and body both use overflow-x: clip, which stops
+   body's overflow:hidden from locking the page's scroll, so the page itself is locked here. */
+html:has(body.modal-open) { overflow: hidden; }
+
+/* Scrolling to the end of a popup must not pass the scroll on to the page behind it */
+.modal-panel, .modal-scroll, .project-modal, .lightbox-modal { overscroll-behavior: contain; }
+
 body.modal-open {
     padding-right: var(--scroll-pad, 0px) !important;
 }
