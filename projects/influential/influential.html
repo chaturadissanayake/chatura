@@ -49,7 +49,7 @@
         height: auto !important;
         display: block !important;
         cursor: zoom-in;
-        border-radius: var(--radius);
+        border-radius: 0;
     }
     .media-item img.img-loaded {
         opacity: 1;
@@ -184,27 +184,12 @@
         gap: 8px;
         margin-bottom: 32px;
     }
-    .next-tags-single .tag {
-        font-family: var(--sans, 'Inter', sans-serif);
-        font-size: 0.75rem;
-        color: var(--ink-muted);
-        background: var(--surface-2);
-        border: 1px solid var(--surface-3);
-        padding: 4px 10px;
-        border-radius: var(--radius);
-        transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
-    }
-    .next-tags-single .tag:hover {
-        transform: translateY(-2px);
-        background: var(--surface-3);
-        color: var(--ink);
-    }
     .next-image-single {
         width: 100%;
         height: 160px;
         overflow: hidden;
         background: var(--surface-2);
-        border-radius: var(--radius) var(--radius) 0 0;
+        border-radius: 0;
         margin-bottom: calc(-1 * var(--space-24, 96px)); 
     }
     .next-image-single img {
@@ -220,7 +205,6 @@
         .next-desc-single { font-size: 0.9375rem; margin-bottom: 12px; }
         .next-label-single { margin-bottom: 8px; }
         .next-tags-single { margin-bottom: 24px; }
-        .next-tags-single .tag { padding: 3px 9px; font-size: 0.75rem; }
         .next-image-single {
             height: 100px;
             margin-bottom: calc(-1 * var(--space-24, 48px)); 
@@ -272,7 +256,7 @@
     .media-placeholder {
         aspect-ratio: 4 / 3;
         border: 1.5px dashed var(--surface-3);
-        border-radius: var(--radius, 6px);
+        border-radius: 0;
         background: var(--surface-2);
         display: flex;
         flex-direction: column;
@@ -369,7 +353,7 @@
         max-height: 100%;
         object-fit: contain;
         box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-        border-radius: var(--radius);
+        border-radius: 0;
         transform: scale(0.95);
         transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     }
@@ -888,9 +872,22 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 </script>
+<script src="/assets/js/protect-images.js" defer></script>
 <script defer="" src="/assets/js/utilities.js"></script>
 <script defer="" src="/assets/js/main.js"></script>
 <script defer="" src="/assets/js/navigation.js"></script>
 <script defer="" src="/assets/js/modals.js"></script>
+<script>
+/* Next-project tags: reuse the header tag styling (.tags-col) so hover matches the rest of the site */
+(function () {
+    var target = document.getElementById('nextProjectTarget');
+    if (!target) return;
+    function sync() {
+        target.querySelectorAll('.next-tags-single').forEach(function (el) { el.classList.add('tags-col'); });
+    }
+    sync();
+    new MutationObserver(sync).observe(target, { childList: true, subtree: true });
+})();
+</script>
 </body>
 </html>

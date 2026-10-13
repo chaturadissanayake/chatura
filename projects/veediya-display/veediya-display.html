@@ -49,7 +49,7 @@
         height: auto !important;
         display: block !important;
         cursor: zoom-in;
-        border-radius: var(--radius);
+        border-radius: 0;
     }
     .media-item img.img-loaded {
         opacity: 1;
@@ -74,7 +74,7 @@
         aspect-ratio: 4 / 3;
         height: auto;
         object-fit: cover;
-        border-radius: var(--radius);
+        border-radius: 0;
         cursor: zoom-in;
         opacity: 0;
         transition: opacity 0.45s ease, transform 0.4s ease;
@@ -278,27 +278,12 @@
         gap: 8px;
         margin-bottom: 32px;
     }
-    .next-tags-single .tag {
-        font-family: var(--sans, 'Inter', sans-serif);
-        font-size: 0.75rem;
-        color: var(--ink-muted);
-        background: var(--surface-2);
-        border: 1px solid var(--surface-3);
-        padding: 4px 10px;
-        border-radius: var(--radius);
-        transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
-    }
-    .next-tags-single .tag:hover {
-        transform: translateY(-2px);
-        background: var(--surface-3);
-        color: var(--ink);
-    }
     .next-image-single {
         width: 100%;
         height: 160px;
         overflow: hidden;
         background: var(--surface-2);
-        border-radius: var(--radius) var(--radius) 0 0;
+        border-radius: 0;
         margin-bottom: calc(-1 * var(--space-24, 96px)); 
     }
     .next-image-single img {
@@ -314,7 +299,6 @@
         .next-desc-single { font-size: 0.9375rem; margin-bottom: 12px; }
         .next-label-single { margin-bottom: 8px; }
         .next-tags-single { margin-bottom: 24px; }
-        .next-tags-single .tag { padding: 3px 9px; font-size: 0.75rem; }
         .next-image-single {
             height: 100px;
             margin-bottom: calc(-1 * var(--space-24, 48px)); 
@@ -366,7 +350,7 @@
     .media-placeholder {
         aspect-ratio: 4 / 3;
         border: 1.5px dashed var(--surface-3);
-        border-radius: var(--radius, 6px);
+        border-radius: 0;
         background: var(--surface-2);
         display: flex;
         flex-direction: column;
@@ -463,7 +447,7 @@
         max-height: 100%;
         object-fit: contain;
         box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-        border-radius: var(--radius);
+        border-radius: 0;
         transform: scale(0.95);
         transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     }
@@ -514,6 +498,50 @@
 <link href="/assets/favicons/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"/>
 <link href="/assets/favicons/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"/>
 <link href="/assets/favicons/site.webmanifest" rel="manifest"/>
+<style>
+    /* Sideways-scrolling photo strip for long runs of photos. Page-level, same approach as .research-grid used to be. */
+    .photo-strip {
+        display: flex;
+        gap: var(--space-4, 16px);
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x proximity;
+        scrollbar-width: thin;
+        padding-bottom: 12px;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+    .photo-strip .photo-strip__item {
+        flex: 0 0 72%;
+        min-width: 0;
+        aspect-ratio: 3 / 4;
+        scroll-snap-align: start;
+        background: var(--surface-3, #e5e7eb);
+        overflow: hidden;
+    }
+    .photo-strip .photo-strip__item img { height: 100% !important; object-fit: cover; -webkit-user-drag: none; }
+    @media (min-width: 641px) {
+        .photo-strip .photo-strip__item { flex-basis: calc((100% - 2 * var(--space-4, 16px)) / 2.5); }
+    }
+    @media (min-width: 1025px) {
+        .photo-strip .photo-strip__item { flex-basis: calc((100% - 3 * var(--space-4, 16px)) / 3.5); }
+    }
+    /* Landscape variant */
+    .photo-strip--landscape .photo-strip__item { aspect-ratio: 4 / 3; flex-basis: 82%; }
+    @media (min-width: 641px) {
+        .photo-strip--landscape .photo-strip__item { flex-basis: calc((100% - var(--space-4, 16px)) / 2.2); }
+    }
+    @media (min-width: 1025px) {
+        .photo-strip--landscape .photo-strip__item { flex-basis: calc((100% - 2 * var(--space-4, 16px)) / 2.6); }
+    }
+    @media (hover: hover) and (pointer: fine) { .photo-strip { cursor: grab; } }
+    .photo-strip.is-dragging { cursor: grabbing; scroll-snap-type: none; }
+    .photo-strip:focus:not(:focus-visible) { outline: none; }
+    .photo-strip:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+</style>
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -639,15 +667,31 @@
 <strong>1. Civic &amp; Institutional Structure:</strong><span class="gallery-intro-desc">Finding the rigid, formal baselines in banks, legal offices, temples, and civic infrastructure.</span>
 </p>
 <div class="media-item full-width section-fade-in">
-<div class="research-grid">
+<div class="photo-strip photo-strip--landscape" role="region" aria-label="Photographs, scroll sideways">
+<div class="photo-strip__item">
 <img alt="Notary door 1" height="3000" decoding="async" loading="lazy" onload="this.classList.add('img-loaded')" src="assets/20260815_102407_023628.webp" width="4000"/>
+</div>
+<div class="photo-strip__item">
 <img alt="Notary door 2" height="3000" decoding="async" loading="lazy" onload="this.classList.add('img-loaded')" src="assets/20260815_102419_023649.webp" width="4000"/>
+</div>
+<div class="photo-strip__item">
 <img alt="Notary door 3" height="3000" decoding="async" loading="lazy" onload="this.classList.add('img-loaded')" src="assets/20260815_102437_023706.webp" width="4000"/>
+</div>
+<div class="photo-strip__item">
 <img alt="Temple plaque" height="3000" decoding="async" loading="lazy" onload="this.classList.add('img-loaded')" src="assets/20260815_103008_023722.webp" width="4000"/>
+</div>
+<div class="photo-strip__item">
 <img alt="Bank acrylic sign" height="3000" decoding="async" loading="lazy" onload="this.classList.add('img-loaded')" src="assets/20260815_111635_024713.webp" width="4000"/>
+</div>
+<div class="photo-strip__item">
 <img alt="Pillar box" height="3000" decoding="async" loading="lazy" onload="this.classList.add('img-loaded')" src="assets/20260815_113234_025047.webp" width="4000"/>
+</div>
+<div class="photo-strip__item">
 <img alt="Historical mural text" height="2250" decoding="async" loading="lazy" onload="this.classList.add('img-loaded')" src="assets/20260815_115529_025418.webp" width="3000"/>
+</div>
+<div class="photo-strip__item">
 <img alt="Municipal Central Market" height="2250" decoding="async" loading="lazy" onload="this.classList.add('img-loaded')" src="assets/20260815_120059_031227.webp" width="3000"/>
+</div>
 </div>
 </div>
 <!-- MASSIVE GALLERY 2: COMMERCIAL -->
@@ -655,15 +699,31 @@
 <strong>2. Commerce &amp; Transit:</strong><span class="gallery-intro-desc">Tracking how brushwork and spacing adapt for maximum legibility on storefronts and moving vehicles.</span>
 </p>
 <div class="media-item full-width section-fade-in">
-<div class="research-grid">
+<div class="photo-strip photo-strip--landscape" role="region" aria-label="Photographs, scroll sideways">
+<div class="photo-strip__item">
 <img alt="Vasuuk Brothers sign" height="3000" decoding="async" loading="lazy" onload="this.classList.add('img-loaded')" src="assets/20260815_103940_023902.webp" width="4000"/>
+</div>
+<div class="photo-strip__item">
 <img alt="SA Traders vertical column" height="3000" decoding="async" loading="lazy" onload="this.classList.add('img-loaded')" src="assets/20260815_105429_024105.webp" width="4000"/>
+</div>
+<div class="photo-strip__item">
 <img alt="Eagle electricals" height="3000" decoding="async" loading="lazy" onload="this.classList.add('img-loaded')" src="assets/20260815_111451_024622.webp" width="4000"/>
+</div>
+<div class="photo-strip__item">
 <img alt="Premadasa signs" height="3000" decoding="async" loading="lazy" onload="this.classList.add('img-loaded')" src="assets/20260815_113421_025105.webp" width="4000"/>
+</div>
+<div class="photo-strip__item">
 <img alt="Stationery display" height="3000" decoding="async" loading="lazy" onload="this.classList.add('img-loaded')" src="assets/20260815_113720_025146.webp" width="4000"/>
+</div>
+<div class="photo-strip__item">
 <img alt="Lorry paint text" height="3000" decoding="async" loading="lazy" onload="this.classList.add('img-loaded')" src="assets/20260815_111420_024607.webp" width="4000"/>
+</div>
+<div class="photo-strip__item">
 <img alt="Wood lorry lettering" height="3000" decoding="async" loading="lazy" onload="this.classList.add('img-loaded')" src="assets/20260815_110814_024356.webp" width="4000"/>
+</div>
+<div class="photo-strip__item">
 <img alt="Blue metal tuk tuk sign" height="3000" decoding="async" loading="lazy" onload="this.classList.add('img-loaded')" src="assets/20260815_105824_024123.webp" width="4000"/>
+</div>
 </div>
 </div>
 <!-- MASSIVE GALLERY 3: VERNACULAR -->
@@ -671,15 +731,31 @@
 <strong>3. The Unpolished Vernacular:</strong><span class="gallery-intro-desc">How everyday people handle the complex loops and curves of the script when writing at speed on rough surfaces.</span>
 </p>
 <div class="media-item full-width section-fade-in">
-<div class="research-grid">
+<div class="photo-strip photo-strip--landscape" role="region" aria-label="Photographs, scroll sideways">
+<div class="photo-strip__item">
 <img alt="Whiteboard menu" height="3000" decoding="async" loading="lazy" onload="this.classList.add('img-loaded')" src="assets/20260815_113911_025235.webp" width="4000"/>
+</div>
+<div class="photo-strip__item">
 <img alt="Fish market tags" height="3000" decoding="async" loading="lazy" onload="this.classList.add('img-loaded')" src="assets/20260815_103241_023839.webp" width="4000"/>
+</div>
+<div class="photo-strip__item">
 <img alt="Blue spray paint" height="3000" decoding="async" loading="lazy" onload="this.classList.add('img-loaded')" src="assets/20260815_110202_024206.webp" width="4000"/>
+</div>
+<div class="photo-strip__item">
 <img alt="Chalk on brick" height="3000" decoding="async" loading="lazy" onload="this.classList.add('img-loaded')" src="assets/20260815_104546_023940.webp" width="4000"/>
+</div>
+<div class="photo-strip__item">
 <img alt="Marker on metal box" height="3000" decoding="async" loading="lazy" onload="this.classList.add('img-loaded')" src="assets/20260815_110241_024247.webp" width="4000"/>
+</div>
+<div class="photo-strip__item">
 <img alt="Rooster graffiti" height="3000" decoding="async" loading="lazy" onload="this.classList.add('img-loaded')" src="assets/20260815_110127_024138.webp" width="4000"/>
+</div>
+<div class="photo-strip__item">
 <img alt="Park wall text" height="3000" decoding="async" loading="lazy" onload="this.classList.add('img-loaded')" src="assets/20260815_115858_025606.webp" width="4000"/>
+</div>
+<div class="photo-strip__item">
 <img alt="Horn speaker text" height="3000" decoding="async" loading="lazy" onload="this.classList.add('img-loaded')" src="assets/20260815_113858_025207.webp" width="4000"/>
+</div>
 </div>
 </div>
 </div>
@@ -852,9 +928,47 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 </script>
+<script src="/assets/js/protect-images.js" defer></script>
 <script defer="" src="/assets/js/utilities.js"></script>
 <script defer="" src="/assets/js/main.js"></script>
 <script defer="" src="/assets/js/navigation.js"></script>
 <script defer="" src="/assets/js/modals.js"></script>
+<script>
+/* Next-project tags: reuse the header tag styling (.tags-col) so hover matches the rest of the site */
+(function () {
+    var target = document.getElementById('nextProjectTarget');
+    if (!target) return;
+    function sync() {
+        target.querySelectorAll('.next-tags-single').forEach(function (el) { el.classList.add('tags-col'); });
+    }
+    sync();
+    new MutationObserver(sync).observe(target, { childList: true, subtree: true });
+})();
+</script>
+<script>
+/* Photo strips: mouse drag-to-scroll (touch and trackpad already scroll natively) */
+(function () {
+    document.querySelectorAll('.photo-strip').forEach(function (strip) {
+        var down = false, moved = false, startX = 0, startLeft = 0;
+        strip.addEventListener('pointerdown', function (e) {
+            if (e.pointerType !== 'mouse' || e.button !== 0) return;
+            down = true; moved = false; startX = e.clientX; startLeft = strip.scrollLeft;
+        });
+        window.addEventListener('pointermove', function (e) {
+            if (!down) return;
+            var dx = e.clientX - startX;
+            if (!moved && Math.abs(dx) > 5) { moved = true; strip.classList.add('is-dragging'); }
+            if (moved) strip.scrollLeft = startLeft - dx;
+        });
+        function end() { if (!down) return; down = false; strip.classList.remove('is-dragging'); }
+        window.addEventListener('pointerup', end);
+        window.addEventListener('pointercancel', end);
+        strip.addEventListener('click', function (e) {
+            if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; }
+        }, true);
+        strip.addEventListener('dragstart', function (e) { e.preventDefault(); });
+    });
+})();
+</script>
 </body>
 </html>
