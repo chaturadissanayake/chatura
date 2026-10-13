@@ -133,23 +133,23 @@
     "archive": false
   },
   {
-    "id": "ycli-field-assessment",
+    "id": "ycli",
     "category": "Civic & Public",
-    "title": "YCLI: Strategic Field Assessment",
-    "challenge": "Rural communities in Aranayake Division, Sabaragamuwa Province faced complex, intersecting development challenges that were poorly understood at the institutional level. The gap between UN strategic frameworks and the lived realities of these communities needed to be bridged through direct field engagement and rigorous documentation.",
-    "role": "As a participant and field documentarian in the Youth Community Leadership Initiative, I worked alongside WHO, UNDP, and UNV partners across three phases of training and implementation. I conducted community needs assessments using the UN Healthy Settings framework, contributed to conflict mapping, and produced the strategic field assessment report documenting 17 data points across Aranayake's social fabric, environmental assets, and economic gaps.",
-    "outcome": "A technical community needs assessment that gave UN and government partners a credible, ground-level picture of Aranayake Division. The initiative bridged the Ministry of Youth and Sports and UN agencies, producing actionable recommendations for community resilience and development programming.",
-    "link": "https://chaturadissanayake.github.io/projectycli",
-    "status": "View Field Assessment",
+    "title": "YCLI: Youth Community Leadership Initiative",
+    "challenge": "The Youth Community Leadership Initiative is a UN programme that trains young people to lead in their own communities, using WHO's Healthy Settings Approach. It had to reach young people in three languages, and it asked its trainees to assess the needs of a real community. For my cohort, that was Aranayake Division in Kegalle District.",
+    "role": "I came to it from three directions. As a community development volunteer in Cohort 02, I went through the programme's residential trainings. UNV Sri Lanka separately commissioned me to design the recruitment poster, which ran in English, Sinhala and Tamil. In the field I took the photographs and wrote the Community Needs Assessment for Aranayake.",
+    "outcome": "A recruitment poster hosted by WHO Sri Lanka in all three languages, a 17-photograph field record, and a written needs assessment of Aranayake Division. I was a participant throughout, not UN staff, and the case study says so.",
+    "link": "projects/project-ycli/project-ycli.html",
+    "status": "View Case Study",
     "tags": [
       "Civic & Public",
-      "Publications"
+      "Campaigns"
     ],
     "thumbnail": "projects/project-ycli/assets/YCLI_Thumb.webp",
     "date": "2021–2022",
     "sortDate": "2022-01-01",
-    "priority": 8,
-    "archive": true
+    "priority": 16,
+    "archive": false
   },
   {
     "id": "ceylon-harvest",
