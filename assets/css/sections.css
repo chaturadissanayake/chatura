@@ -1697,15 +1697,7 @@
     margin-bottom: var(--space-8);
 }
 
-.next-tags-single .tag {
-    font-family: var(--sans);
-    font-size: 0.75rem;
-    color: var(--ink-muted);
-    background: var(--surface-2);
-    border: 1px solid var(--surface-3);
-    padding: 4px 10px;
-    border-radius: var(--radius);
-}
+/* Next-project tags use the global .tag style (components.css), so they match the header tags and share the same hover. */
 
 .next-image-single {
     width: 100%;
@@ -2098,3 +2090,25 @@ span.hero-word-link:hover { text-decoration-color: var(--surface-3); }
 
 /* Insight card without a published article yet: plain text, not a link */
 .insight-soon { color: var(--ink-muted); cursor: default; }
+
+/* ============================================
+   MOBILE: SMOOTHER LINE ENDINGS
+   Text stays left-aligned (easiest to read). On phones only, long words may hyphenate
+   so lines fill the column better. Remove this block to turn hyphenation off.
+   ============================================ */
+@media (max-width: 640px) {
+    .testimonial-quote p,
+    .services-intro-text,
+    .service-row-desc,
+    .service-includes,
+    .viz-desc,
+    .contact-body,
+    .about-philosophy p,
+    .project-description p {
+        text-align: left;
+        hyphens: auto;
+        -webkit-hyphens: auto;
+        hyphenate-limit-chars: 7 3 3;
+        overflow-wrap: break-word;
+    }
+}
